@@ -1,0 +1,8 @@
+D:\ragnar\WoW\Anthrax\Code\exeCutie\exeCutie\bin\Release\exeCutie.exe.config
+D:\ragnar\WoW\Anthrax\Code\exeCutie\exeCutie\obj\Release\exeCutie.Form1.resources
+D:\ragnar\WoW\Anthrax\Code\exeCutie\exeCutie\obj\Release\exeCutie.Properties.Resources.resources
+D:\ragnar\WoW\Anthrax\Code\exeCutie\exeCutie\obj\Release\exeCutie.csproj.GenerateResource.Cache
+D:\ragnar\WoW\Anthrax\Code\exeCutie\exeCutie\bin\Release\exeCutie.exe
+D:\ragnar\WoW\Anthrax\Code\exeCutie\exeCutie\bin\Release\exeCutie.pdb
+D:\ragnar\WoW\Anthrax\Code\exeCutie\exeCutie\obj\Release\exeCutie.exe
+D:\ragnar\WoW\Anthrax\Code\exeCutie\exeCutie\obj\Release\exeCutie.pdb
