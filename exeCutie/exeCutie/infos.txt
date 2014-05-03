@@ -1,0 +1,8 @@
+﻿DefCDs
+{
+	RallyingCry
+	Shieldwall
+	DieByTheSword
+	Demobanner
+	EnragedRegeneration
+}
