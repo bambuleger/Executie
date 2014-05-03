@@ -6,3 +6,6 @@ D:\ragnar\WoW\Anthrax\Code\exeCutie\exeCutie\bin\Release\exeCutie.exe
 D:\ragnar\WoW\Anthrax\Code\exeCutie\exeCutie\bin\Release\exeCutie.pdb
 D:\ragnar\WoW\Anthrax\Code\exeCutie\exeCutie\obj\Release\exeCutie.exe
 D:\ragnar\WoW\Anthrax\Code\exeCutie\exeCutie\obj\Release\exeCutie.pdb
+D:\ragnar\WoW\Coding\Executie\exeCutie\exeCutie\bin\Release\exeCutie.exe.config
+D:\ragnar\WoW\Coding\Executie\exeCutie\exeCutie\obj\Release\exeCutie.exe
+D:\ragnar\WoW\Coding\Executie\exeCutie\exeCutie\obj\Release\exeCutie.pdb
