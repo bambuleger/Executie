@@ -39,9 +39,9 @@ using System.Xml;
 //                                    #                #                           //
 //                                    ##################                           //
 //                                                                                 //
-//                          Executie Arms Warrior                                  //
+//                            Executie Arms Warrior                                //
 /////////////////////////////////////////////////////////////////////////////////////
-// - Rotation based on SimCraft (T16 optimized)
+// Support Thread: http://goo.gl/xc1vZ3
 //
 
 
@@ -125,14 +125,33 @@ namespace Anthrax
             TfB = 56636,            //Taste for Blood
             DWdb = 115767,          //Deep Wounds Debuff
             SoOCrit = 146285,       //Crit Proc of Skeers Trinket, Stacking to 20
-            REb = 1719,              //Recklessness
-        }
+            REb = 1719,             //Recklessness
 
+            BLust = 2825,           //Bloodlust
+            HRoism = 32182,         //Heroism
+            TWarp = 80353,          //Timewarp
+            AHysteria = 90355,      //Ancient Hysteria
+            NWinds = 160452,        //Netherwinds
+        }
+        
         public enum Items : int
         {
-            
+            MoguPot = 76095,        //Potion of Mogu Power
         }
         #endregion
+
+        //Check for Bloodlust
+        private bool hasLust()
+        {
+            if (ObjectManager.LocalPlayer.HasAuraById((int)Auras.BLust) || ObjectManager.LocalPlayer.HasAuraById((int)Auras.HRoism) || ObjectManager.LocalPlayer.HasAuraById((int)Auras.TWarp) || ObjectManager.LocalPlayer.HasAuraById((int)Auras.AHysteria) || ObjectManager.LocalPlayer.HasAuraById((int)Auras.NWinds))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public override string Name
         {
@@ -199,6 +218,16 @@ namespace Anthrax
                 }
                            
             }
+
+            //actions+=/mogu_power_potion,if=(target.health.pct<20&buff.recklessness.up)|buff.bloodlust.react|target.time_to_die<=25
+            if ((unit.HealthPercent < 20 && ObjectManager.LocalPlayer.HasAuraById((int)Auras.REb)) || hasLust())
+            {
+                Anthrax.Logger.WriteLine("Using Mogu Potion");
+                Anthrax.AI.Controllers.Inventory.UseItemById((int)Items.MoguPot);
+            }
+
+            //actions+=/recklessness,if=!talent.bloodbath.enabled&((cooldown.colossus_smash.remains<2|debuff.colossus_smash.remains>=5)&(target.time_to_die>(192*buff.cooldown_reduction.value)
+            //|target.health.pct<20))|buff.bloodbath.up&(target.time_to_die>(192*buff.cooldown_reduction.value)|target.health.pct<20)|target.time_to_die<=12
 
             //actions.single_target=heroic_strike,if=rage>115|(debuff.colossus_smash.up&rage>60&set_bonus.tier16_2pc_melee)
             if (ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 115 || (unit.HasAuraById((int)Auras.CSdb) && ObjectManager.LocalPlayer.HasAuraById((int)Auras.T162P)))
