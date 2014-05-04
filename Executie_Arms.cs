@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +17,8 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Threading;
 
+
+
 /////////////////////////////////////////////////////////////////////////////////////
 //                          _                                                      //
 //                      ___| |__  _   _  __ _ _ __   __ _ _ __                     //
@@ -31,72 +33,83 @@ using System.Threading;
 // Notes:
 // Changelog:
 // ToDo:
-
 namespace SPQR.Engine
 {
-    class Warrior : Engine.FightModule
+    class Paladin : Engine.FightModule
     {
+        #region private vars
+        private System.Timers.Timer wndCloser = new System.Timers.Timer(2000);
+        bool isAOE;
+        MySPQR.Classes.WoWLocalPlayer ME;
+        FloatingOSDWindow osdMessage;
+        Point OSDPos;
+        #endregion
+
+        [DllImport("user32.dll")]
+        public static extern short GetAsyncKeyState(int vKey);
+
         public override string DisplayName
         {
-            get { return "Executie Arms"; }
+            get { return "Executie Arms"; }                      //This is the name displayed in SPQR's Class selection DropdownList
         }
 
-        #region Spells
-        internal enum Spells : int                      
-        {                                               
-			MS = 12294,             //Mortal Strike
-			CS = 86346,             //Colossus Smash
-			CH = 100,               //Charge
-			BR = 18499,             //Berserker Rage
-			BF = 20572,             //Blood Fury (Orc)
-			PU = 6552,              //Pummel
-			DS = 102060,            //Disrupting Shout
-			RC = 97462,             //Rallying Cry
-			SW = 871,               //Shield Wall
-			DbtS = 118038,          //Die by the Sword
-			IVc = 103840,           //Impending Victory
-			AV = 107574,            //Avatar
-			RE = 1719,              //Recklessness
-			SBa = 114207,           //Skull Banner
-			TC = 6343,              //Thunder Clap
-			SS = 12328,             //Sweeping Strikes
-			BB = 12292,             //Blood Bath
-			BS = 46924,             //Blade Storm
-			DR = 118000,            //Dragon Roar
-			SL = 1464,              //Slam
-			OP = 7384,              //Overpower
-			BSh = 6673,             //Battle Shout
-			WW = 1680,              //Whirlwind
-			HT = 57755,             //Heroic Throw
-			SB = 107570,            //Storm Bold
-			EX = 5308,              //Execute
-			HS = 78,                //Heroic Strike
-			ST = 64382,             //Shattering Throw
-			DA = 676,               //Disarm
-			HaS = 1715,             //Harmstring
-			CL = 845,               //Cleave
-			ISh = 5246,             //Intimidating Shout
-			SR = 23920,             //Spell Reflection
-			CSh = 69,               //Commanding Shout
-			IV = 3411,              //Intervene
-			HL = 6544,              //Heroic Leap
-			DB = 14203,             //Demoralizing Banner
-			SG = 114029,            //Safeguard
-			VL = 114030,            //Vigilance
-			SWv = 46968,            //Shockwave
-			ER = 55694,             //Enraged Regeneration
-			VR = 34428,             //Victory Rush  
+        #region enums
+        internal enum Spells : int
+        {
+            AV = 107574,            //Avatar
+            BB = 12292,             //Blood Bath
+            BF = 20572,             //Blood Fury (Orc)
+            BR = 18499,             //Berserker Rage
+            BS = 46924,             //Blade Storm
+            BSh = 6673,             //Battle Shout
+            CH = 100,               //Charge
+            CL = 845,               //Cleave
+            CS = 86346,             //Colossus Smash
+            CSh = 69,               //Commanding Shout
+            DA = 676,               //Disarm
+            DB = 14203,             //Demoralizing Banner
+            DbtS = 118038,          //Die by the Sword
+            DR = 118000,            //Dragon Roar
+            DS = 102060,            //Disrupting Shout
             EnR = 12880,            //Enrage
+            ER = 55694,             //Enraged Regeneration
+            EX = 5308,              //Execute
+            HaS = 1715,             //Harmstring
+            HL = 6544,              //Heroic Leap
+            HS = 78,                //Heroic Strike
+            HT = 57755,             //Heroic Throw
+            ISh = 5246,             //Intimidating Shout
+            IV = 3411,              //Intervene
+            IVc = 103840,           //Impending Victory
+            MS = 12294,             //Mortal Strike
+            OP = 7384,              //Overpower
+            PU = 6552,              //Pummel
+            RC = 97462,             //Rallying Cry
+            RE = 1719,              //Recklessness
+            SB = 107570,            //Storm Bold
+            SBa = 114207,           //Skull Banner
+            SG = 114029,            //Safeguard
+            SL = 1464,              //Slam
+            SR = 23920,             //Spell Reflection
+            SS = 12328,             //Sweeping Strikes
+            ST = 64382,             //Shattering Throw
+            SW = 871,               //Shield Wall
+            SWv = 46968,            //Shockwave
+            TC = 6343,              //Thunder Clap
+            VL = 114030,            //Vigilance
+            VR = 34428,             //Victory Rush  
+            WW = 1680,              //Whirlwind
         }
-        internal enum Auras : int                       
-        {												
-			TfB = 56636,            //Taste for Blood
-			DS = 144442,            //Death Sentence
-			SE = 139958,            //Sudden Execute
-			CShA = 69,              //Commanding Shout Aura
-			BShA = 6673,            //Battle Shout Aura
+        internal enum Auras : int
+        {
+            BShA = 6673,            //Battle Shout Aura
+            CSdb = 86346,           //CSmash Debuff
+            CShA = 69,              //Commanding Shout Aura
+            DS = 144442,            //Death Sentence
             EnR = 12880,            //Enrage
+            SE = 139958,            //Sudden Execute
             T162P = 144438,         //T16 2 Piece Bonus
+            TfB = 56636,            //Taste for Blood
 
         }
         #endregion
@@ -106,73 +119,92 @@ namespace SPQR.Engine
         {
             var TARGET = MySPQR.Internals.ObjectManager.Target;
 
-            //actions+=/berserker_rage,if=buff.enrage.remains<0.5
-            if (ME.GetAuraById((int)Spells.EnR).TimeLeft <= 1)
-            {
-                MySPQR.Internals.ActionBar.GetSlotById((int)Spells.BR).Execute();
-            }
-            //actions.single_target=heroic_strike,if=rage>115|(debuff.colossus_smash.up&rage>60&set_bonus.tier16_2pc_melee)
-            if (ME.Rage >= 115 || (TARGET.HasAurabyId((int)Auras.CS) && ME.Rage > 60 && ME.HasAurabyId((int)Auras.T162P) ))
-            {
+            if(ME.Rage > 30)
                 MySPQR.Internals.ActionBar.CastSpellById((int)Spells.HS);
-            }
+
+            MySPQR.Internals.ActionBar.CastSpellById((int)Spells.MS);
+            ////actions+=/berserker_rage,if=buff.enrage.remains<0.5
+            //if (ME.GetAuraById((int)Spells.EnR).TimeLeft <= 1)
+            //{
+            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.BR).Execute();
+            //}
+            ////actions.single_target=heroic_strike,if=rage>115|(debuff.colossus_smash.up&rage>60&set_bonus.tier16_2pc_melee)
+            //if (ME.Rage >= 115 || (TARGET.HasAurabyId((int)Auras.CSdb) && ME.Rage > 60 && ME.HasAurabyId((int)Auras.T162P)))
+            //{
+            //    MySPQR.Internals.ActionBar.CastSpellById((int)Spells.HS);
+            //}
         }
         #endregion
 
-        #region AOE
+        #region AOE>4 rotation
         private void castNextSpellbyAOEPriority()
         {
             var TARGET = MySPQR.Internals.ObjectManager.Target;
 
-            if (ME.GetAuraById((int)Spells.Inquisition).TimeLeft <= 4)
-            {
-                if (ME.HolyPower > 2 || ME.GetAuraById((int)Spells.Inquisition).TimeLeft <= 1)
-                {
-                    if (MySPQR.Internals.ActionBar.CanCast((int)Spells.Inquisition))
-                    {
-                        MySPQR.Internals.ActionBar.GetSlotById((int)Spells.Inquisition).Execute();
-                    }
-                }
-            }
-            if (ME.HasAurabyId((int)Auras.T164PB) || ME.HasAurabyId((int)Auras.DivinePurpose) || ME.HolyPower == 5)
-            {
-                MySPQR.Internals.ActionBar.GetSlotById((int)Spells.DivineStorm).Execute();
-            }
-            if (((TARGET.HealthPercent < 20) || avengingWrathActive()) && MySPQR.Internals.ActionBar.CanCast((int)Spells.HammerOfWrath))
-            {
-                MySPQR.Internals.ActionBar.GetSlotById((int)Spells.HammerOfWrath).Execute();
-            }
-            if (MySPQR.Internals.ActionBar.CanCast((int)Spells.Exorcism))
-            {
-                MySPQR.Internals.ActionBar.GetSlotById((int)Spells.Exorcism).Execute();
-            }
+            //if (ME.GetAuraById((int)Spells.Inquisition).TimeLeft<=4)
+            //{
+            //    if (ME.HolyPower > 2 || ME.GetAuraById((int)Spells.Inquisition).TimeLeft <= 1)
+            //    {
+            //        if (MySPQR.Internals.ActionBar.CanCast((int)Spells.Inquisition))
+            //        {
+            //            MySPQR.Internals.ActionBar.GetSlotById((int)Spells.Inquisition).Execute();
+            //        }
+            //    }
+            //}
+            //if (ME.HasAurabyId((int)Auras.T164PB) || ME.HasAurabyId((int)Auras.DivinePurpose) || ME.HolyPower == 5)
+            //{
+            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.DivineStorm).Execute();
+            //}
+            //if (((TARGET.HealthPercent < 20) || avengingWrathActive()) && MySPQR.Internals.ActionBar.CanCast((int)Spells.HammerOfWrath))
+            //{
+            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.HammerOfWrath).Execute();
+            //}
+            //if (MySPQR.Internals.ActionBar.CanCast((int)Spells.Exorcism))
+            //{
+            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.Exorcism).Execute();
+            //}
+            //if (MySPQR.Internals.ActionBar.CanCast((int)Spells.HammeroftheRighteous))
+            //{
+            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.HammeroftheRighteous).Execute();
+            //}
+            //if (MySPQR.Internals.ActionBar.CanCast((int)Spells.Judgement))
+            //{
+            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.Judgement).Execute();
+            //}
+            //if (ME.HolyPower >= 3)
+            //{
+            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.DivineStorm).Execute();
+            //}
         }
         #endregion
 
-        #region changeRota
+        #region auxFunctions
         //private bool avengingWrathActive()
         //{
         //    return MySPQR.Internals.ObjectManager.WoWLocalPlayer.HasAurabyId((int)Auras.AvengingWrath);
-            // Linq not working?
-            //return MySPQR.Internals.ObjectManager.WoWLocalPlayer.AuraList.Any(aura => aura.Id == (int)Auras.AvengingWrath);
+        //    // Linq not working?
+        //    //return MySPQR.Internals.ObjectManager.WoWLocalPlayer.AuraList.Any(aura => aura.Id == (int)Auras.AvengingWrath);
         //}
 
         public void changeRotation()
         {
             if (isAOE)
             {
-                
+                //Console.Beep(5000, 100);
                 isAOE = false;
-                while (MySPQR.Internals.ActionBar.CanCast((int)Spells.SealofTruth)) { }
-                MySPQR.Internals.ActionBar.GetSlotById((int)Spells.SealofTruth).Execute();
+                //while (MySPQR.Internals.ActionBar.CanCast((int)Spells.SealofTruth)) { }
+                //MySPQR.Internals.ActionBar.GetSlotById((int)Spells.SealofTruth).Execute();
                 showOSD("SINGLE");
                 SPQR.Logger.WriteLine("Rotation Single!!");
             }
             else
             {
+                //Console.Beep(5000, 100);
+                //Console.Beep(5000, 100);
+                //Console.Beep(5000, 100);
                 isAOE = true;
-                while (MySPQR.Internals.ActionBar.CanCast((int)Spells.SealofRighteousness)) { }
-                MySPQR.Internals.ActionBar.GetSlotById((int)Spells.SealofRighteousness).Execute();
+                while (MySPQR.Internals.ActionBar.CanCast((int)Spells.SS)) { }
+                MySPQR.Internals.ActionBar.GetSlotById((int)Spells.SS).Execute();
                 showOSD("AOE>4");
                 SPQR.Logger.WriteLine("Rotation AOE!!");
             }
@@ -194,7 +226,7 @@ namespace SPQR.Engine
         public override void OnLoad()   //This is called when the Customclass is loaded in SPQR
         {
             SPQR.Logger.WriteLine("CustomClass " + DisplayName + " Loaded");
-            //osdMessage = configOSD();
+            osdMessage = configOSD();
         }
 
         public override void OnClose() //This is called when the Customclass is unloaded in SPQR
@@ -205,7 +237,7 @@ namespace SPQR.Engine
         public override void OnStart() //This is called once, when you hit CTRL+X to start SPQR combat routine
         {
             SPQR.Logger.WriteLine("Launching " + DisplayName + " routine... enjoy! Press z to switch between single/aoe");
-            showOSD("nrgdRet Started!");
+            showOSD("Executie Arms loaded");
             ME = MySPQR.Internals.ObjectManager.WoWLocalPlayer;
             wndCloser.AutoReset = false;
             wndCloser.Elapsed += new System.Timers.ElapsedEventHandler(wndCloser_Elapsed);
@@ -1026,37 +1058,3 @@ namespace SPQR.Engine
     #endregion
 
 }
-
-
-//actions+=/mogu_power_potion,if=(target.health.pct<20&buff.recklessness.up)|buff.bloodlust.react|target.time_to_die<=25
-//actions+=/recklessness,if=!talent.bloodbath.enabled&((cooldown.colossus_smash.remains<2|debuff.colossus_smash.remains>=5)&(target.time_to_die>(192*buff.cooldown_reduction.value)
-//|target.health.pct<20))|buff.bloodbath.up&(target.time_to_die>(192*buff.cooldown_reduction.value)|target.health.pct<20)|target.time_to_die<=12
-
-//actions+=/avatar,if=enabled&(buff.recklessness.up|target.time_to_die<=25)
-//actions+=/skull_banner,if=buff.skull_banner.down&(((cooldown.colossus_smash.remains<2|debuff.colossus_smash.remains>=5)&target.time_to_die>192&buff.cooldown_reduction.up)|buff.recklessness.up)
-//actions+=/use_item,slot=hands,if=!talent.bloodbath.enabled&debuff.colossus_smash.up|buff.bloodbath.up
-//actions+=/blood_fury,if=buff.cooldown_reduction.down&(buff.bloodbath.up|(!talent.bloodbath.enabled&debuff.colossus_smash.up))|buff.cooldown_reduction.up&buff.recklessness.up
-//actions+=/berserking,if=buff.cooldown_reduction.down&(buff.bloodbath.up|(!talent.bloodbath.enabled&debuff.colossus_smash.up))|buff.cooldown_reduction.up&buff.recklessness.up
-//actions+=/arcane_torrent,if=buff.cooldown_reduction.down&(buff.bloodbath.up|(!talent.bloodbath.enabled&debuff.colossus_smash.up))|buff.cooldown_reduction.up&buff.recklessness.up
-//actions+=/bloodbath,if=enabled&(debuff.colossus_smash.remains>0.1|cooldown.colossus_smash.remains<5|target.time_to_die<=20)
-//actions+=/berserker_rage,if=buff.enrage.remains<0.5
-//actions+=/heroic_leap,if=debuff.colossus_smash.up
-//actions+=/run_action_list,name=aoe,if=active_enemies>=2
-//actions+=/run_action_list,name=single_target,if=active_enemies<2
-
-//actions.single_target=heroic_strike,if=rage>115|(debuff.colossus_smash.up&rage>60&set_bonus.tier16_2pc_melee)
-//actions.single_target+=/mortal_strike,if=dot.deep_wounds.remains<1.0|buff.enrage.down|rage<10
-//actions.single_target+=/colossus_smash,if=debuff.colossus_smash.remains<1.0
-//# Use cancelaura (in-game) to stop bladestorm if CS comes off cooldown during it for any reason.
-//actions.single_target+=/bladestorm,if=enabled,interrupt_if=!cooldown.colossus_smash.remains
-//actions.single_target+=/mortal_strike
-//actions.single_target+=/storm_bolt,if=enabled&debuff.colossus_smash.up
-//actions.single_target+=/dragon_roar,if=enabled&debuff.colossus_smash.down
-//actions.single_target+=/execute,if=buff.sudden_execute.down|buff.taste_for_blood.down|rage>90|target.time_to_die<12
-//# Slam is preferable to overpower with crit procs/recklessness.
-//actions.single_target+=/slam,if=target.health.pct>=20&(trinket.stacking_stat.crit.stack>=10|buff.recklessness.up)
-//actions.single_target+=/overpower,if=target.health.pct>=20&rage<100|buff.sudden_execute.up
-//actions.single_target+=/execute
-//actions.single_target+=/slam,if=target.health.pct>=20
-//actions.single_target+=/heroic_throw
-//actions.single_target+=/battle_shout
