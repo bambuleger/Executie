@@ -37,7 +37,7 @@ namespace exeCutie
         {
             //XML öffnen
             XmlDocument cutieconfigxml = new XmlDocument();
-            cutieconfigxml.Load("exeCutie.xml");
+            cutieconfigxml.Load("Combats\\exeCutie.xml");
             
             //Werte lesen LINQ
             //XDocument cutieconfig = XDocument.Load("exeCutie.xml");
@@ -109,7 +109,7 @@ namespace exeCutie
             MessageBox.Show(RC_HP + " " + SW_HP + " " + DBTS_HP + " " + DB_HP + " " + ER_HP + " " + DStuse_bool + " " + DStHP_HP);
 
             //XML laden
-            XDocument cutieconfig = XDocument.Load("exeCutie.xml");
+            XDocument cutieconfig = XDocument.Load("Combats\\exeCutie.xml");
             //XML Elemente schreiben
             cutieconfig.Element("ExecutieSettings").Element("General").Element("RallyingCry").Value = RC_HP;
             cutieconfig.Element("ExecutieSettings").Element("General").Element("ShieldWall").Value = SW_HP;
@@ -119,7 +119,7 @@ namespace exeCutie
             cutieconfig.Element("ExecutieSettings").Element("General").Element("DStuse").Value = Convert.ToString(DStuse_bool);
             cutieconfig.Element("ExecutieSettings").Element("General").Element("DStHP").Value = DStHP_HP;
             //XML speichern
-            cutieconfig.Save("exeCutie.xml");
+            cutieconfig.Save("Combats\\exeCutie.xml");
         }
     }
 }
