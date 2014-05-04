@@ -41,10 +41,9 @@ using System.Xml;
 //                                                                                 //
 //                          Executie Arms Warrior                                  //
 /////////////////////////////////////////////////////////////////////////////////////
-//Features: 
-// Notes:
-// Changelog:
-// ToDo:
+// - Rotation based on SimCraft (T16 optimized)
+//
+
 
 namespace Anthrax
 {
@@ -124,6 +123,9 @@ namespace Anthrax
             SE = 139958,            //Sudden Execute
             T162P = 144438,         //T16 2 Piece Bonus
             TfB = 56636,            //Taste for Blood
+            DWdb = 115767,          //Deep Wounds Debuff
+            SoOCrit = 146285,       //Crit Proc of Skeers Trinket, Stacking to 20
+            REb = 1719,              //Recklessness
         }
 
         public enum Items : int
@@ -178,21 +180,25 @@ namespace Anthrax
             #endregion
 
             //Battle / Defensive Stance
-            if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.BattleStance &&
-               Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.BSt) && ObjectManager.LocalPlayer.HealthPercent >= 30)
-               {
-                   Anthrax.Logger.WriteLine("Enter Battle Stance ...");
-                   Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.BSt);
+            if (ObjectManager.LocalPlayer.HealthPercent <= 30)
+            {
+                if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.DefensiveStance && Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.DSt))
+                {
+                    Anthrax.Logger.WriteLine("Enter Defensive Stance ...");
+                    Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.DSt);
+                    return;
+                }  
+            }
+            else
+            {
+                if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.BattleStance && Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.BSt))
+                {
+                    Anthrax.Logger.WriteLine("Enter Battle Stance ...");
+                    Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.BSt);
                     return;
                 }
-
-            if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.DefensiveStance &&
-               Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.DSt) && ObjectManager.LocalPlayer.HealthPercent <= 29)
-               {
-                   Anthrax.Logger.WriteLine("Enter Defensive Stance ...");
-                   Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.DSt);
-                    return;
-                }
+                           
+            }
 
             //actions.single_target=heroic_strike,if=rage>115|(debuff.colossus_smash.up&rage>60&set_bonus.tier16_2pc_melee)
             if (ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 115 || (unit.HasAuraById((int)Auras.CSdb) && ObjectManager.LocalPlayer.HasAuraById((int)Auras.T162P)))
@@ -205,15 +211,129 @@ namespace Anthrax
                 }
             }
 
-            if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.MS))     
+            //actions.single_target+=/mortal_strike,if=dot.deep_wounds.remains<1.0|buff.enrage.down|rage<10            
+            if (unit.Auras.Where(x => x.SpellId == (int)Auras.DWdb).First().TimeLeft <= 1000 || !ObjectManager.LocalPlayer.HasAuraById((int)Auras.EnR) || ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) < 10)
             {
-                Anthrax.Logger.WriteLine("Casting - Mortal Strike - " + myRage + " Rage now - " + myHealth + "prc HP");
-                //showOSD("Mortal Strike");
-                Anthrax.AI.Controllers.Spell.Cast((int)Spells.MS, unit);  
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.MS))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Mortal Strike - " + myRage + " Rage now - " + myHealth + "prc HP");
+                    //showOSD("Mortal Strike");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.MS, unit);
+                    return;
+                }
+            }
+
+            //actions.single_target+=/colossus_smash,if=debuff.colossus_smash.remains<1.0
+            if (unit.Auras.Where(x => x.SpellId == (int)Auras.CSdb).First().TimeLeft <= 1000)
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.CS))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Colossus Smash");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.CS, unit);
+                    return;
+                }
+            }
+
+            //actions.single_target+=/mortal_strike
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.MS))
+            {
+                Anthrax.Logger.WriteLine("Casting - Mortal Strike");
+                Anthrax.AI.Controllers.Spell.Cast((int)Spells.MS, unit);
                 return;
             }
+
+            //actions.single_target+=/storm_bolt,if=enabled&debuff.colossus_smash.up
+            if (unit.HasAuraById((int)Auras.CSdb))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.SB))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Storm Bolt");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.SB, unit);
+                    return;
+                }  
+            }
+
+            //actions.single_target+=/dragon_roar,if=enabled&debuff.colossus_smash.down
+            if (!unit.HasAuraById((int)Auras.CSdb))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.DR))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Dragon Roar");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.DR, unit);
+                    return;
+                }
+            }
+
+            //actions.single_target+=/execute,if=buff.sudden_execute.down|buff.taste_for_blood.down|rage>90|target.time_to_die<12
+            if (!unit.HasAuraById((int)Auras.SE) || !unit.HasAuraById((int)Auras.TfB) || ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 90)
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.EX))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Execute");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.EX, unit);
+                    return;
+                }
+            }
+
+            //# Slam is preferable to overpower with crit procs/recklessness.
+            //actions.single_target+=/slam,if=target.health.pct>=20&(trinket.stacking_stat.crit.stack>=10|buff.recklessness.up)
+            if (unit.HealthPercent > 20 && (unit.Auras.Where(x => x.SpellId == (int)Auras.SoOCrit).First().StackCount >= 10 || ObjectManager.LocalPlayer.HasAuraById((int)Auras.REb)))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.SL))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Slam");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.SL, unit);
+                    return;
+                }
+            }
             
+            //actions.single_target+=/overpower,if=target.health.pct>=20&rage<100|buff.sudden_execute.up
+            if (unit.HealthPercent > 20 && ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) < 100 || ObjectManager.LocalPlayer.HasAuraById((int)Auras.SE))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.OP))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Overpower");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.OP, unit);
+                    return;
+                }
+            }
             
+            //actions.single_target+=/execute
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.EX))
+            {
+                Anthrax.Logger.WriteLine("Casting - Excute");
+                Anthrax.AI.Controllers.Spell.Cast((int)Spells.EX, unit);
+                return;
+            }
+
+            //actions.single_target+=/slam,if=target.health.pct>=20
+            if (unit.HealthPercent > 20)
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.SL))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Slam");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.SL, unit);
+                    return;
+                }
+            }
+
+            //actions.single_target+=/heroic_throw
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.HT))
+            {
+                Anthrax.Logger.WriteLine("Casting - Heroic Throw");
+                Anthrax.AI.Controllers.Spell.Cast((int)Spells.HT, unit);
+                return;
+            }
+
+            //actions.single_target+=/battle_shout
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.BSh))
+            {
+                Anthrax.Logger.WriteLine("Casting - Battle Shout");
+                Anthrax.AI.Controllers.Spell.Cast((int)Spells.BSh, unit);
+                return;
+            }
+
+
 
             //Nothing else to fire, using autottack
             Anthrax.AI.Controllers.Spell.AttackTarget();
