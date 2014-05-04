@@ -75,6 +75,9 @@ namespace exeCutie
             checkbox_DStuse.Checked = Convert.ToBoolean(DStuse[0].InnerText);
             numericUpDownDStuse_HP.Text = DStHP[0].InnerText;
 
+            // Changelog
+            txtChangelog.Text = "[04-05-2014]\r\n - pre-Alpha without rota, just GUI";
+
         }
 
         private void Form1_Closing(object sender, EventArgs e)
@@ -114,5 +117,15 @@ namespace exeCutie
             cutieconfig.Descendants("DStHP").First().Value = DStHP_HP;
             cutieconfig.Save("exeCutie.xml");
         }
+
+
+
+
+
+
+
+
+
+
     }
 }
