@@ -40,7 +40,8 @@ namespace exeCutie
             cutieconfigxml.Load("exeCutie.xml");
             
             //Werte lesen LINQ
-            //RC_HP = cutieconfig.Root.Element("ExecutieSettings").Element("RallyingCry").Value;
+            //XDocument cutieconfig = XDocument.Load("exeCutie.xml");
+            //RC_HP = cutieconfig.Root.Element("ExecutieSettings").Element("General").Element("RallyingCry").Value;
             //SW_HP = cutieconfig.Root.Element("ExecutieSettings").Element("ShieldWall").Value;
             //DBTS_HP = cutieconfig.Root.Element("ExecutieSettings").Element("DieByTheSword").Value;
             //DB_HP = cutieconfig.Root.Element("ExecutieSettings").Element("DemoBanner").Value;
@@ -107,25 +108,18 @@ namespace exeCutie
 
             MessageBox.Show(RC_HP + " " + SW_HP + " " + DBTS_HP + " " + DB_HP + " " + ER_HP + " " + DStuse_bool + " " + DStHP_HP);
 
+            //XML laden
             XDocument cutieconfig = XDocument.Load("exeCutie.xml");
-            cutieconfig.Descendants("RallyingCry").First().Value = RC_HP;
-            cutieconfig.Descendants("ShieldWall").First().Value = SW_HP;
-            cutieconfig.Descendants("DieByTheSword").First().Value = DBTS_HP;
-            cutieconfig.Descendants("DemoBanner").First().Value = DB_HP;
-            cutieconfig.Descendants("EnragedRegeneration").First().Value = ER_HP;
-            cutieconfig.Descendants("DStuse").First().Value = Convert.ToString(DStuse_bool);
-            cutieconfig.Descendants("DStHP").First().Value = DStHP_HP;
+            //XML Elemente schreiben
+            cutieconfig.Element("ExecutieSettings").Element("General").Element("RallyingCry").Value = RC_HP;
+            cutieconfig.Element("ExecutieSettings").Element("General").Element("ShieldWall").Value = SW_HP;
+            cutieconfig.Element("ExecutieSettings").Element("General").Element("DieByTheSword").Value = DBTS_HP;
+            cutieconfig.Element("ExecutieSettings").Element("General").Element("DemoBanner").Value = DB_HP;
+            cutieconfig.Element("ExecutieSettings").Element("General").Element("EnragedRegeneration").Value = ER_HP;
+            cutieconfig.Element("ExecutieSettings").Element("General").Element("DStuse").Value = Convert.ToString(DStuse_bool);
+            cutieconfig.Element("ExecutieSettings").Element("General").Element("DStHP").Value = DStHP_HP;
+            //XML speichern
             cutieconfig.Save("exeCutie.xml");
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

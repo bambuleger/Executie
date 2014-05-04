@@ -71,10 +71,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="infos.txt" />
-    <Content Include="exeCutie.xml" />
+    <Content Include="exeCutie.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\codingbad_cropped.jpg" />
-    <None Include="Resources\codingbad.jpg" />
-    <None Include="Resources\Banner.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

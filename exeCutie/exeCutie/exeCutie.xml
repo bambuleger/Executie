@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ExecutieSettings>
-  <RallyingCry>66</RallyingCry>
-  <ShieldWall>66</ShieldWall>
-  <DieByTheSword>66</DieByTheSword>
-  <DemoBanner>66</DemoBanner>
-  <EnragedRegeneration>70</EnragedRegeneration>
-  <DStuse>False</DStuse>
-  <DStHP>66</DStHP>
+  <General>
+    <RallyingCry>66</RallyingCry>
+    <ShieldWall>66</ShieldWall>
+    <DieByTheSword>66</DieByTheSword>
+    <DemoBanner>66</DemoBanner>
+    <EnragedRegeneration>70</EnragedRegeneration>
+    <DStuse>False</DStuse>
+    <DStHP>66</DStHP>
+  </General>
 </ExecutieSettings>
