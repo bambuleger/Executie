@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Anthrax;
+using Anthrax.WoW.Internals;
 using System.Timers;
 using System.Threading.Tasks;
-using SPQR;
-using MySPQR;
-using MySPQR.Classes;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Collections;
@@ -17,10 +16,8 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Threading;
 using System.Xml;
-using System.Xml.Linq;
-using System.Data;
-
-
+//using System.Xml.Linq;
+//using System.Data;
 
 /////////////////////////////////////////////////////////////////////////////////////
 //                                                                                 //
@@ -42,21 +39,24 @@ using System.Data;
 //                                    #                #                           //
 //                                    ##################                           //
 //                                                                                 //
+//                          Executie Arms Warrior                                  //
 /////////////////////////////////////////////////////////////////////////////////////
-// Features: 
+//Features: 
 // Notes:
 // Changelog:
 // ToDo:
 
-
-namespace SPQR.Engine
+namespace Anthrax
 {
-    class Paladin : Engine.FightModule
+    public class Executie_Arms : Anthrax.Modules.ICombat  //This file must be copied inside the CombatClass folder
     {
+
+        
+
         #region private vars
         private System.Timers.Timer wndCloser = new System.Timers.Timer(2000);
         bool isAOE;
-        MySPQR.Classes.WoWLocalPlayer ME;
+        Anthrax.WoW.Classes.ObjectManager.WowLocalPlayer ME;
         FloatingOSDWindow osdMessage;
         Point OSDPos;
         #endregion
@@ -64,48 +64,8 @@ namespace SPQR.Engine
         [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(int vKey);
 
-        public override string DisplayName
-        {
-            get { return "Executie Arms"; }                      
-        }
-
-        #region Settings
-        //XML laden
-        //XDocument cutieconfig = XDocument.Load("exeCutie.xml");
-
-        // string bzw int holen ;)
-        //string DStuse = cutieconfig.Descendants("DStuse").First().Value;
-        //int DStHP = Convert.ToInt32(cutieconfig.Descendants("DStHP").First().Value);
-        
-        //XML öffnen
-        //public void getSettings()
-        //{
-            XmlDocument cutieconfigxml = new XmlDocument();
-            cutieconfigxml.Load("exeCutie.xml");
-
-            //Werte Lesen XML
-            //XmlNodeList RallyingCryHP = cutieconfigxml.GetElementsByTagName("RallyingCry");
-            //XmlNodeList ShieldWallHP = cutieconfigxml.GetElementsByTagName("ShieldWall");
-            //XmlNodeList DieByTheSwordHP = cutieconfigxml.GetElementsByTagName("DieByTheSword");
-            //XmlNodeList DemoBannerHP = cutieconfigxml.GetElementsByTagName("DemoBanner");
-            //XmlNodeList EnragedRegenerationHP = cutieconfigxml.GetElementsByTagName("EnragedRegeneration");
-            XmlNodeList DStuse = cutieconfigxml.GetElementsByTagName("DStuse");
-            XmlNodeList DStHP = cutieconfigxml.GetElementsByTagName("DStHP");
-
-            //Variablen belegen
-            //RC_HP = RallyingCryHP[0].InnerText;
-            //SW_HP = ShieldWallHP[0].InnerText;
-            //DBTS_HP = DieByTheSwordHP[0].InnerText;
-            //DB_HP = DemoBannerHP[0].InnerText;
-            //ER_HP = EnragedRegenerationHP[0].InnerText;
-            string DStuse = DStuse[0].InnerText;
-            int DStHP = Convert.ToInt32(DStHP[0].InnerText);
-        //}
-            
-        #endregion
-        
-        #region Spells
-        internal enum Spells : int
+        #region enums
+        public enum Spells : int
         {
             AV = 107574,            //Avatar
             BB = 12292,             //Blood Bath
@@ -153,7 +113,8 @@ namespace SPQR.Engine
             VR = 34428,             //Victory Rush  
             WW = 1680,              //Whirlwind
         }
-        internal enum Auras : int
+
+        public enum Auras : int
         {
             BShA = 6673,            //Battle Shout Aura
             CSdb = 86346,           //CSmash Debuff
@@ -163,87 +124,100 @@ namespace SPQR.Engine
             SE = 139958,            //Sudden Execute
             T162P = 144438,         //T16 2 Piece Bonus
             TfB = 56636,            //Taste for Blood
+        }
 
+        public enum Items : int
+        {
+            
         }
         #endregion
 
-        #region singleRotation
-        private void castNextSpellbySinglePriority()
+        public override string Name
         {
-            var TARGET = MySPQR.Internals.ObjectManager.Target;
+            get { return "Executie Arms"; }     //This name is displayed inside Anthrax
+        }
 
-            //if (DStuse = 1)
-            //{
-            //    if (ME.HealthPercent < (int)Settings.DSthp)
-            //        MySPQR.Internals.ActionBar.CastSpellById((int)Spells.DSt);
-            //}
-
-            if(DStuse = "True")
+        #region OnPull
+        public override void OnPull(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)             
+        {
+            //Check if we are in BattleStance, if not, switch to
+            if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.BattleStance &&
+               Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.BSt))
             {
-            if (ME.HealthPercent < DStHP)
-                MySPQR.Internals.ActionBar.CastSpellById((int)Spells.DSt);
-
-            if (ME.HealthPercent > DStHP)
-                MySPQR.Internals.ActionBar.CastSpellById((int)Spells.BSt);
+                Anthrax.Logger.WriteLine("Enter Battle Stance ...");
+                Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.BSt);
+                return;
             }
-            //if(ME.Rage > 30)
-            //    MySPQR.Internals.ActionBar.CastSpellById((int)Spells.HS);
+            
+            //Charge if in range
+            if (unit.Position.Distance3DFromPlayer >= 7 && unit.Position.Distance3DFromPlayer <= 28)                                         
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.CH))
+                {
+                    Anthrax.Logger.WriteLine("Pull - Charge");                
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.CH, unit);     
+                    return;
+                }
 
-            //MySPQR.Internals.ActionBar.CastSpellById((int)Spells.MS);
+            }
 
-
-            ////actions+=/berserker_rage,if=buff.enrage.remains<0.5
-            //if (ME.GetAuraById((int)Spells.EnR).TimeLeft <= 1)
-            //{
-            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.BR).Execute();
-            //}
-            ////actions.single_target=heroic_strike,if=rage>115|(debuff.colossus_smash.up&rage>60&set_bonus.tier16_2pc_melee)
-            //if (ME.Rage >= 115 || (TARGET.HasAurabyId((int)Auras.CSdb) && ME.Rage > 60 && ME.HasAurabyId((int)Auras.T162P)))
-            //{
-            //    MySPQR.Internals.ActionBar.CastSpellById((int)Spells.HS);
-            //}
+            //Target is too far, move closer
+            else
+            {
+                Anthrax.AI.Controllers.Mover.MoveToObject(unit);                                 
+            }
         }
         #endregion
 
-        #region AOE>4 rotation
-        private void castNextSpellbyAOEPriority()
+        #region OnCombat
+        public override void OnCombat(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)     
         {
-            var TARGET = MySPQR.Internals.ObjectManager.Target;
+            #region aliases
+            float myRage = ObjectManager.LocalPlayer.GetPowerPercent(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage);
+            float myHealth = ObjectManager.LocalPlayer.HealthPercent;
+            #endregion
 
-            //if (ME.GetAuraById((int)Spells.Inquisition).TimeLeft<=4)
-            //{
-            //    if (ME.HolyPower > 2 || ME.GetAuraById((int)Spells.Inquisition).TimeLeft <= 1)
-            //    {
-            //        if (MySPQR.Internals.ActionBar.CanCast((int)Spells.Inquisition))
-            //        {
-            //            MySPQR.Internals.ActionBar.GetSlotById((int)Spells.Inquisition).Execute();
-            //        }
-            //    }
-            //}
-            //if (ME.HasAurabyId((int)Auras.T164PB) || ME.HasAurabyId((int)Auras.DivinePurpose) || ME.HolyPower == 5)
-            //{
-            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.DivineStorm).Execute();
-            //}
-            //if (((TARGET.HealthPercent < 20) || avengingWrathActive()) && MySPQR.Internals.ActionBar.CanCast((int)Spells.HammerOfWrath))
-            //{
-            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.HammerOfWrath).Execute();
-            //}
-            //if (MySPQR.Internals.ActionBar.CanCast((int)Spells.Exorcism))
-            //{
-            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.Exorcism).Execute();
-            //}
-            //if (MySPQR.Internals.ActionBar.CanCast((int)Spells.HammeroftheRighteous))
-            //{
-            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.HammeroftheRighteous).Execute();
-            //}
-            //if (MySPQR.Internals.ActionBar.CanCast((int)Spells.Judgement))
-            //{
-            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.Judgement).Execute();
-            //}
-            //if (ME.HolyPower >= 3)
-            //{
-            //    MySPQR.Internals.ActionBar.GetSlotById((int)Spells.DivineStorm).Execute();
-            //}
+            //Battle / Defensive Stance
+            if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.BattleStance &&
+               Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.BSt) && ObjectManager.LocalPlayer.HealthPercent >= 30)
+               {
+                   Anthrax.Logger.WriteLine("Enter Battle Stance ...");
+                   Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.BSt);
+                    return;
+                }
+
+            if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.DefensiveStance &&
+               Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.DSt) && ObjectManager.LocalPlayer.HealthPercent <= 29)
+               {
+                   Anthrax.Logger.WriteLine("Enter Defensive Stance ...");
+                   Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.DSt);
+                    return;
+                }
+
+            //actions.single_target=heroic_strike,if=rage>115|(debuff.colossus_smash.up&rage>60&set_bonus.tier16_2pc_melee)
+            if (ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 115 || (unit.HasAuraById((int)Auras.CSdb) && ObjectManager.LocalPlayer.HasAuraById((int)Auras.T162P)))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.HS))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Heroic Strike");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.HS, unit);
+                    return;
+                }
+            }
+
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.MS))     
+            {
+                Anthrax.Logger.WriteLine("Casting - Mortal Strike - " + myRage + " Rage now - " + myHealth + "prc HP");
+                //showOSD("Mortal Strike");
+                Anthrax.AI.Controllers.Spell.Cast((int)Spells.MS, unit);  
+                return;
+            }
+            
+            
+
+            //Nothing else to fire, using autottack
+            Anthrax.AI.Controllers.Spell.AttackTarget();
+            
         }
         #endregion
 
@@ -255,75 +229,42 @@ namespace SPQR.Engine
         //    //return MySPQR.Internals.ObjectManager.WoWLocalPlayer.AuraList.Any(aura => aura.Id == (int)Auras.AvengingWrath);
         //}
 
-        public void changeRotation()
-        {
-            if (isAOE)
-            {
-                //Console.Beep(5000, 100);
-                isAOE = false;
-                //while (MySPQR.Internals.ActionBar.CanCast((int)Spells.SealofTruth)) { }
-                //MySPQR.Internals.ActionBar.GetSlotById((int)Spells.SealofTruth).Execute();
-                showOSD("SINGLE");
-                SPQR.Logger.WriteLine("Rotation Single!!");
-            }
-            else
-            {
-                //Console.Beep(5000, 100);
-                //Console.Beep(5000, 100);
-                //Console.Beep(5000, 100);
-                isAOE = true;
-                while (MySPQR.Internals.ActionBar.CanCast((int)Spells.SS)) { }
-                MySPQR.Internals.ActionBar.GetSlotById((int)Spells.SS).Execute();
-                showOSD("AOE>4");
-                SPQR.Logger.WriteLine("Rotation AOE!!");
-            }
-        }
+        //public void changeRotation()
+        //{
+        //    if (isAOE)
+        //    {
+        //        //Console.Beep(5000, 100);
+        //        isAOE = false;
+        //        //while (MySPQR.Internals.ActionBar.CanCast((int)Spells.SealofTruth)) { }
+        //        //MySPQR.Internals.ActionBar.GetSlotById((int)Spells.SealofTruth).Execute();
+        //        showOSD("SINGLE");
+        //        Anthrax.Logger.WriteLine("Rotation Single!!");
+        //    }
+        //    else
+        //    {
+        //        //Console.Beep(5000, 100);
+        //        //Console.Beep(5000, 100);
+        //        //Console.Beep(5000, 100);
+        //        isAOE = true;
+        //        while (MySPQR.Internals.ActionBar.CanCast((int)Spells.SS)) { }
+        //        MySPQR.Internals.ActionBar.GetSlotById((int)Spells.SS).Execute();
+        //        showOSD("AOE>4");
+        //        Anthrax.Logger.WriteLine("Rotation AOE!!");
+        //    }
+        //}
         #endregion
 
-        public override void CombatLogic()              //This is the DPS / healing coutine, called in loop by SPQR all code here is executed
+        public override void Settings()
         {
-            if (!MySPQR.Internals.CooldownManager.GCDActive && MySPQR.Internals.ObjectManager.Target.IsValid)
-            {
-                if (isAOE) { castNextSpellbyAOEPriority(); } else { castNextSpellbySinglePriority(); }
-            }
-            if ((GetAsyncKeyState(90) == -32767))
-            {
-                changeRotation();
-            }
-        }
-
-        public override void OnLoad()   //This is called when the Customclass is loaded in SPQR
-        {
-            SPQR.Logger.WriteLine("CustomClass " + DisplayName + " Loaded");
-            osdMessage = configOSD();
-        }
-
-        public override void OnClose() //This is called when the Customclass is unloaded in SPQR
-        {
-            SPQR.Logger.WriteLine("CustomClass " + DisplayName + " Unloaded, Goodbye !");
-        }
-
-        public override void OnStart() //This is called once, when you hit CTRL+X to start SPQR combat routine
-        {
-            SPQR.Logger.WriteLine("Launching " + DisplayName + " routine... enjoy! Press z to switch between single/aoe");
-            showOSD("Executie Arms loaded");
-            ME = MySPQR.Internals.ObjectManager.WoWLocalPlayer;
-            wndCloser.AutoReset = false;
-            wndCloser.Elapsed += new System.Timers.ElapsedEventHandler(wndCloser_Elapsed);
+            Anthrax.Logger.WriteLine("Settings clicked");
+            Process.Start("D:\\Coding\\Anthrax\\Combats\\exeCutie.exe");
         }
 
         private void wndCloser_Elapsed(object source, ElapsedEventArgs e)
         {
             osdMessage.Close();
-            SPQR.Logger.WriteLine("Close it!!");
+            Anthrax.Logger.WriteLine("Close it!!");
         }
-
-        public override void OnStop() //This is called once, when you hit CTRL+X to stop SPQR combat routine
-        {
-            SPQR.Logger.WriteLine("Stopping " + DisplayName + " routine... gl smashing keys.");
-        }
-
-
 
         #region OSD wrappers
         private FloatingOSDWindow configOSD()
@@ -1129,3 +1070,37 @@ namespace SPQR.Engine
     #endregion
 
 }
+
+
+//actions+=/mogu_power_potion,if=(target.health.pct<20&buff.recklessness.up)|buff.bloodlust.react|target.time_to_die<=25
+//actions+=/recklessness,if=!talent.bloodbath.enabled&((cooldown.colossus_smash.remains<2|debuff.colossus_smash.remains>=5)&(target.time_to_die>(192*buff.cooldown_reduction.value)
+//|target.health.pct<20))|buff.bloodbath.up&(target.time_to_die>(192*buff.cooldown_reduction.value)|target.health.pct<20)|target.time_to_die<=12
+
+//actions+=/avatar,if=enabled&(buff.recklessness.up|target.time_to_die<=25)
+//actions+=/skull_banner,if=buff.skull_banner.down&(((cooldown.colossus_smash.remains<2|debuff.colossus_smash.remains>=5)&target.time_to_die>192&buff.cooldown_reduction.up)|buff.recklessness.up)
+//actions+=/use_item,slot=hands,if=!talent.bloodbath.enabled&debuff.colossus_smash.up|buff.bloodbath.up
+//actions+=/blood_fury,if=buff.cooldown_reduction.down&(buff.bloodbath.up|(!talent.bloodbath.enabled&debuff.colossus_smash.up))|buff.cooldown_reduction.up&buff.recklessness.up
+//actions+=/berserking,if=buff.cooldown_reduction.down&(buff.bloodbath.up|(!talent.bloodbath.enabled&debuff.colossus_smash.up))|buff.cooldown_reduction.up&buff.recklessness.up
+//actions+=/arcane_torrent,if=buff.cooldown_reduction.down&(buff.bloodbath.up|(!talent.bloodbath.enabled&debuff.colossus_smash.up))|buff.cooldown_reduction.up&buff.recklessness.up
+//actions+=/bloodbath,if=enabled&(debuff.colossus_smash.remains>0.1|cooldown.colossus_smash.remains<5|target.time_to_die<=20)
+//actions+=/berserker_rage,if=buff.enrage.remains<0.5
+//actions+=/heroic_leap,if=debuff.colossus_smash.up
+//actions+=/run_action_list,name=aoe,if=active_enemies>=2
+//actions+=/run_action_list,name=single_target,if=active_enemies<2
+
+//actions.single_target=heroic_strike,if=rage>115|(debuff.colossus_smash.up&rage>60&set_bonus.tier16_2pc_melee)
+//actions.single_target+=/mortal_strike,if=dot.deep_wounds.remains<1.0|buff.enrage.down|rage<10
+//actions.single_target+=/colossus_smash,if=debuff.colossus_smash.remains<1.0
+//# Use cancelaura (in-game) to stop bladestorm if CS comes off cooldown during it for any reason.
+//actions.single_target+=/bladestorm,if=enabled,interrupt_if=!cooldown.colossus_smash.remains
+//actions.single_target+=/mortal_strike
+//actions.single_target+=/storm_bolt,if=enabled&debuff.colossus_smash.up
+//actions.single_target+=/dragon_roar,if=enabled&debuff.colossus_smash.down
+//actions.single_target+=/execute,if=buff.sudden_execute.down|buff.taste_for_blood.down|rage>90|target.time_to_die<12
+//# Slam is preferable to overpower with crit procs/recklessness.
+//actions.single_target+=/slam,if=target.health.pct>=20&(trinket.stacking_stat.crit.stack>=10|buff.recklessness.up)
+//actions.single_target+=/overpower,if=target.health.pct>=20&rage<100|buff.sudden_execute.up
+//actions.single_target+=/execute
+//actions.single_target+=/slam,if=target.health.pct>=20
+//actions.single_target+=/heroic_throw
+//actions.single_target+=/battle_shout
