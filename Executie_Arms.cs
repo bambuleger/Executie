@@ -16,23 +16,39 @@ using System.Drawing.Imaging;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Threading;
+using System.Xml;
+using System.Xml.Linq;
+using System.Data;
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////
-//                          _                                                      //
-//                      ___| |__  _   _  __ _ _ __   __ _ _ __                     //
-//                     / __| '_ \| | | |/ _` | '_ \ / _` | '__|                    //
-//                    | (__| | | | |_| | (_| | | | | (_| | |                       //
-//                     \___|_| |_|\__,_|\__, |_| |_|\__,_|_|                       //
-//                                      |___/                                      //
-//                          Executie Arms Warrior for SPQR                         //
+//                                                                                 //
+//                   ##################                                            //
+//                   #                #                                            //
+//                   #    ___         #     _   _                                  //
+//                   #   / __|  ___   #  __| | (_)  _ _    __ _                    // 
+//                   #  | (__  / _ \  # / _` | | | | ' \  / _` |                   //
+//                   #   \___| \___/  # \__,_| |_| |_||_| \__, |                   // 
+//                   #                #                   |___/                    //  
+//                   #                #                                            //
+//                   ###################################                           //
+//                                    #                #                           //
+//                                    #      ___       #            _              //
+//                                    #     | _ )      #  __ _   __| |             //
+//                                    #     | _ \      # / _` | / _` |             //
+//                                    #     |___/      # \__,_| \__,_|             //
+//                                    #                #                           //
+//                                    #                #                           //
+//                                    ##################                           //
 //                                                                                 //
 /////////////////////////////////////////////////////////////////////////////////////
 // Features: 
 // Notes:
 // Changelog:
 // ToDo:
+
+
 namespace SPQR.Engine
 {
     class Paladin : Engine.FightModule
@@ -50,10 +66,45 @@ namespace SPQR.Engine
 
         public override string DisplayName
         {
-            get { return "Executie Arms"; }                      //This is the name displayed in SPQR's Class selection DropdownList
+            get { return "Executie Arms"; }                      
         }
 
-        #region enums
+        #region Settings
+        //XML laden
+        //XDocument cutieconfig = XDocument.Load("exeCutie.xml");
+
+        // string bzw int holen ;)
+        //string DStuse = cutieconfig.Descendants("DStuse").First().Value;
+        //int DStHP = Convert.ToInt32(cutieconfig.Descendants("DStHP").First().Value);
+        
+        //XML öffnen
+        //public void getSettings()
+        //{
+            XmlDocument cutieconfigxml = new XmlDocument();
+            cutieconfigxml.Load("exeCutie.xml");
+
+            //Werte Lesen XML
+            //XmlNodeList RallyingCryHP = cutieconfigxml.GetElementsByTagName("RallyingCry");
+            //XmlNodeList ShieldWallHP = cutieconfigxml.GetElementsByTagName("ShieldWall");
+            //XmlNodeList DieByTheSwordHP = cutieconfigxml.GetElementsByTagName("DieByTheSword");
+            //XmlNodeList DemoBannerHP = cutieconfigxml.GetElementsByTagName("DemoBanner");
+            //XmlNodeList EnragedRegenerationHP = cutieconfigxml.GetElementsByTagName("EnragedRegeneration");
+            XmlNodeList DStuse = cutieconfigxml.GetElementsByTagName("DStuse");
+            XmlNodeList DStHP = cutieconfigxml.GetElementsByTagName("DStHP");
+
+            //Variablen belegen
+            //RC_HP = RallyingCryHP[0].InnerText;
+            //SW_HP = ShieldWallHP[0].InnerText;
+            //DBTS_HP = DieByTheSwordHP[0].InnerText;
+            //DB_HP = DemoBannerHP[0].InnerText;
+            //ER_HP = EnragedRegenerationHP[0].InnerText;
+            string DStuse = DStuse[0].InnerText;
+            int DStHP = Convert.ToInt32(DStHP[0].InnerText);
+        //}
+            
+        #endregion
+        
+        #region Spells
         internal enum Spells : int
         {
             AV = 107574,            //Avatar
@@ -62,6 +113,7 @@ namespace SPQR.Engine
             BR = 18499,             //Berserker Rage
             BS = 46924,             //Blade Storm
             BSh = 6673,             //Battle Shout
+            BSt = 2457,             //Battle Stance
             CH = 100,               //Charge
             CL = 845,               //Cleave
             CS = 86346,             //Colossus Smash
@@ -71,6 +123,7 @@ namespace SPQR.Engine
             DbtS = 118038,          //Die by the Sword
             DR = 118000,            //Dragon Roar
             DS = 102060,            //Disrupting Shout
+            DSt = 71,               //Defensive Stance 7376
             EnR = 12880,            //Enrage
             ER = 55694,             //Enraged Regeneration
             EX = 5308,              //Execute
@@ -119,10 +172,26 @@ namespace SPQR.Engine
         {
             var TARGET = MySPQR.Internals.ObjectManager.Target;
 
-            if(ME.Rage > 30)
-                MySPQR.Internals.ActionBar.CastSpellById((int)Spells.HS);
+            //if (DStuse = 1)
+            //{
+            //    if (ME.HealthPercent < (int)Settings.DSthp)
+            //        MySPQR.Internals.ActionBar.CastSpellById((int)Spells.DSt);
+            //}
 
-            MySPQR.Internals.ActionBar.CastSpellById((int)Spells.MS);
+            if(DStuse = "True")
+            {
+            if (ME.HealthPercent < DStHP)
+                MySPQR.Internals.ActionBar.CastSpellById((int)Spells.DSt);
+
+            if (ME.HealthPercent > DStHP)
+                MySPQR.Internals.ActionBar.CastSpellById((int)Spells.BSt);
+            }
+            //if(ME.Rage > 30)
+            //    MySPQR.Internals.ActionBar.CastSpellById((int)Spells.HS);
+
+            //MySPQR.Internals.ActionBar.CastSpellById((int)Spells.MS);
+
+
             ////actions+=/berserker_rage,if=buff.enrage.remains<0.5
             //if (ME.GetAuraById((int)Spells.EnR).TimeLeft <= 1)
             //{
@@ -253,6 +322,8 @@ namespace SPQR.Engine
         {
             SPQR.Logger.WriteLine("Stopping " + DisplayName + " routine... gl smashing keys.");
         }
+
+
 
         #region OSD wrappers
         private FloatingOSDWindow configOSD()
