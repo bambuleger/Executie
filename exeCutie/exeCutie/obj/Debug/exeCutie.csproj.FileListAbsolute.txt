@@ -13,7 +13,7 @@ D:\ragnar\WoW\Coding\Executie\exeCutie\exeCutie\obj\Debug\exeCutie.pdb
 D:\ragnar\WoW\Coding\Executie\exeCutie\exeCutie\bin\Debug\exeCutie.exe
 D:\ragnar\WoW\Coding\Executie\exeCutie\exeCutie\bin\Debug\exeCutie.pdb
 D:\ragnar\WoW\Coding\Executie\exeCutie\exeCutie\obj\Debug\exeCutie.csprojResolveAssemblyReference.cache
-D:\ragnar\WoW\Coding\Executie\exeCutie\exeCutie\obj\Debug\exeCutie.Form1.resources
 D:\ragnar\WoW\Coding\Executie\exeCutie\exeCutie\obj\Debug\exeCutie.Properties.Resources.resources
 D:\ragnar\WoW\Coding\Executie\exeCutie\exeCutie\obj\Debug\exeCutie.csproj.GenerateResource.Cache
 D:\ragnar\WoW\Coding\Executie\exeCutie\exeCutie\bin\Debug\exeCutie.xml
+D:\ragnar\WoW\Coding\Executie\exeCutie\exeCutie\obj\Debug\exeCutie.exeCutieGUI.resources

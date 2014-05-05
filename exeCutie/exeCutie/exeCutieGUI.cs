@@ -11,9 +11,13 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 
+
+
+
+
 namespace exeCutie
 {
-    public partial class Form1 : Form
+    public partial class exeCutieGUI : Form
     {
         // Vars definieren
         string RC_HP, SW_HP, DBTS_HP, DB_HP, ER_HP, DStHP_HP;
@@ -23,7 +27,7 @@ namespace exeCutie
         //"D:\\ragnar\\WoW\\Coding\\Executie\\exeCutie\\exeCutie\\exeCutie.xml"
 
 
-        public Form1()
+        public exeCutieGUI()
         {
             InitializeComponent();
         }
@@ -120,6 +124,13 @@ namespace exeCutie
             cutieconfig.Element("ExecutieSettings").Element("General").Element("DStHP").Value = DStHP_HP;
             //XML speichern
             cutieconfig.Save("Combats\\exeCutie.xml");
+        }
+
+        private void btnPoC_Click_1(object sender, EventArgs e)
+        {
+            // Form aufrufen
+            exeCutieGUI exeCutieGUI = new exeCutieGUI();
+            exeCutieGUI.Show();
         }
     }
 }

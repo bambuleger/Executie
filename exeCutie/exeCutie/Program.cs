@@ -21,26 +21,7 @@ namespace exeCutie
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
-
-            //// XML Load
-            //XmlDocument cutieconfig = new XmlDocument();
-            //cutieconfig.Load("exeCutie.xml");
-            //XmlNodeList RallyingCryHP = cutieconfig.GetElementsByTagName("RallyingCry");
-
-            //// String ersetzen
-            //String dateiPfad = "D:\\ragnar\\WoW\\Coding\\Executie\\exeCutie\\exeCutie\\bin\\Debug\\Executie_Arms.cs";
-
-            //StreamReader inputStreamReader = File.OpenText(dateiPfad);
-            //String Inhalt = inputStreamReader.ReadToEnd();
-            //inputStreamReader.Close();
-
-            //String ersetzen = "// ToDo:";
-            //String durch = RallyingCryHP[0].InnerText;
-
-            //Inhalt = Inhalt.Replace(ersetzen, durch);
-
-            //StreamWriter outputStreamWriter = File.CreateText(dateiPfad);
+            Application.Run(new exeCutieGUI());
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace exeCutie
 {
-    partial class Form1
+    partial class exeCutieGUI
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -299,6 +299,7 @@
             this.btnPoC.TabIndex = 12;
             this.btnPoC.Text = "PoC";
             this.btnPoC.UseVisualStyleBackColor = true;
+            this.btnPoC.Click += new System.EventHandler(this.btnPoC_Click_1);
             // 
             // Form1
             // 
