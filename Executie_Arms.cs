@@ -15,8 +15,7 @@ using System.Threading;
 using System.Xml;
 //using System.Xml.Linq;
 //using System.Data;
-//VS Git Test 
-//VS Git Test 2
+
 /////////////////////////////////////////////////////////////////////////////////////
 //                                                                                 //
 //                   ##################                                            //
@@ -220,6 +219,75 @@ namespace Anthrax
         }
         #endregion
 
+        #region Defensives
+        private void Defensives(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
+        {
+            //Battle / Defensive Stance
+            if (DStuse)
+            {
+                if (ObjectManager.LocalPlayer.HealthPercent <= DSt_HP)
+                {
+                    if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.DefensiveStance && Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.DSt))
+                    {
+                        Anthrax.Logger.WriteLine("Enter Defensive Stance ...");
+                        Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.DSt);
+                        return;
+                    }
+                }
+                else
+                {
+                    if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.BattleStance && Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.BSt))
+                    {
+                        Anthrax.Logger.WriteLine("Enter Battle Stance ...");
+                        Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.BSt);
+                        return;
+                    }
+                }
+            }
+
+            //Rallying Cry
+            if (ObjectManager.LocalPlayer.HealthPercent < RC_HP &&
+                    AI.Controllers.Spell.CanCast((int)Spells.RC))
+            {
+                AI.Controllers.Spell.Cast((int)Spells.RC, ObjectManager.LocalPlayer);
+                return;
+            }
+
+            //Shield Wall
+            if (ObjectManager.LocalPlayer.HealthPercent < SW_HP &&
+                    AI.Controllers.Spell.CanCast((int)Spells.SW))
+            {
+                AI.Controllers.Spell.Cast((int)Spells.SW, ObjectManager.LocalPlayer);
+                return;
+            }
+
+            //Die by the Sword
+            if (ObjectManager.LocalPlayer.HealthPercent < DbtS_HP &&
+                    AI.Controllers.Spell.CanCast((int)Spells.DbtS))
+            {
+                AI.Controllers.Spell.Cast((int)Spells.DbtS, ObjectManager.LocalPlayer);
+                return;
+            }
+
+            //Demo Banner
+            if (ObjectManager.LocalPlayer.HealthPercent < DBa_HP &&
+                    AI.Controllers.Spell.CanCast((int)Spells.DBa))
+            {
+                AI.Controllers.Spell.Cast((int)Spells.DBa, ObjectManager.LocalPlayer);
+                return;
+            }
+
+            //Enraged Regeneration
+            if (ObjectManager.LocalPlayer.HealthPercent < ER_HP &&
+                    AI.Controllers.Spell.CanCast((int)Spells.ER))
+            {
+                AI.Controllers.Spell.Cast((int)Spells.ER, ObjectManager.LocalPlayer);
+                return;
+            }
+
+        }
+        #endregion
+
         #region Singletarget
         private void SingleTargetRotation(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)     
         {
@@ -227,29 +295,9 @@ namespace Anthrax
             float myRage = ME.GetPowerPercent(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage);
             float myHealth = ME.HealthPercent;
             #endregion
+            Defensives(unit);
 
-            //Battle / Defensive Stance
-            if (ObjectManager.LocalPlayer.HealthPercent <= 30)
-            {
-                if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.DefensiveStance && Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.DSt))
-                {
-                    Anthrax.Logger.WriteLine("Enter Defensive Stance ...");
-                    Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.DSt);
-                    return;
-                }  
-            }
-            else
-            {
-                if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.BattleStance && Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.BSt))
-                {
-                    Anthrax.Logger.WriteLine("Enter Battle Stance ...");
-                    Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.BSt);
-                    return;
-                }
-                           
-            }
-
-            //actions+=/mogu_power_potion,if=(target.health.pct<20&buff.recklessness.up)|buff.bloodlust.react|target.time_to_die<=25
+           //actions+=/mogu_power_potion,if=(target.health.pct<20&buff.recklessness.up)|buff.bloodlust.react|target.time_to_die<=25
             if ((unit.HealthPercent < 20 && ME.HasAuraById((int)Auras.REb)) || hasLust())
             {
                 Anthrax.Logger.WriteLine("Using Mogu Potion");
@@ -403,27 +451,7 @@ namespace Anthrax
             float myRage = ME.GetPowerPercent(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage);
             float myHealth = ME.HealthPercent;
             #endregion
-
-            //Battle / Defensive Stance
-            if (ObjectManager.LocalPlayer.HealthPercent <= 30)
-            {
-                if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.DefensiveStance && Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.DSt))
-                {
-                    Anthrax.Logger.WriteLine("Enter Defensive Stance ...");
-                    Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.DSt);
-                    return;
-                }
-            }
-            else
-            {
-                if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.BattleStance && Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.BSt))
-                {
-                    Anthrax.Logger.WriteLine("Enter Battle Stance ...");
-                    Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.BSt);
-                    return;
-                }
-
-            }
+            Defensives(unit);
 
             //actions+=/mogu_power_potion,if=(target.health.pct<20&buff.recklessness.up)|buff.bloodlust.react
             if ((unit.HealthPercent < 20 && ME.HasAuraById((int)Auras.REb)) || hasLust())
@@ -579,11 +607,11 @@ namespace Anthrax
         {
             if (isAOE) 
             {
-                MultiTargetRotation();  //http://msdn.microsoft.com/de-de/library/d9s6x486.aspx
+                MultiTargetRotation(unit);  
             }
             else
             {
-                SingleTargetRotation(); 
+                SingleTargetRotation(unit); 
             }
             if ((GetAsyncKeyState(90) == -32767))
             {
