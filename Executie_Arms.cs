@@ -42,7 +42,6 @@ using System.Xml;
 //
 
 
-
 namespace Anthrax
 {
     public class Executie_Arms : Anthrax.Modules.ICombat  //This file must be copied inside the CombatClass folder
@@ -56,6 +55,8 @@ namespace Anthrax
         Anthrax.WoW.Classes.ObjectManager.WowLocalPlayer ME;
         #endregion
 
+        [DllImport("User32.dll")] 
+        private static extern short GetAsyncKeyState(System.Windows.Forms.Keys vKey); // Keys enumeration 
         [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(int vKey);
 
@@ -150,6 +151,8 @@ namespace Anthrax
             DWdb = 115767,          //Deep Wounds Debuff
             SoOCrit = 146285,       //Crit Proc of Skeers Trinket, Stacking to 20
             REb = 1719,             //Recklessness
+            BBA = 12292,            //Blood Bath AUra
+            SSA = 12328,            //Sweeping Strikes Aura
 
             BLust = 2825,           //Bloodlust
             HRoism = 32182,         //Heroism
@@ -216,8 +219,8 @@ namespace Anthrax
         }
         #endregion
 
-        #region OnCombat
-        public override void OnCombat(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)     
+        #region Singletarget
+        private void SingleTargetRotation(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)     
         {
             #region aliases
             float myRage = ME.GetPowerPercent(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage);
@@ -316,7 +319,7 @@ namespace Anthrax
             }
 
             //actions.single_target+=/execute,if=buff.sudden_execute.down|buff.taste_for_blood.down|rage>90|target.time_to_die<12
-            if (!unit.HasAuraById((int)Auras.SE) || !unit.HasAuraById((int)Auras.TfB) || ME.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 90)
+            if (!ME.HasAuraById((int)Auras.SE) || !unit.HasAuraById((int)Auras.TfB) || ME.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 90)
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.EX))
                 {
@@ -392,21 +395,208 @@ namespace Anthrax
         }
         #endregion
 
+        #region Multitarget
+        private void MultiTargetRotation(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
+        {
+            #region aliases
+            float myRage = ME.GetPowerPercent(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage);
+            float myHealth = ME.HealthPercent;
+            #endregion
+
+            //Battle / Defensive Stance
+            if (ObjectManager.LocalPlayer.HealthPercent <= 30)
+            {
+                if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.DefensiveStance && Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.DSt))
+                {
+                    Anthrax.Logger.WriteLine("Enter Defensive Stance ...");
+                    Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.DSt);
+                    return;
+                }
+            }
+            else
+            {
+                if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.BattleStance && Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.BSt))
+                {
+                    Anthrax.Logger.WriteLine("Enter Battle Stance ...");
+                    Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)Spells.BSt);
+                    return;
+                }
+
+            }
+
+            //actions+=/mogu_power_potion,if=(target.health.pct<20&buff.recklessness.up)|buff.bloodlust.react
+            if ((unit.HealthPercent < 20 && ME.HasAuraById((int)Auras.REb)) || hasLust())
+            {
+                Anthrax.Logger.WriteLine("Using Mogu Potion");
+                Anthrax.AI.Controllers.Inventory.UseItemById((int)Items.MoguPot);
+            }
+
+            //actions.aoe=sweeping_strikes
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.SS))
+            {
+                Anthrax.Logger.WriteLine("Casting - Sweeping Strikes");
+                Anthrax.AI.Controllers.Spell.Cast((int)Spells.SS, unit);
+                return;
+            }
+
+            //actions.aoe+=/cleave,if=rage>110&active_enemies<=4
+            if (ME.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 110)
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.CL))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Cleave");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.CL, unit);
+                    return;
+                }
+            }
+
+            //actions.aoe+=/bladestorm,if=enabled&(buff.bloodbath.up|!talent.bloodbath.enabled)
+            if (ME.HasAuraById((int)Auras.BBA))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.BS))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Bladestorm");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.BS, unit);
+                    return;
+                }
+            }
+
+            //actions.aoe+=/dragon_roar,if=enabled&debuff.colossus_smash.down
+            if (!unit.HasAuraById((int)Auras.CSdb))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.DR))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Dragon Roar");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.DR, unit);
+                    return;
+                }
+            }
+
+            //actions.aoe+=/colossus_smash,if=debuff.colossus_smash.remains<1
+            if (unit.Auras.Where(x => x.SpellId == (int)Auras.CSdb).First().TimeLeft <= 1000)
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.CS))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Colossus Smash");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.CS, unit);
+                    return;
+                }
+            }
+
+            //actions.aoe+=/thunder_clap
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.TC))
+            {
+                Anthrax.Logger.WriteLine("Casting - Thunder Clap");
+                Anthrax.AI.Controllers.Spell.Cast((int)Spells.TC, unit);
+                return;
+            }
+
+            //actions.aoe+=/mortal_strike,if=active_enemies=2|rage<50
+            if (ME.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) < 50)
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.MS))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Mortal Strike");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.MS, unit);
+                    return;
+                }
+            }
+
+            //actions.aoe+=/execute,if=buff.sudden_execute.down&active_enemies=2
+            if (ME.HasAuraById((int)Auras.SE))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.EX))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Excute");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.EX, unit);
+                    return;
+                }
+            }
+
+            //actions.aoe+=/slam,if=buff.sweeping_strikes.up&debuff.colossus_smash.up
+            if (ME.HasAuraById((int)Auras.SSA) && unit.HasAuraById((int)Auras.CSdb))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.SL))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Slam");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.SL, unit);
+                    return;
+                }
+            }
+
+            //actions.aoe+=/overpower,if=active_enemies=2
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.OP))
+            {
+                Anthrax.Logger.WriteLine("Casting - Overpower");
+                Anthrax.AI.Controllers.Spell.Cast((int)Spells.OP, unit);
+                return;
+            }
+
+            //actions.aoe+=/slam,if=buff.sweeping_strikes.up
+            if (ME.HasAuraById((int)Auras.SSA))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.SL))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Slam");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.SL, unit);
+                    return;
+                }
+            }
+
+            //actions.aoe+=/battle_shout
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.BSh))
+            {
+                Anthrax.Logger.WriteLine("Casting - Battle Shout");
+                Anthrax.AI.Controllers.Spell.Cast((int)Spells.BSh, unit);
+                return;
+            }
+
+
+            //Nothing else to fire, using autottack
+            Anthrax.AI.Controllers.Spell.AttackTarget();
+
+        }
+        #endregion
+
+        #region Rotation Change
+        public void changeRotation()
+        {
+            if (isAOE)
+            {
+                isAOE = false;
+                Anthrax.Logger.WriteLine("Singletarget Rotation");
+            }
+            else
+            {
+                isAOE = true;
+                Anthrax.Logger.WriteLine("Multitarget Rotation");
+            }
+        }
+        #endregion
+
+        public override void OnCombat(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
+        {
+            if (isAOE) 
+            {
+                MultiTargetRotation();  //http://msdn.microsoft.com/de-de/library/d9s6x486.aspx
+            }
+            else
+            {
+                SingleTargetRotation(); 
+            }
+            if ((GetAsyncKeyState(90) == -32767))
+            {
+                changeRotation();
+            }
+        }
+
         public override void Settings()
         {
             Anthrax.Logger.WriteLine("Settings clicked");
             GetSettingsFromXML();
             Process.Start("D:\\Coding\\Anthrax\\Combats\\exeCutie.exe");
         }
-
-        
-
-        
-
     }
-
-    
-
 }
 
 
@@ -442,3 +632,16 @@ namespace Anthrax
 //actions.single_target+=/slam,if=target.health.pct>=20
 //actions.single_target+=/heroic_throw
 //actions.single_target+=/battle_shout
+
+//actions.aoe=sweeping_strikes
+//actions.aoe+=/cleave,if=rage>110&active_enemies<=4
+//actions.aoe+=/bladestorm,if=enabled&(buff.bloodbath.up|!talent.bloodbath.enabled)
+//actions.aoe+=/dragon_roar,if=enabled&debuff.colossus_smash.down
+//actions.aoe+=/colossus_smash,if=debuff.colossus_smash.remains<1
+//actions.aoe+=/thunder_clap,target=2,if=dot.deep_wounds.attack_power*1.1<stat.attack_power
+//actions.aoe+=/mortal_strike,if=active_enemies=2|rage<50
+//actions.aoe+=/execute,if=buff.sudden_execute.down&active_enemies=2
+//actions.aoe+=/slam,if=buff.sweeping_strikes.up&debuff.colossus_smash.up
+//actions.aoe+=/overpower,if=active_enemies=2
+//actions.aoe+=/slam,if=buff.sweeping_strikes.up
+//actions.aoe+=/battle_shout
