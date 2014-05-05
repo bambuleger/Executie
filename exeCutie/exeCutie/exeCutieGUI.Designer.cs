@@ -75,6 +75,7 @@
             // 
             // btnSave
             // 
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Location = new System.Drawing.Point(659, 587);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
@@ -85,6 +86,7 @@
             // 
             // btnClose
             // 
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Location = new System.Drawing.Point(740, 587);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
@@ -99,9 +101,11 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(5, 32);
+            this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(814, 549);
+            this.tabControl1.Size = new System.Drawing.Size(935, 549);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 27;
             // 
             // tabPage3
@@ -110,14 +114,14 @@
             this.tabPage3.Controls.Add(this.txtChangelog);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(806, 523);
+            this.tabPage3.Size = new System.Drawing.Size(927, 523);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "exeCutie";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::exeCutie.Properties.Resources.codingbad_cropped;
+            this.pictureBox1.Image = global::exeCutie.Properties.Resources.codingbad;
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(800, 338);
@@ -139,7 +143,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(806, 523);
+            this.tabPage1.Size = new System.Drawing.Size(927, 523);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -293,6 +297,7 @@
             // 
             // btnPoC
             // 
+            this.btnPoC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPoC.Location = new System.Drawing.Point(541, 587);
             this.btnPoC.Name = "btnPoC";
             this.btnPoC.Size = new System.Drawing.Size(75, 23);
@@ -301,19 +306,24 @@
             this.btnPoC.UseVisualStyleBackColor = true;
             this.btnPoC.Click += new System.EventHandler(this.btnPoC_Click_1);
             // 
-            // Form1
+            // exeCutieGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(824, 616);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.ClientSize = new System.Drawing.Size(1089, 616);
+            this.ControlBox = false;
             this.Controls.Add(this.btnPoC);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.text1);
-            this.Name = "Form1";
-            this.Text = "exeCutie Premium by CodingBad";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "exeCutieGUI";
+            this.Text = "exeCutie by CodingBad | pre-alpha status";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);

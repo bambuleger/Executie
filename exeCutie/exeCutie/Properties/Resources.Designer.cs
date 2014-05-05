@@ -63,9 +63,9 @@ namespace exeCutie.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap codingbad_cropped {
+        internal static System.Drawing.Bitmap codingbad {
             get {
-                object obj = ResourceManager.GetObject("codingbad_cropped", resourceCulture);
+                object obj = ResourceManager.GetObject("codingbad", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

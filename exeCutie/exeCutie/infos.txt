@@ -5,4 +5,6 @@
 	DieByTheSword
 	Demobanner
 	EnragedRegeneration
-}
+};
+window size {840; 650};
+tab size	{814; 549};
