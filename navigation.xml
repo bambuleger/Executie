@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<navigation>
+  <executie>
+    <welcome>Banner, recent changes</welcome>
+    <changelog></changelog>
+  </executie>
+  <settings>
+    <defensive_cooldowns>
+      Shielwall "HP"
+      Die By The Sword "HP"
+      Demobanner "checkbox" "HP" "keybind"
+      Defstance "checkbox" (als defCD, tooltip: remember using glyph)
+      Rallying Cry "checkbox" "HP" "keybind"
+      Enraged Regeneration "HP"
+      Intervene/Safeguard "checkbox"
+      Intervene/Safeguard "HP" (HP von Tank)
+      Healthstone "checkbox" "HP"
+      Shattering Thow "checkbox"
+    </defensive_cooldowns>
+    <offensive_cooldowns>
+      Skullbanner "checkbox" "keybind"
+      Racial "checkbox"
+      Avatar "checkbox"
+      Recklessness "checkbox"
+      potion "checkbox" (on Bloodlust or Recklessness in execute range (target HP_kleiner_20)
+      Synapse="" Springs=""
+      Run="" away="" little="" girl=""! "keybind" (Recklessness="", Potion,...="" all="" off-CDs="")
+    </offensive_cooldowns>
+    <misc>
+      AoE "checkbox" ab"x"Targets
+      Shoutmode "Battle Shout || Commanding Shout"
+      T4 Talent "keybind" (Level 60 Talent: Bladestorm, Shockwave, Dragon Roar)
+      Interrupt "checkbox"
+      Heroic Leap "keybind"
+      Pause "keybind"
+    </misc>
+    <raid_events>
+      Immerseus Heroic: "checkbox" stop attacking at "x" stacks
+      General Nazgrim: "checkbox" stop in defensive stance
+    </raid_events>
+  </settings>
+  <about>
+  Kontaktdaten: Skype, Link zum Thread, etc.
+  </about>
+</navigation>

@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		exeCutie\Executie_Arms.cs = exeCutie\Executie_Arms.cs
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "executie mUI", "executie mUI\executie mUI.csproj", "{BF2BB508-5339-4D68-B792-84CB7205648E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "executie mUI", "executie mUI\executie mUI.csproj", "{36F34363-96BA-41EE-8521-76B12E0B7F36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,10 @@ Global
 		{CA9E2E08-A27C-4937-B126-E90B91B85D76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA9E2E08-A27C-4937-B126-E90B91B85D76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA9E2E08-A27C-4937-B126-E90B91B85D76}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF2BB508-5339-4D68-B792-84CB7205648E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF2BB508-5339-4D68-B792-84CB7205648E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF2BB508-5339-4D68-B792-84CB7205648E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF2BB508-5339-4D68-B792-84CB7205648E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36F34363-96BA-41EE-8521-76B12E0B7F36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F34363-96BA-41EE-8521-76B12E0B7F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F34363-96BA-41EE-8521-76B12E0B7F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F34363-96BA-41EE-8521-76B12E0B7F36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
