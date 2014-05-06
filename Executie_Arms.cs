@@ -46,9 +46,6 @@ namespace Anthrax
 {
     public class Executie_Arms : Anthrax.Modules.ICombat  //This file must be copied inside the CombatClass folder
     {
-
-        
-
         #region private vars
         private System.Timers.Timer wndCloser = new System.Timers.Timer(2000);
         bool isAOE;
@@ -61,8 +58,8 @@ namespace Anthrax
         public static extern short GetAsyncKeyState(int vKey);
 
         #region importSettings
-        int RC_HP, SW_HP, DbtS_HP, DBa_HP, ER_HP, DSt_HP;
-        bool DStuse;
+        int SW_HP, DbtS_HP, DBa_HP, DBa_key, DSt_HP, DSt_key, RC_HP, RC_key, ER_HP, IVSG_HP, HStone_HP, SBa_key, Ralg_key, AOE_tars, AOE_key, T4Talent_key, HL_key, Pause_key;
+        bool DBa_use, DSt_use, RC_use, IVSG_use, Hstone_use, ST_use, SBa_use, Race_use, AV_use, RE_use, Pot_use, Eng_use, Ralg_use, AOE_use, SMode, Intrpt_use, RE_Immers_use, RE_Nazg_use;
         public void GetSettingsFromXML()
         {
             XmlDocument doc = new XmlDocument();
@@ -73,7 +70,7 @@ namespace Anthrax
             DbtS_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/General/DieByTheSword").InnerText);
             DBa_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/General/DemoBanner").InnerText);
             ER_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/General/EnragedRegeneration").InnerText);
-            DStuse = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/General/DStuse").InnerText);
+            DSt_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/General/DStuse").InnerText);
             DSt_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/General/DStHP").InnerText);
             
 
@@ -82,7 +79,7 @@ namespace Anthrax
             Anthrax.Logger.WriteLine("Die by the Sword at: " + DbtS_HP);
             Anthrax.Logger.WriteLine("Demo Banner at: " + DBa_HP);
             Anthrax.Logger.WriteLine("Enraged Regeneration at: " + ER_HP);
-            Anthrax.Logger.WriteLine("Use DefStance : " + DStuse);
+            Anthrax.Logger.WriteLine("Use DefStance : " + DSt_use);
             Anthrax.Logger.WriteLine("DefStanc at: " + DSt_HP);
             Console.Read();  
         }        
