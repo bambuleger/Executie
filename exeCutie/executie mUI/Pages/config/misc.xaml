@@ -27,12 +27,12 @@
                         <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="125"/>
-                        <ColumnDefinition Width="135"/>
-                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="120"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
                         <mui:BBCodeBlock  BBCode="[b]Ability[/b]"/>
                     </Label>
                     <Label Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
@@ -44,7 +44,7 @@
 
                     <Label Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center">AoE</Label>
                     <Label Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
-                    <Label Grid.Row="1" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"><xctk:DecimalUpDown Maximum="100" Minimum="2" Value="5" ToolTip="Targets"/></Label>
+                    <Label Grid.Row="1" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"><xctk:DecimalUpDown Maximum="100" Minimum="2" Value="3" ToolTip="Targets"/></Label>
 
                     <Label Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center">Shoutmode</Label>
                     <Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">

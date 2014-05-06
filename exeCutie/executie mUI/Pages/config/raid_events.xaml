@@ -27,12 +27,12 @@
                         <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="125"/>
-                        <ColumnDefinition Width="40"/>
-                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="120"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
                         <mui:BBCodeBlock  BBCode="[b]Encounter[/b]"/>
                     </Label>
                     <Label Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
