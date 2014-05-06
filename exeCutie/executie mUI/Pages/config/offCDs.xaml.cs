@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace executie_mUI.Pages
+namespace executie_mUI.Pages.config
 {
     /// <summary>
-    /// Interaction logic for Home.xaml
+    /// Interaction logic for offCDs.xaml
     /// </summary>
-    public partial class Home : UserControl
+    public partial class offCDs : UserControl
     {
-        public Home()
+        public offCDs()
         {
             InitializeComponent();
         }

@@ -9,11 +9,10 @@
       Shielwall "HP"
       Die By The Sword "HP"
       Demobanner "checkbox" "HP" "keybind"
-      Defstance "checkbox" (als defCD, tooltip: remember using glyph)
+      Defstance "checkbox" "HP"(als defCD, tooltip: remember using glyph)
       Rallying Cry "checkbox" "HP" "keybind"
       Enraged Regeneration "HP"
-      Intervene/Safeguard "checkbox"
-      Intervene/Safeguard "HP" (HP von Tank)
+      Intervene/Safeguard "checkbox" "HP" (HP von Tank)
       Healthstone "checkbox" "HP"
       Shattering Thow "checkbox"
     </defensive_cooldowns>

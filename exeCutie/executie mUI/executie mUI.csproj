@@ -47,6 +47,24 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.1.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.1.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.1.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.1.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.1.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.1.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -80,11 +98,23 @@
       <DependentUpon>SettingsAppearance.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\SettingsAppearanceViewModel.cs" />
-    <Page Include="Pages\Home.xaml">
+    <Page Include="Pages\config\defCDs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ListPage1.xaml">
+    <Page Include="Pages\config\misc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\config\offCDs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\config\raid_events.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\config.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -92,11 +122,20 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Compile Include="Pages\Home.xaml.cs">
-      <DependentUpon>Home.xaml</DependentUpon>
+    <Compile Include="Pages\config\defCDs.xaml.cs">
+      <DependentUpon>defCDs.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ListPage1.xaml.cs">
-      <DependentUpon>ListPage1.xaml</DependentUpon>
+    <Compile Include="Pages\config\misc.xaml.cs">
+      <DependentUpon>misc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\config\offCDs.xaml.cs">
+      <DependentUpon>offCDs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\config\raid_events.xaml.cs">
+      <DependentUpon>raid_events.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\config.xaml.cs">
+      <DependentUpon>config.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -105,6 +144,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\about\" />
+    <Folder Include="Pages\executie\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
