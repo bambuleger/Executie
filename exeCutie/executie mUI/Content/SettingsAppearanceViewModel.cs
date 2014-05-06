@@ -18,6 +18,8 @@ namespace executie_mUI.Content
         private const string FontSmall = "small";
         private const string FontLarge = "large";
 
+
+
         // 9 accent colors from metro design principles
         /*private Color[] accentColors = new Color[]{
             Color.FromRgb(0x33, 0x99, 0xff),   // blue
@@ -55,7 +57,7 @@ namespace executie_mUI.Content
             Color.FromRgb(0x87, 0x79, 0x4e),   // taupe
         };
 
-        private Color selectedAccentColor;
+        private Color selectedAccentColor = Color.FromRgb(0x60, 0xa9, 0x17);
         private LinkCollection themes = new LinkCollection();
         private Link selectedTheme;
         private string selectedFontSize;
@@ -64,7 +66,7 @@ namespace executie_mUI.Content
         {
             // add the default themes
             this.themes.Add(new Link { DisplayName = "dark", Source = AppearanceManager.DarkThemeSource });
-            this.themes.Add(new Link { DisplayName = "light", Source = AppearanceManager.LightThemeSource });
+            //this.themes.Add(new Link { DisplayName = "light", Source = AppearanceManager.LightThemeSource });
 
             this.SelectedFontSize = AppearanceManager.Current.FontSize == FontSize.Large ? FontLarge : FontSmall;
             SyncThemeAndColor();
@@ -75,10 +77,11 @@ namespace executie_mUI.Content
         private void SyncThemeAndColor()
         {
             // synchronizes the selected viewmodel theme with the actual theme used by the appearance manager.
-            this.SelectedTheme = this.themes.FirstOrDefault(l => l.Source.Equals(AppearanceManager.Current.ThemeSource));
-
+            this.SelectedTheme = this.themes.FirstOrDefault(l => l.Source.Equals(AppearanceManager.DarkThemeSource));
+            //this.SelectedTheme = this.themes.FirstOrDefault(l => l.Source.Equals(AppearanceManager.Current.ThemeSource));
             // and make sure accent color is up-to-date
             this.SelectedAccentColor = AppearanceManager.Current.AccentColor;
+            this.SelectedAccentColor = Color.FromRgb(0x60, 0xa9, 0x17); // autoselect green color
         }
 
         private void OnAppearanceManagerPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -23,7 +23,13 @@ namespace executie_mUI
     {
         public MainWindow()
         {
-            InitializeComponent();
+            //InitializeComponent();
+            //SettingsAppearanceViewModel settings = new SettingsAppearanceViewModel();
+            //settings.SetThemeAndColor(ApplicationSettings.Default.SelectedThemeDisplayName,
+            //      ApplicationSettings.Default.SelectedThemeSource,
+            //      ApplicationSettings.Default.SelectedAccentColor,
+            //      ApplicationSettings.Default.SelectedFontSize);
+            
         }
     }
 }

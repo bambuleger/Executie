@@ -8,27 +8,6 @@
     <Grid>
         <ScrollViewer>
             <StackPanel x:Name="Panel" MinWidth="150">
-                <TextBlock Text="APPEARANCE" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
-
-                <ListBox ItemsSource="{Binding AccentColors}"
-                         SelectedItem="{Binding SelectedAccentColor, Mode=TwoWay}"
-                         Margin="0,0,0,16">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel MaxWidth="{Binding ActualWidth, ElementName=Panel}" />
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Rectangle Width="40" Height="40" Margin="2" >
-                                <Rectangle.Fill>
-                                    <SolidColorBrush x:Name="Brush" Color="{Binding}" />
-                                </Rectangle.Fill>
-                            </Rectangle>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-
                 <Grid HorizontalAlignment="Left">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -36,11 +15,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition />
-                        <RowDefinition />
                     </Grid.RowDefinitions>
-
-                    <TextBlock Text="Theme:" VerticalAlignment="Center" Margin="0,0,16,4" />
-                    <ComboBox Grid.Column="1" ItemsSource="{Binding Themes}" SelectedItem="{Binding SelectedTheme, Mode=TwoWay}" DisplayMemberPath="DisplayName" VerticalAlignment="Center" Margin="0,0,0,4" />
 
                     <TextBlock Grid.Row="1" Text="Font size:" VerticalAlignment="Center" Margin="0,0,16,0" />
                     <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding FontSizes}" SelectedItem="{Binding SelectedFontSize, Mode=TwoWay}" VerticalAlignment="Center" />
