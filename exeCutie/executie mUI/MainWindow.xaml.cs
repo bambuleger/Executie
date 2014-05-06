@@ -22,14 +22,7 @@ namespace executie_mUI
     public partial class MainWindow : ModernWindow
     {
         public MainWindow()
-        {
-            //InitializeComponent();
-            //SettingsAppearanceViewModel settings = new SettingsAppearanceViewModel();
-            //settings.SetThemeAndColor(ApplicationSettings.Default.SelectedThemeDisplayName,
-            //      ApplicationSettings.Default.SelectedThemeSource,
-            //      ApplicationSettings.Default.SelectedAccentColor,
-            //      ApplicationSettings.Default.SelectedFontSize);
-            
+        {            
         }
     }
 }

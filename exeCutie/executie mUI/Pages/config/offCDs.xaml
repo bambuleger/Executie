@@ -4,13 +4,72 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Style="{StaticResource ContentRoot}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <ScrollViewer>
-            <StackPanel MinWidth="200">
-                <TextBlock Text="BASIC PAGE" Style="{StaticResource Heading2}" />
-                <TextBlock Text="Content goes here" />
+            <StackPanel>
+                <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="33"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <mui:BBCodeBlock  BBCode="[b]Ability[/b]"/>
+                    </Label>
+                    <Label Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <mui:BBCodeBlock BBCode="[b]Active[/b]"/>
+                    </Label>
+                    <Label Grid.Row="0" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <mui:BBCodeBlock BBCode="[b]Hotkey[/b]" ToolTip="coming soon..."/>
+                    </Label>
+
+                    <Label Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center">Skullbanner</Label>
+                    <Label Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="1" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
+
+                    <Label Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" ToolTip="Troll Racial Haste Buff">Racial</Label>
+                    <Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="2" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
+
+                    <Label Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center">Avatar</Label>
+                    <Label Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="3" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
+
+                    <Label Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center">Recklessness</Label>
+                    <Label Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="4" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
+
+                    <Label Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center">DPS Potion</Label>
+                    <Label Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="5" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
+
+                    <Label Grid.Row="6" Grid.Column="0" VerticalContentAlignment="Center">Synapse Springs</Label>
+                    <Label Grid.Row="6" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="6" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
+
+                    <Label Grid.Row="7" Grid.Column="0" VerticalContentAlignment="Center" ToolTip="Use all DPS Cooldowns that are off CD">Run Away Little Girl!</Label>
+                    <Label Grid.Row="7" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox  IsEnabled="False"/></Label>
+                    <Label Grid.Row="7" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
     </Grid>

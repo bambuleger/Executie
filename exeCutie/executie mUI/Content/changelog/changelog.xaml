@@ -7,11 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Style="{StaticResource ContentRoot}">
-        <ScrollViewer>
+        <ScrollViewer Margin="-16,-28,-16,-16">
             <StackPanel MinWidth="200">
-                <TextBlock TextWrapping="NoWrap" FontSize="11">
+                <TextBlock TextWrapping="Wrap" FontSize="11">
                     [2014-05-06]<LineBreak/>
-                    UI creation
+                    - GUI programming
                 </TextBlock>
             </StackPanel>
         </ScrollViewer>

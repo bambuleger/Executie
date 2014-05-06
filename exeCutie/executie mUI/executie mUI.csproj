@@ -79,9 +79,6 @@
     <Compile Include="Content\changelog\changelog.xaml.cs">
       <DependentUpon>changelog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Content\changelog\recentchanges.xaml.cs">
-      <DependentUpon>recentchanges.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\executie\changelog.xaml.cs">
       <DependentUpon>changelog.xaml</DependentUpon>
     </Compile>
@@ -91,10 +88,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Page Include="Content\changelog\changelog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\changelog\recentchanges.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

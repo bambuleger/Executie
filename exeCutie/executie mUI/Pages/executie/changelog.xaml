@@ -9,9 +9,14 @@
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
             <StackPanel MinWidth="200">
-                <mui:ModernFrame x:Name="Frame"
-                                 Source="/Content/changelog/changelog.xaml"
-                                 Width="700" Height="450"/>
+                <Border BorderBrush="#515151"
+                        BorderThickness="1"
+                        Width="700" Height="470">
+                    <mui:ModernFrame x:Name="Frame"
+                                     Margin="4,0,4,3"
+                                     Source="/Content/changelog/changelog.xaml"
+                                     Width="700" Height="450"/>
+                </Border>
             </StackPanel>
         </ScrollViewer>
     </Grid>
