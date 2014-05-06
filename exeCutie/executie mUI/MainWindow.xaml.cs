@@ -25,4 +25,9 @@ namespace executie_mUI
         {            
         }
     }
+
+    public partial class executieValues
+    {
+        int ShieldWall_HP = 20;
+    }
 }

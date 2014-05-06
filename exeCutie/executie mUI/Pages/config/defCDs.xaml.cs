@@ -23,6 +23,7 @@ namespace executie_mUI.Pages.config
         public defCDs()
         {
             InitializeComponent();
+
         }
     }
 }
