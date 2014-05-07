@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 
 namespace executie_mUI
 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -24,10 +25,5 @@ namespace executie_mUI
         public MainWindow()
         {            
         }
-    }
-
-    public partial class executieValues
-    {
-        int ShieldWall_HP = 20;
     }
 }

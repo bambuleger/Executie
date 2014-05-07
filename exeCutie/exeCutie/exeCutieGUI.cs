@@ -132,5 +132,10 @@ namespace exeCutie
             exeCutieGUI exeCutieGUI = new exeCutieGUI();
             exeCutieGUI.Show();
         }
+
+        private void numericUpDownRC_HP_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
