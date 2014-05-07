@@ -1,0 +1,264 @@
+<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Frame.lua" />
+	<Frame name="CutieRestMainFrame" movable="true">
+		<Size x="593" y="344" />
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset x="3" y="-3" />
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11" />
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32" />
+			</EdgeSize>
+		</Backdrop>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString inherits="GameFontNormal" text="Executie ActionBarRestore" justifyH="LEFT">
+					<Size x="525" y="28" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="23" y="-25" />
+						</Anchor>
+					</Anchors>
+					<FontHeight val="14" />
+				</FontString>
+				<FontString inherits="GameFontNormal" text="This Addon will help you, to get your Action Bars setup correctly to use with Executie. You can change the order of spells in anyway you like, just make sure they have a keybind. If you encounter any problems, feel free to report in our support thread." justifyV="TOP" justifyH="LEFT">
+					<Size x="525" y="71" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="23" y="-59" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString inherits="GameFontNormal" text="If you have problems using this, try to disable any Addon that customizes your Action Bars " justifyH="LEFT">
+					<Size x="528" y="73" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="23" y="-220" />
+						</Anchor>
+					</Anchors>
+					<FontHeight val="12" />
+				</FontString>
+				<FontString inherits="GameFontNormal" text="Use this button, to setup your Action Bars for Arms." justifyV="TOP" justifyH="LEFT">
+					<Size x="318" y="20" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="104" y="-139" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString inherits="GameFontNormal" text="Use this button to setup your Action Bars for Fury." justifyH="LEFT">
+					<Size x="302" y="20" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="104" y="-178" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="CutieRestButtonClose" inherits="UIPanelButtonTemplate" text="Close">
+				<Size x="75" y="23" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="476" y="-299" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						CutieRestButtonClose_OnClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="CutieRestButtonArms" inherits="UIPanelButtonTemplate" text="Arms">
+				<Size x="75" y="23" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="23" y="-136" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						CutieRestButtonArms_OnClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="CutieRestButtonFury" inherits="UIPanelButtonTemplate" text="Fury">
+				<Size x="75" y="23" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="23" y="-178" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						CutieRestButtonFury_OnClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Frame name="CutieRestArmsConfirmFrame" movable="true">
+				<Size x="369" y="125" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="CutieRestMainFrame">
+						<Offset x="104" y="-111" />
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+					<BackgroundInsets>
+						<AbsInset left="11" right="12" top="12" bottom="11" />
+					</BackgroundInsets>
+					<TileSize>
+						<AbsValue val="32" />
+					</TileSize>
+					<EdgeSize>
+						<AbsValue val="32" />
+					</EdgeSize>
+				</Backdrop>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString inherits="GameFontNormal" text="WARNING: This will remove all your Spells from your Bars.  If you want to save them, use Addons like &quot;ActionBarSaver&quot;">
+							<Size x="327" y="51" />
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="23" y="-19" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="CutieRestArmsConfirmOkButton" inherits="UIPanelButtonTemplate" text="Ok">
+						<Size x="75" y="23" />
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="64" y="-76" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								CutieRestArmsConfirmOkButton_OnClick()
+							</OnClick>
+						</Scripts>
+					</Button>
+					<Button name="CutieRestArmsConfirmCancelButton" inherits="UIPanelButtonTemplate" text="Cancel">
+						<Size x="75" y="23" />
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="233" y="-76" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								self:RegisterForDrag("LeftButton");
+							</OnLoad>
+							<OnClick>
+								CutieRestArmsConfirmCancelButton_OnClick()
+							</OnClick>
+							<OnDragStart>
+								self:StartMoving();
+							</OnDragStart>
+							<OnDragStop>
+								self:StopMovingOrSizing();
+							</OnDragStop>
+						</Scripts>
+					</Button>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						CutieRestArmsConfirmFrame_OnLoad()
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Frame name="CutieRestFuryConfirmFrame" movable="true">
+				<Size x="369" y="125" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="CutieRestMainFrame">
+						<Offset x="107" y="-108" />
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+					<BackgroundInsets>
+						<AbsInset left="11" right="12" top="12" bottom="11" />
+					</BackgroundInsets>
+					<TileSize>
+						<AbsValue val="32" />
+					</TileSize>
+					<EdgeSize>
+						<AbsValue val="32" />
+					</EdgeSize>
+				</Backdrop>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString inherits="GameFontNormal" text="WARNING: This will remove all your Spells from your Bars.  If you want to save them, use Addons like &quot;ActionBarSaver&quot;">
+							<Size x="330" y="54" />
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="20" y="-19" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="CutieRestFuryConfirmCancelButton" inherits="UIPanelButtonTemplate" text="Cancel">
+						<Size x="75" y="23" />
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="236" y="-79" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								CutieRestFuryConfirmCancelButton_OnClick()
+							</OnClick>
+						</Scripts>
+					</Button>
+					<Button name="CutieRestFuryConfirmOkButton" inherits="UIPanelButtonTemplate" text="Ok">
+						<Size x="75" y="23" />
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="67" y="-79" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								self:RegisterForDrag("LeftButton");
+							</OnLoad>
+							<OnClick>
+								CutieRestFuryConfirmOkButton_OnClick()
+							</OnClick>
+							<OnDragStart>
+								self:StartMoving();
+							</OnDragStart>
+							<OnDragStop>
+								self:StopMovingOrSizing();
+							</OnDragStop>
+						</Scripts>
+					</Button>
+				</Frames>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForDrag("LeftButton");
+				CutieRestMainFrame:Hide();
+				CutieRestArmsConfirmFrame:Hide();
+				CutieRestFuryConfirmFrame:Hide();
+			</OnLoad>
+			<OnDragStart>
+				self:StartMoving();
+			</OnDragStart>
+			<OnDragStop>
+				self:StopMovingOrSizing();
+			</OnDragStop>
+		</Scripts>
+	</Frame>
+</Ui>
