@@ -6,14 +6,14 @@
   </executie>
   <settings>
     <defensive_cooldowns>
-      Shielwall "HP" 20
-      Die By The Sword "HP" 40
-      Demobanner "checkbox" "HP" "keybind" 30
-      Defstance "checkbox" "HP"(als defCD, tooltip: remember using glyph) 35
-      Rallying Cry "checkbox" "HP" "keybind" 30
-      Enraged Regeneration "HP" 40
-      Intervene/Safeguard "checkbox" "HP" (HP von Tank) 15
-      Healthstone "checkbox" "HP" 40
+      Shielwall "HP" 20-40
+      Die By The Sword "HP" 30-40
+      Demobanner "checkbox" "HP" "keybind" 20-40
+      Defstance "checkbox" "HP"(als defCD, tooltip: remember using glyph) 20-30
+      Rallying Cry "checkbox" "HP" "keybind" 20-30
+      Enraged Regeneration "HP" 40-50
+      Intervene/Safeguard "checkbox" "HP" (HP von Tank) 10-20
+      Healthstone "checkbox" "HP" 30-40
       Shattering Thow "checkbox" 
     </defensive_cooldowns>
     <offensive_cooldowns>
@@ -26,7 +26,7 @@
       Run="" away="" little="" girl=""! "keybind" (Recklessness="", Potion,...="" all="" off-CDs="")
     </offensive_cooldowns>
     <misc>
-      AoE "checkbox" ab"x"Targets "keybind" 3
+      AoE "checkbox" ab"x"Targets "keybind" 2-4
       Shoutmode "Battle Shout || Commanding Shout"
       T4 Talent "keybind" (Level 60 Talent: Bladestorm, Shockwave, Dragon Roar)
       Interrupt "checkbox"
