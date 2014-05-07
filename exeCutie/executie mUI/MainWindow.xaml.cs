@@ -25,7 +25,7 @@ namespace executie_mUI
     {
         public MainWindow()
         {
-
+            GlobalVariables.settingsfilef();
         }
     }
 
@@ -35,6 +35,7 @@ namespace executie_mUI
         public static string[] PLAYER = Environment.GetCommandLineArgs();
         public static string curFile;                                           //= GlobalVariables.PLAYER[1] + ".xml";
         public static bool exists = (File.Exists(GlobalVariables.curFile));
+
 
         public static void settingsfilef()
         {

@@ -29,7 +29,6 @@ namespace executie_mUI.Pages.config
         public defCDs()
         {
             InitializeComponent();
-            GlobalVariables.settingsfilef();
         }
         public void Button_Click(object sender, RoutedEventArgs e)
         {
