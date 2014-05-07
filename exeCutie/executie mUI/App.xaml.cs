@@ -13,5 +13,17 @@ namespace executie_mUI
     /// </summary>
     public partial class App : Application
     {
+        //void App_START(object sender, StartupEventArgs e)
+        //{
+        //    MessageBox.Show(Convert.ToString(GlobalVariables.exists));
+        //    if (GlobalVariables.exists)
+        //    {
+        //        MessageBox.Show(Convert.ToString(GlobalVariables.exists));
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("NEIN");
+        //    }
+        //}
     }
 }

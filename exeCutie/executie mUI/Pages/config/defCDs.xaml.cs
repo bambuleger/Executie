@@ -25,14 +25,16 @@ namespace executie_mUI.Pages.config
         double SW_HP, DBTS_HP, DB_HP, DSt_HP, RC_HP, ER_HP, IS_HP, HS_HP;
 
 
+
         public defCDs()
         {
             InitializeComponent();
+            GlobalVariables.settingsfilef();
         }
-
         public void Button_Click(object sender, RoutedEventArgs e)
         {
             //Variablen aus Felder lesen
+
             SW_HP = ShieldwallSlider.Value;
             DBTS_HP = DieByTheSwordSlider.Value;
             DB_HP = DemobannerSlider.Value;
@@ -41,9 +43,13 @@ namespace executie_mUI.Pages.config
             ER_HP = EnragedRegenerationSlider.Value;
             IS_HP = InterveneSlider.Value;
             HS_HP = HealthstoneSlider.Value;
-            ShieldwallSlider.Value = 99;
-
+            
             MessageBox.Show(SW_HP + " " + DBTS_HP + " " + DB_HP + " " + DSt_HP + " " + RC_HP + " " + ER_HP + " " + IS_HP + " " + HS_HP);
+
+            MessageBox.Show(GlobalVariables.SW_HP_Global);
+            GlobalVariables.SW_HP_Global = "bearbeitet";
+            MessageBox.Show(GlobalVariables.SW_HP_Global);
+
 
             ////XML laden
             //XDocument cutieconfig = XDocument.Load("Combats\\exeCutie.xml");
@@ -57,6 +63,11 @@ namespace executie_mUI.Pages.config
             //cutieconfig.Element("ExecutieSettings").Element("General").Element("DStHP").Value = DStHP_HP;
             ////XML speichern
             //cutieconfig.Save("Combats\\exeCutie.xml");
+        }
+
+        private void UserControl_Initialized(object sender, EventArgs e)
+        {
+
         }
     }
 }
