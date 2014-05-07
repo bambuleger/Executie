@@ -48,7 +48,7 @@
                         <CheckBox IsChecked="True" IsEnabled="False"/>
                     </Label>
                     <Label Grid.Row="1" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <Slider x:Name="ShieldwallSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="40" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" Value="30"/>
+                        <Slider x:Name="ShieldwallSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="40" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1"/>
                     </Label>
                     <Label Grid.Row="1" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                         <TextBox Name="ShieldwallSliderTxt" Text="{Binding ElementName=ShieldwallSlider, Path=Value}" IsReadOnly="True" Width="25"></TextBox>
@@ -59,7 +59,7 @@
                         <CheckBox IsChecked="True" IsEnabled="False"/>
                     </Label>
                     <Label Grid.Row="2" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <Slider x:Name="DieByTheSwordSlider" IsSelectionRangeEnabled="True" SelectionStart="30" SelectionEnd="40" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" Value="35" />
+                        <Slider x:Name="DieByTheSwordSlider" IsSelectionRangeEnabled="True" SelectionStart="30" SelectionEnd="40" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1"/>
                     </Label>
                     <Label Grid.Row="2" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                         <TextBox x:Name="DieByTheSwordSliderTxt" Text="{Binding Value, ElementName=DieByTheSwordSlider}" IsReadOnly="True" Width="25"/>
@@ -70,7 +70,7 @@
                         <CheckBox/>
                     </Label>
                     <Label Grid.Row="3" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <Slider x:Name="DemobannerSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="40" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" Value="30" />
+                        <Slider x:Name="DemobannerSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="40" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1"/>
                     </Label>
                     <Label Grid.Row="3" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                         <TextBox x:Name="DemobannerSliderTxt" Text="{Binding Value, ElementName=DemobannerSlider}" IsReadOnly="True" Width="25"/>
@@ -81,7 +81,7 @@
                         <CheckBox/>
                     </Label>
                     <Label Grid.Row="4" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <Slider x:Name="DefStanceSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="30" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" Value="20" />
+                        <Slider x:Name="DefStanceSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="30" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1"/>
                     </Label>
                     <Label Grid.Row="4" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                         <TextBox x:Name="DefStanceSliderTxt" Text="{Binding Value, ElementName=DefStanceSlider}" IsReadOnly="True" Width="25"/>
@@ -92,7 +92,7 @@
                         <CheckBox/>
                     </Label>
                     <Label Grid.Row="5" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <Slider x:Name="RallyingCrySlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="30" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" Value="30" />
+                        <Slider x:Name="RallyingCrySlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="30" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1"/>
                     </Label>
                     <Label Grid.Row="5" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                         <TextBox x:Name="RallyingCrySliderTxt" Text="{Binding Value, ElementName=RallyingCrySlider}" IsReadOnly="True" Width="25"/>
@@ -103,7 +103,7 @@
                         <CheckBox IsChecked="True" IsEnabled="False"/>
                     </Label>
                     <Label Grid.Row="6" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <Slider x:Name="EnragedRegenerationSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="40" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" Value="30" />
+                        <Slider x:Name="EnragedRegenerationSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="40" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1"/>
                     </Label>
                     <Label Grid.Row="6" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                         <TextBox x:Name="EnragedRegenerationSliderTxt" Text="{Binding Value, ElementName=EnragedRegenerationSlider}" IsReadOnly="True" Width="25"/>
@@ -114,7 +114,7 @@
                         <CheckBox/>
                     </Label>
                     <Label Grid.Row="7" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <Slider x:Name="InterveneSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="40" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" Value="30" />
+                        <Slider x:Name="InterveneSlider" IsSelectionRangeEnabled="True" SelectionStart="10" SelectionEnd="20" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1"/>
                     </Label>
                     <Label Grid.Row="7" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                         <TextBox x:Name="InterveneSliderTxt" Text="{Binding Value, ElementName=InterveneSlider}" IsReadOnly="True" Width="25"/>
@@ -125,7 +125,7 @@
                         <CheckBox/>
                     </Label>
                     <Label Grid.Row="8" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <Slider x:Name="HealthstoneSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="40" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" Value="30" />
+                        <Slider x:Name="HealthstoneSlider" IsSelectionRangeEnabled="True" SelectionStart="30" SelectionEnd="40" TickPlacement="Both"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1"/>
                     </Label>
                     <Label Grid.Row="8" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                         <TextBox x:Name="HealthstoneSliderTxt" Text="{Binding Value, ElementName=HealthstoneSlider}" IsReadOnly="True" Width="25"/>

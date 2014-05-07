@@ -21,33 +21,36 @@ namespace executie_mUI.Pages.config
     /// </summary>
     public partial class defCDs : UserControl
     {
-        // Vars definieren
-        double SW_HP, DBTS_HP, DB_HP, DSt_HP, RC_HP, ER_HP, IS_HP, HS_HP;
-
-
-
         public defCDs()
         {
             InitializeComponent();
+            ShieldwallSlider.Value = Convert.ToDouble(GlobalVariables.SW_HP);
+            DieByTheSwordSlider.Value = Convert.ToDouble(GlobalVariables.DBTS_HP);
+            DemobannerSlider.Value = Convert.ToDouble(GlobalVariables.DB_HP);
+            DefStanceSlider.Value = Convert.ToDouble(GlobalVariables.DefStHP);
+            RallyingCrySlider.Value = Convert.ToDouble(GlobalVariables.RC_HP);
+            EnragedRegenerationSlider.Value = Convert.ToDouble(GlobalVariables.ER_HP);
+            InterveneSlider.Value = Convert.ToDouble(GlobalVariables.IS_HP);
+            HealthstoneSlider.Value = Convert.ToDouble(GlobalVariables.HS_HP);
         }
         public void Button_Click(object sender, RoutedEventArgs e)
         {
-            //Variablen aus Felder lesen
+            ////Variablen aus Felder lesen
 
-            SW_HP = ShieldwallSlider.Value;
-            DBTS_HP = DieByTheSwordSlider.Value;
-            DB_HP = DemobannerSlider.Value;
-            DSt_HP= DefStanceSlider.Value;
-            RC_HP = RallyingCrySlider.Value;
-            ER_HP = EnragedRegenerationSlider.Value;
-            IS_HP = InterveneSlider.Value;
-            HS_HP = HealthstoneSlider.Value;
+            //SW_HP = ShieldwallSlider.Value
+            //DBTS_HP = DieByTheSwordSlider.Value
+            //DB_HP = DemobannerSlider.Value
+            //DSt_HP= DefStanceSlider.Value
+            //RC_HP = RallyingCrySlider.Value
+            //ER_HP = EnragedRegenerationSlider.Value
+            //IS_HP = InterveneSlider.Value
+            //HS_HP = HealthstoneSlider.Value
             
-            MessageBox.Show(SW_HP + " " + DBTS_HP + " " + DB_HP + " " + DSt_HP + " " + RC_HP + " " + ER_HP + " " + IS_HP + " " + HS_HP);
+            //MessageBox.Show(SW_HP + " " + DBTS_HP + " " + DB_HP + " " + DSt_HP + " " + RC_HP + " " + ER_HP + " " + IS_HP + " " + HS_HP);
 
-            MessageBox.Show(GlobalVariables.SW_HP_Global);
-            GlobalVariables.SW_HP_Global = "bearbeitet";
-            MessageBox.Show(GlobalVariables.SW_HP_Global);
+            //MessageBox.Show(GlobalVariables.SW_HP_Global);
+            //GlobalVariables.SW_HP_Global = "bearbeitet";
+            //MessageBox.Show(GlobalVariables.SW_HP_Global);
 
 
             ////XML laden

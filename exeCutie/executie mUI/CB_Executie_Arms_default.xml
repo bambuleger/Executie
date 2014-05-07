@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ExecutieSettings>
+  <DefCD>
+    <Shieldwall_HP>30</Shieldwall_HP>
+    <DieByTheSword_HP>35</DieByTheSword_HP>
+    <Demobanner_HP>30</Demobanner_HP>
+    <DefStance_HP>25</DefStance_HP>
+    <RallyingCry_HP>25</RallyingCry_HP>
+    <EnragedRegeneration_HP>45</EnragedRegeneration_HP>
+    <Intervene_HP>15</Intervene_HP>
+    <Healtstone_HP>35</Healtstone_HP>
+  </DefCD>
+</ExecutieSettings>
