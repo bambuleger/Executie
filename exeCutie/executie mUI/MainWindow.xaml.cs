@@ -34,6 +34,8 @@ namespace executie_mUI
 
     class GlobalVariables
     {
+        public static string direct = System.IO.Path.GetFullPath(".");
+
         //Startparameter für PlayerSettings
         public static string[] PLAYER = Environment.GetCommandLineArgs();
         public static string curFile;                                           //= GlobalVariables.PLAYER[1] + ".xml";
@@ -44,15 +46,16 @@ namespace executie_mUI
         {
             if (GlobalVariables.PLAYER.Length >= 2)
             {
-                GlobalVariables.curFile = "CB_Executie_Arms_" + GlobalVariables.PLAYER[1] + ".xml";
+                GlobalVariables.curFile = "Combats\\CB_Executie\\CB_Executie_Arms_" + GlobalVariables.PLAYER[1] + ".xml";
                 GlobalVariables.charname = GlobalVariables.PLAYER[1];
                 MessageBox.Show("Settungs loaded from: " + GlobalVariables.curFile);
+                
             }
             else
             {
-                GlobalVariables.curFile = "CB_Executie_Arms_default.xml";
+                GlobalVariables.curFile = "Combats\\CB_Executie\\CB_Executie_Arms_default.xml";
                 GlobalVariables.noPlayer = "noPlayer";
-                MessageBox.Show("Settings loaded from: " + GlobalVariables.curFile);
+                MessageBox.Show("Settings loaded from: " + GlobalVariables.curFile + "Direct: " + GlobalVariables.direct);
 
             }
         }
@@ -104,13 +107,13 @@ namespace executie_mUI
         public static void WerteSpeichern()
         {
             //checken welcher spieler und standard.xml bei bedarf kopieren
-            if (GlobalVariables.curFile == "CB_Executie_Arms_default.xml" && GlobalVariables.noPlayer == "noPlayer")
+            if (GlobalVariables.curFile == "Combats\\CB_Executie\\CB_Executie_Arms_default.xml" && GlobalVariables.noPlayer == "noPlayer")
             {
                 // für gaming use
                 GlobalVariables.noPlayer = Microsoft.VisualBasic.Interaction.InputBox("Existing file will be overwritten!!!\nInsert a charakter name here:", "failure | not logged in", "charaktername", 0, 0);
-                File.Delete("CB_Executie_Arms_" + noPlayer + ".xml");
-                File.Copy("CB_Executie_Arms_default.xml", "CB_Executie_Arms_" + noPlayer + ".xml");
-                GlobalVariables.savefile = "CB_Executie_Arms_" + noPlayer + ".xml";
+                File.Delete("Combats\\CB_Executie\\CB_Executie_Arms_" + noPlayer + ".xml");
+                File.Copy("Combats\\CB_Executie\\CB_Executie_Arms_default.xml", "CB_Executie_Arms_" + noPlayer + ".xml");
+                GlobalVariables.savefile = "Combats\\CB_Executie\\CB_Executie_Arms_" + noPlayer + ".xml";
                 
                 ////für standard use
                 //GlobalVariables.savefile = GlobalVariables.curFile
