@@ -9,5 +9,33 @@
     <EnragedRegeneration_HP>45</EnragedRegeneration_HP>
     <Intervene_HP>15</Intervene_HP>
     <Healtstone_HP>35</Healtstone_HP>
+    <Shieldwall_Use>true</Shieldwall_Use>
+    <DieByTheSword_Use>true</DieByTheSword_Use>
+    <Demobanner_Use>true</Demobanner_Use>
+    <DefStance_Use>true</DefStance_Use>
+    <RallyingCry_Use>true</RallyingCry_Use>
+    <EnragedRegeneration_Use>true</EnragedRegeneration_Use>
+    <Intervene_Use>true</Intervene_Use>
+    <Healtstone_Use>true</Healtstone_Use>
+    <ShatteringThrow_Use>true</ShatteringThrow_Use>
   </DefCD>
+  <OffCD>
+    <Skullbanner_use>true</Skullbanner_use>
+    <Racial_use>true</Racial_use>
+    <Avatar_use>true</Avatar_use>
+    <Recklessness_use>true</Recklessness_use>
+    <DPSPotion_use>true</DPSPotion_use>
+    <SynapseSprings_use>true</SynapseSprings_use>
+    <RunAwayLittleGirl_use>true</RunAwayLittleGirl_use>
+  </OffCD>
+  <misc>
+    <AoE_use>true</AoE_use>
+    <AoE_count>3</AoE_count>
+    <Shoutmode>battleshout</Shoutmode>
+  </misc>
+  <raid_events>
+    <Immerseus_HC_use>true</Immerseus_HC_use>
+    <Immerseus_HC_count>5</Immerseus_HC_count>
+    <Nazgrim_HC>true</Nazgrim_HC>
+  </raid_events>
 </ExecutieSettings>

@@ -6,7 +6,7 @@
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="445">
     <Grid Style="{StaticResource ContentRoot}">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -16,20 +16,14 @@
                 <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="33"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150"/>
-                        <ColumnDefinition Width="140"/>
                         <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="60"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
@@ -43,16 +37,25 @@
                     </Label>
 
                     <Label Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" ToolTip="Stop attacking at x stacks of debuff">Immerseus HC</Label>
-                    <Label Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                        <CheckBox x:Name="ImmerseusHCUse" Checked="ImmerseusHCUse_Checked" Unchecked="ImmerseusHCUse_UnChecked"/>
+                    </Label>
                     <Label Grid.Row="1" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <!--<xctk:DecimalUpDown Maximum="100" Minimum="0" Value="5"/>-->
+                        <Slider x:Name="ImmerseusHCSlider" IsSelectionRangeEnabled="True" SelectionStart="4" SelectionEnd="6" TickPlacement="TopLeft"  TickFrequency="1" Width="240" Maximum="12" SmallChange="1" ValueChanged="ImmerseusHCSlider_ValueChanged" IsSnapToTickEnabled="True"/>
+                    </Label>
+                    <Label Grid.Row="1" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <TextBox Name="ShieldwallSliderTxt" Text="{Binding ElementName=ImmerseusHCSlider, Path=Value}" IsReadOnly="True" Width="25"></TextBox>
                     </Label>
 
                     <Label Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" ToolTip="Stop attacking in DefStance">Nazgrim HC</Label>
-                    <Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                        <CheckBox x:Name="NazgrimHCUse" Checked="NazgrimHCUse_Checked" Unchecked="NazgrimHCUse_UnChecked"/>
+                    </Label>
                     <Label Grid.Row="2" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
 
                 </Grid>
+                <Button Content="save" Width="75" Click="Button_save"/>
+
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -45,7 +45,7 @@
 
                     <Label Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center">Shieldwall</Label>
                     <Label Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <CheckBox IsChecked="True" IsEnabled="False"/>
+                        <CheckBox x:Name="ShieldwallUse" Checked="ShieldwallUse_Checked" Unchecked="ShieldwallUse_UnChecked" IsEnabled="False"/>
                     </Label>
                     <Label Grid.Row="1" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
                         <Slider x:Name="ShieldwallSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="40" TickPlacement="TopLeft"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" ValueChanged="ShieldwallSlider_ValueChanged"/>
@@ -56,7 +56,7 @@
 
                     <Label Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center">Die By The Sword</Label>
                     <Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <CheckBox IsChecked="True" IsEnabled="False"/>
+                        <CheckBox x:Name="DieByTheSwordUse" IsEnabled="False" Checked="DieByTheSwordUse_Checked" Unchecked="DieByTheSwordUse_UnChecked"/>
                     </Label>
                     <Label Grid.Row="2" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
                         <Slider x:Name="DieByTheSwordSlider" IsSelectionRangeEnabled="True" SelectionStart="30" SelectionEnd="40" TickPlacement="TopLeft"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" ValueChanged="DieByTheSwordSlider_ValueChanged"/>
@@ -67,7 +67,7 @@
 
                     <Label Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center">Demobanner</Label>
                     <Label Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <CheckBox/>
+                        <CheckBox x:Name="DemobannerUse" Checked="DemobannerUse_Checked" Unchecked="DemobannerUse_UnChecked"/>
                     </Label>
                     <Label Grid.Row="3" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
                         <Slider x:Name="DemobannerSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="40" TickPlacement="TopLeft"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" ValueChanged="DemobannerSlider_ValueChanged"/>
@@ -78,7 +78,7 @@
 
                     <Label Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center">Def. Stance</Label>
                     <Label Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <CheckBox/>
+                        <CheckBox x:Name="DefStanceUse" Checked="DefStUse_Checked" Unchecked="DefStUse_UnChecked"/>
                     </Label>
                     <Label Grid.Row="4" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
                         <Slider x:Name="DefStanceSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="30" TickPlacement="TopLeft"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" ValueChanged="DefStanceSlider_ValueChanged"/>
@@ -89,7 +89,7 @@
 
                     <Label Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center">Rallying Cry</Label>
                     <Label Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <CheckBox/>
+                        <CheckBox x:Name="RallyingCryUse" Checked="RallyingCryUse_Checked" Unchecked="RallyingCryUse_UnChecked"/>
                     </Label>
                     <Label Grid.Row="5" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
                         <Slider x:Name="RallyingCrySlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="30" TickPlacement="TopLeft"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" ValueChanged="RallyingCrySlider_ValueChanged"/>
@@ -100,7 +100,7 @@
 
                     <Label Grid.Row="6" Grid.Column="0" VerticalContentAlignment="Center">Enraged Regeneration</Label>
                     <Label Grid.Row="6" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <CheckBox IsChecked="True" IsEnabled="False"/>
+                        <CheckBox x:Name="EnragedRegenerationUse" IsEnabled="False" Checked="EnragedRegenerationUse_Checked" Unchecked="EnragedRegenerationUse_UnChecked"/>
                     </Label>
                     <Label Grid.Row="6" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
                         <Slider x:Name="EnragedRegenerationSlider" IsSelectionRangeEnabled="True" SelectionStart="40" SelectionEnd="50" TickPlacement="TopLeft"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" ValueChanged="EnragedRegenerationSlider_ValueChanged"/>
@@ -111,7 +111,7 @@
 
                     <Label Grid.Row="7" Grid.Column="0" VerticalContentAlignment="Center">Intervene/Safeguard</Label>
                     <Label Grid.Row="7" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <CheckBox/>
+                        <CheckBox x:Name="InterveneUse" Checked="InterveneUse_Checked" Unchecked="InterveneUse_UnChecked"/>
                     </Label>
                     <Label Grid.Row="7" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
                         <Slider x:Name="InterveneSlider" IsSelectionRangeEnabled="True" SelectionStart="10" SelectionEnd="20" TickPlacement="TopLeft"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" ValueChanged="InterveneSlider_ValueChanged"/>
@@ -122,7 +122,7 @@
 
                     <Label Grid.Row="8" Grid.Column="0" VerticalContentAlignment="Center">Healthstone</Label>
                     <Label Grid.Row="8" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <CheckBox/>
+                        <CheckBox x:Name="HealthstoneUse" Checked="HealthstoneUse_Checked" Unchecked="HelathstoneUse_UnChecked"/>
                     </Label>
                     <Label Grid.Row="8" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
                         <Slider x:Name="HealthstoneSlider" IsSelectionRangeEnabled="True" SelectionStart="30" SelectionEnd="40" TickPlacement="TopLeft"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" ValueChanged="HealthstoneSlider_ValueChanged"/>
@@ -133,7 +133,7 @@
 
                     <Label Grid.Row="9" Grid.Column="0" VerticalContentAlignment="Center">Shattering Throw</Label>
                     <Label Grid.Row="9" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <CheckBox/>
+                        <CheckBox x:Name="ShatteringThrowUse" Checked="ShatteringThrowUse_Checked" Unchecked="ShatteringThrowUse_UnChecked"/>
                     </Label>
                     <Label Grid.Row="9" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
                     <Label Grid.Row="9" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>

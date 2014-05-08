@@ -6,7 +6,7 @@
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="362" d:DesignWidth="639">
     <Grid Style="{StaticResource ContentRoot}">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -22,14 +22,12 @@
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150"/>
-                        <ColumnDefinition Width="140"/>
                         <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="60"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
@@ -43,14 +41,21 @@
                     </Label>
 
                     <Label Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center">AoE</Label>
-                    <Label Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
-                    <Label Grid.Row="1" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"><!--<xctk:DecimalUpDown Maximum="100" Minimum="2" Value="3" ToolTip="Targets"/>--></Label>
+                    <Label Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                        <CheckBox x:Name="AoEUse" Checked="AoEUse_Checked" Unchecked="AoEUse_UnChecked"/></Label>
+                    <Label Grid.Row="1" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                        <Slider x:Name="AoESlider" IsSelectionRangeEnabled="True" SelectionStart="2" SelectionEnd="4" TickPlacement="TopLeft"  TickFrequency="1" Width="240" SmallChange="1" ValueChanged="AoESlider_ValueChanged" IsSnapToTickEnabled="True"/>
+                    </Label>
+                    <Label Grid.Row="1" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <TextBox Name="ShieldwallSliderTxt" Text="{Binding ElementName=AoESlider, Path=Value}" IsReadOnly="True" Width="25"></TextBox>
+                    </Label>
+                    
 
                     <Label Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center">Shoutmode</Label>
-                    <Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                    <Label Grid.Row="2" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
                         <StackPanel>
-                            <RadioButton Content="Battle Shout" IsChecked="True"/>
-                            <RadioButton Content="Commanding Shout"/>
+                            <RadioButton x:Name="BattleShoutButton" Content="Battle Shout" IsChecked="True" Checked="RadioButton_Checked"/>
+                            <RadioButton x:Name="CommandingShoutButton" Content="Commanding Shout" Checked="RadioButton_Checked"/>
                         </StackPanel>
                     </Label>
 
@@ -71,6 +76,7 @@
                     <Label Grid.Row="6" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">keybind</Label>
                 
                 </Grid>
+                <Button Content="save" Width="75" Click="Button_save"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

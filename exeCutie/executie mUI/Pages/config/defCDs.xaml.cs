@@ -24,6 +24,8 @@ namespace executie_mUI.Pages.config
         public defCDs()
         {
             InitializeComponent();
+
+            //Slider Value aus variablen setzen
             ShieldwallSlider.Value = Convert.ToDouble(GlobalVariables.SW_HP);
             DieByTheSwordSlider.Value = Convert.ToDouble(GlobalVariables.DBTS_HP);
             DemobannerSlider.Value = Convert.ToDouble(GlobalVariables.DB_HP);
@@ -32,7 +34,18 @@ namespace executie_mUI.Pages.config
             EnragedRegenerationSlider.Value = Convert.ToDouble(GlobalVariables.ER_HP);
             InterveneSlider.Value = Convert.ToDouble(GlobalVariables.IS_HP);
             HealthstoneSlider.Value = Convert.ToDouble(GlobalVariables.HS_HP);
+            //checkbox checked/unchecked aus variablen setzen
+            ShieldwallUse.IsChecked = Convert.ToBoolean(GlobalVariables.SW_HP_use);
+            DieByTheSwordUse.IsChecked = Convert.ToBoolean(GlobalVariables.DBTS_HP_use);
+            DemobannerUse.IsChecked = Convert.ToBoolean(GlobalVariables.DB_HP_use);
+            DefStanceUse.IsChecked = Convert.ToBoolean(GlobalVariables.DefSt_HP_use);
+            RallyingCryUse.IsChecked = Convert.ToBoolean(GlobalVariables.RC_HP_use);
+            EnragedRegenerationUse.IsChecked = Convert.ToBoolean(GlobalVariables.ER_HP_use);
+            InterveneUse.IsChecked = Convert.ToBoolean(GlobalVariables.IS_HP_use);
+            HealthstoneUse.IsChecked = Convert.ToBoolean(GlobalVariables.HS_HP_use);
+            ShatteringThrowUse.IsChecked = Convert.ToBoolean(GlobalVariables.ST_HP_use);
         }
+        
         //Button Save -> Werte Speichern
         public void Button_save(object sender, RoutedEventArgs e)
         {
@@ -42,8 +55,10 @@ namespace executie_mUI.Pages.config
         private void UserControl_Initialized(object sender, EventArgs e)
         {
         }
-        
+
         //Value Has Changed Funktionen
+        #region HPWERTE    
+            //HP Werte
         private void ShieldwallSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             GlobalVariables.SW_HP = Convert.ToString(ShieldwallSlider.Value);
@@ -76,5 +91,92 @@ namespace executie_mUI.Pages.config
         {
             GlobalVariables.HS_HP = Convert.ToString(HealthstoneSlider.Value);
         }
+        #endregion
+
+        #region use werte
+            //use Werte
+        //SW_HP_use
+        private void ShieldwallUse_Checked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.SW_HP_use = "true";
+        }
+        private void ShieldwallUse_UnChecked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.SW_HP_use = "false";
+        }
+            //DBTS_HP_use
+        private void DieByTheSwordUse_Checked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.DBTS_HP_use = "true";
+        }
+        private void DieByTheSwordUse_UnChecked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.DBTS_HP_use = "false";
+        }
+            //DB_HP_use
+        private void DemobannerUse_Checked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.DB_HP_use = "true";
+        }
+        private void DemobannerUse_UnChecked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.DB_HP_use = "false";
+        }
+            //DefSt_HP_use
+        private void DefStUse_Checked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.DefSt_HP_use = "true";
+        }
+        private void DefStUse_UnChecked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.DefSt_HP_use = "false";
+        }
+            //RC_HP_use
+        private void RallyingCryUse_Checked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.RC_HP_use = "true";
+        }
+        private void RallyingCryUse_UnChecked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.RC_HP_use = "false";
+        }
+            //ER_HP_use
+        private void EnragedRegenerationUse_Checked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.ER_HP_use = "true";
+        }
+        private void EnragedRegenerationUse_UnChecked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.ER_HP_use = "false";
+        }
+            //IS_HP_use
+        private void InterveneUse_Checked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.IS_HP_use = "true";
+        }
+        private void InterveneUse_UnChecked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.IS_HP_use = "false";
+        }
+            //HS_HP_use
+        private void HealthstoneUse_Checked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.HS_HP_use = "true";
+        }
+        private void HelathstoneUse_UnChecked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.HS_HP_use = "false";
+        }
+            //ST_HP_use
+        private void ShatteringThrowUse_Checked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.ST_HP_use = "true";
+        }
+        private void ShatteringThrowUse_UnChecked(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.ST_HP_use = "false";
+        }
+        #endregion
+
     }
 }

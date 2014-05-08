@@ -6,7 +6,7 @@
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="361.775" d:DesignWidth="476">
     <Grid Style="{StaticResource ContentRoot}">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -23,8 +23,7 @@
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
+
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
@@ -43,33 +42,48 @@
                     </Label>
 
                     <Label Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center">Skullbanner</Label>
-                    <Label Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                        <CheckBox x:Name="SkullbannerUse" Checked="SkullbannerUse_Checked" Unchecked="SkullbannerUse_UnChecked"/>
+                    </Label>
                     <Label Grid.Row="1" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
 
                     <Label Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" ToolTip="Troll Racial Haste Buff">Racial</Label>
-                    <Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                        <CheckBox x:Name="RacialUse" Checked="RacialUse_Checked" Unchecked="RacialUse_UnChecked"/>
+                    </Label>
                     <Label Grid.Row="2" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
 
                     <Label Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center">Avatar</Label>
-                    <Label Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                        <CheckBox x:Name="AvatarUse" Checked="AvatarUse_Checked" Unchecked="AvatarUse_UnChecked"/>
+                    </Label>
                     <Label Grid.Row="3" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
 
                     <Label Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center">Recklessness</Label>
-                    <Label Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                        <CheckBox x:Name="RecklessnessUse" Checked="RecklessnessUse_Checked" Unchecked="RecklessnessUse_UnChecked"/>
+                    </Label>
                     <Label Grid.Row="4" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
 
                     <Label Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center">DPS Potion</Label>
-                    <Label Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                        <CheckBox x:Name="DPSPotionUse" Checked="DPSPotionUse_Checked" Unchecked="DPSPotionUse_UnChecked"/>
+                    </Label>
                     <Label Grid.Row="5" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
 
                     <Label Grid.Row="6" Grid.Column="0" VerticalContentAlignment="Center">Synapse Springs</Label>
-                    <Label Grid.Row="6" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox/></Label>
+                    <Label Grid.Row="6" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                        <CheckBox x:Name="SynapseSpringsUse" Checked="SynapseSpringsUse_Checked" Unchecked="SynapseSpringsUse_UnChecked"/>
+                    </Label>
                     <Label Grid.Row="6" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
 
                     <Label Grid.Row="7" Grid.Column="0" VerticalContentAlignment="Center" ToolTip="Use all DPS Cooldowns that are off CD">Run Away Little Girl!</Label>
-                    <Label Grid.Row="7" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"><CheckBox  IsEnabled="False"/></Label>
+                    <Label Grid.Row="7" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                        <CheckBox x:Name="RunAwayLittleGirlUse" IsEnabled="False" Checked="RunAwayLittleGirlUse_Checked" Unchecked="RunAwayLittleGirlUse_UnChecked"/>
+                    </Label>
                     <Label Grid.Row="7" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
                 </Grid>
+                <Button Content="save" Width="75" Click="Button_save"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>
