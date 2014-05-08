@@ -57,9 +57,9 @@ namespace Anthrax
         public static extern short GetAsyncKeyState(int vKey);
 
         #region importSettings
-        int SW_HP, DbtS_HP, DBa_HP, DBa_key, DSt_HP, DSt_key, RC_HP, RC_key, ER_HP, IVSG_HP, HStone_HP, SBa_key, Ralg_key, AOE_tars, AOE_key, T4Talent_key, HL_key, Pause_key, RE_Immers_stacks;
-        bool SW_use, DbtS_use, DBa_use, DSt_use, RC_use, ER_use, IVSG_use, Hstone_use, ST_use, SBa_use, Race_use, AV_use, RE_use, Pot_use, Eng_use, Ralg_use, AOE_use, Intrpt_use, RE_Immers_use, RE_Nazg_use;
-        string SMode;
+        public int SW_HP, DbtS_HP, DBa_HP, DBa_key, DSt_HP, DSt_key, RC_HP, RC_key, ER_HP, IVSG_HP, HStone_HP, SBa_key, Ralg_key, AOE_tars, AOE_key, T4Talent_key, HL_key, Pause_key, RE_Immers_stacks;
+        public bool SW_use, DbtS_use, DBa_use, DSt_use, RC_use, ER_use, IVSG_use, Hstone_use, ST_use, SBa_use, Race_use, AV_use, RE_use, Pot_use, Eng_use, Ralg_use, AOE_use, Intrpt_use, RE_Immers_use, RE_Nazg_use;
+        public string SMode;
         string CharacterLoggedIn = ObjectManager.LocalPlayer.Name;
         public void GetSettingsFromXML()
         {
@@ -72,7 +72,80 @@ namespace Anthrax
             else
             {
                 doc.Load("Combats\\CB_Executie\\CB_Executie_Arms_default.xml");
-            }            
+            }
+
+            //// DefCD HP
+            //XmlNodeList ShieldwallHP = cutieconfigxml.GetElementsByTagName("Shieldwall_HP");
+            //XmlNodeList DieByTheSwordHP = cutieconfigxml.GetElementsByTagName("DieByTheSword_HP");
+            //XmlNodeList DemobannerHP = cutieconfigxml.GetElementsByTagName("Demobanner_HP");
+            //XmlNodeList DefStanceHP = cutieconfigxml.GetElementsByTagName("DefStance_HP");
+            //XmlNodeList RallyingCryHP = cutieconfigxml.GetElementsByTagName("RallyingCry_HP");
+            //XmlNodeList EnragedRegenerationHP = cutieconfigxml.GetElementsByTagName("EnragedRegeneration_HP");
+            //XmlNodeList InterveneHP = cutieconfigxml.GetElementsByTagName("Intervene_HP");
+            //XmlNodeList HealthstoneHP = cutieconfigxml.GetElementsByTagName("Healtstone_HP");
+            ////DefCD use
+            //XmlNodeList ShieldwallUse = cutieconfigxml.GetElementsByTagName("Shieldwall_Use");
+            //XmlNodeList DieByTheSwordUse = cutieconfigxml.GetElementsByTagName("DieByTheSword_Use");
+            //XmlNodeList DemobannerUse = cutieconfigxml.GetElementsByTagName("Demobanner_Use");
+            //XmlNodeList DefStanceUse = cutieconfigxml.GetElementsByTagName("DefStance_Use");
+            //XmlNodeList RallyingCryUse = cutieconfigxml.GetElementsByTagName("RallyingCry_Use");
+            //XmlNodeList EnragedRegenerationUse = cutieconfigxml.GetElementsByTagName("EnragedRegeneration_Use");
+            //XmlNodeList InterveneUse = cutieconfigxml.GetElementsByTagName("Intervene_Use");
+            //XmlNodeList HealthstoneUse = cutieconfigxml.GetElementsByTagName("Healtstone_Use");
+            //XmlNodeList ShatteringThrowUse = cutieconfigxml.GetElementsByTagName("ShatteringThrow_Use");
+            ////OffCD use
+            //XmlNodeList SkullbannerUse = cutieconfigxml.GetElementsByTagName("Skullbanner_use");
+            //XmlNodeList RacialUse = cutieconfigxml.GetElementsByTagName("Racial_use");
+            //XmlNodeList AvatarUse = cutieconfigxml.GetElementsByTagName("Avatar_use");
+            //XmlNodeList RecklessnessUse = cutieconfigxml.GetElementsByTagName("Recklessness_use");
+            //XmlNodeList DPSPotionUse = cutieconfigxml.GetElementsByTagName("DPSPotion_use");
+            //XmlNodeList SynapseSpringsUse = cutieconfigxml.GetElementsByTagName("SynapseSprings_use");
+            //XmlNodeList RunAwayLittleGirlUse = cutieconfigxml.GetElementsByTagName("RunAwayLittleGirl_use");
+            ////misc
+            //XmlNodeList AoEUse = cutieconfigxml.GetElementsByTagName("AoE_use");
+            //XmlNodeList AoECount = cutieconfigxml.GetElementsByTagName("AoE_count");
+            //XmlNodeList Shoutmode = cutieconfigxml.GetElementsByTagName("Shoutmode");
+            ////
+            //XmlNodeList ImmerseusHCUse = cutieconfigxml.GetElementsByTagName("Immerseus_HC_use");
+            //XmlNodeList ImmerseusHCCount = cutieconfigxml.GetElementsByTagName("Immerseus_HC_count");
+            //XmlNodeList NazgrimHCUse = cutieconfigxml.GetElementsByTagName("Nazgrim_HC");
+
+            ////Variablen belegen
+            ////DefCD HP Werte
+            //SW_HP = ShieldwallHP[0].InnerText;
+            //DbtS_HP = DieByTheSwordHP[0].InnerText;
+            //DBa_HP = DemobannerHP[0].InnerText;
+            //DSt_HP = DefStanceHP[0].InnerText;
+            //RC_HP = RallyingCryHP[0].InnerText;
+            //ER_HP = EnragedRegenerationHP[0].InnerText;
+            //IVSG_HP = InterveneHP[0].InnerText;
+            //HStone_HP = HealthstoneHP[0].InnerText;
+            ////DefCD use werte
+            //SW_HP_use = ShieldwallUse[0].InnerText;
+            //DBTS_HP_use = DieByTheSwordUse[0].InnerText;
+            //DB_HP_use = DemobannerUse[0].InnerText;
+            //DefSt_HP_use = DefStanceUse[0].InnerText;
+            //RC_use = RallyingCryUse[0].InnerText;
+            //ER_use = EnragedRegenerationUse[0].InnerText;
+            //IS_use = InterveneUse[0].InnerText;
+            //HS_use = HealthstoneUse[0].InnerText;
+            //ST_use = ShatteringThrowUse[0].InnerText;
+            ////OffCD use werte
+            //SBa_use = SkullbannerUse[0].InnerText;
+            //Race_use = RacialUse[0].InnerText;
+            //AV_use = AvatarUse[0].InnerText;
+            //RE_use = RecklessnessUse[0].InnerText;
+            //Pot_use = DPSPotionUse[0].InnerText;
+            //Eng_use = SynapseSpringsUse[0].InnerText;
+            //Ralg_use = RunAwayLittleGirlUse[0].InnerText;
+            ////misc
+            //AOE_use = AoEUse[0].InnerText;
+            //AOE_tars = AoECount[0].InnerText;
+            //SMode = Shoutmode[0].InnerText;
+            ////raid_events
+            //RE_Immers_use = ImmerseusHCUse[0].InnerText;
+            //RE_Immers_stacks = ImmerseusHCCount[0].InnerText;
+            //RE_Nazg_use = NazgrimHCUse[0].InnerText;
 
             //Werte Lesen XML
             //DefCDs
@@ -112,6 +185,9 @@ namespace Anthrax
             RE_Immers_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/raid_events/Immerseus_HC_use").InnerText);
             RE_Immers_stacks = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/raid_events/Immerseus_HC_count").InnerText);
             RE_Nazg_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/raid_events/Nazgrim_HC").InnerText);
+
+            Anthrax.Logger.WriteLine("Test: "+AOE_use);
+
         }               
         #endregion
 
@@ -415,7 +491,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.RE))
                 {
                     Anthrax.Logger.WriteLine("Casting Recklessness");
-                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.RE);
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.RE, ME);
                 }
             }
 
@@ -427,7 +503,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.AV))
                     {
                         Anthrax.Logger.WriteLine("Casting Avatar");
-                        Anthrax.AI.Controllers.Spell.Cast((int)Spells.AV);
+                        Anthrax.AI.Controllers.Spell.Cast((int)Spells.AV, ME);
                     }
                 }
             }
@@ -440,7 +516,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.SBa))
                     {
                         Anthrax.Logger.WriteLine("Casting Skull Banner");
-                        Anthrax.AI.Controllers.Spell.Cast((int)Spells.SBa);
+                        Anthrax.AI.Controllers.Spell.Cast((int)Spells.SBa, ME);
                     }
                 }
             }
@@ -467,12 +543,12 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.BF))
                     {
                         Anthrax.Logger.WriteLine("Casting Blood Fury (Orc)");
-                        Anthrax.AI.Controllers.Spell.Cast((int)Spells.BF);
+                        Anthrax.AI.Controllers.Spell.Cast((int)Spells.BF, ME);
                     }
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.BE))
                     {
                         Anthrax.Logger.WriteLine("Casting Berserk (Troll)");
-                        Anthrax.AI.Controllers.Spell.Cast((int)Spells.BE);
+                        Anthrax.AI.Controllers.Spell.Cast((int)Spells.BE, ME);
                     }
                 }
             }
@@ -483,7 +559,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.BB))
                 {
                     Anthrax.Logger.WriteLine("Casting Blood Bath");
-                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.BB);
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.BB, ME);
                 }
             }
             
@@ -493,7 +569,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.BR))
                 {
                     Anthrax.Logger.WriteLine("Casting Berserker Rage");
-                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.BR);
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.BR, ME);
                 }
             }
 
@@ -859,9 +935,10 @@ namespace Anthrax
                 Anthrax.Logger.WriteLine("Loaded Default Settings");
                 Anthrax.Logger.WriteLine("Charname: " + CharacterLoggedIn);
             }
+            Anthrax.Logger.WriteLine("Test: " + AOE_use);
             
             GetSettingsFromXML();
-            Anthrax.Logger.WriteLine("RallyingCry at: " + RC_HP);
+            //Anthrax.Logger.WriteLine("RallyingCry at: " + RC_HP);
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = "Combats\\CB_Executie\\executie_mUI.exe";
             startInfo.Arguments = CharacterLoggedIn;
