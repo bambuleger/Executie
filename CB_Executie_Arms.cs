@@ -57,8 +57,9 @@ namespace Anthrax
         public static extern short GetAsyncKeyState(int vKey);
 
         #region importSettings
-        int SW_HP, DbtS_HP, DBa_HP, DBa_key, DSt_HP, DSt_key, RC_HP, RC_key, ER_HP, IVSG_HP, HStone_HP, SBa_key, Ralg_key, AOE_tars, AOE_key, T4Talent_key, HL_key, Pause_key;
-        bool DBa_use, DSt_use, RC_use, IVSG_use, Hstone_use, ST_use, SBa_use, Race_use, AV_use, RE_use, Pot_use, Eng_use, Ralg_use, AOE_use, SMode, Intrpt_use, RE_Immers_use, RE_Nazg_use;
+        int SW_HP, DbtS_HP, DBa_HP, DBa_key, DSt_HP, DSt_key, RC_HP, RC_key, ER_HP, IVSG_HP, HStone_HP, SBa_key, Ralg_key, AOE_tars, AOE_key, T4Talent_key, HL_key, Pause_key, RE_Immers_stacks;
+        bool SW_use, DbtS_use, DBa_use, DSt_use, RC_use, ER_use, IVSG_use, Hstone_use, ST_use, SBa_use, Race_use, AV_use, RE_use, Pot_use, Eng_use, Ralg_use, AOE_use, Intrpt_use, RE_Immers_use, RE_Nazg_use;
+        string SMode;
         string CharacterLoggedIn = ObjectManager.LocalPlayer.Name;
         public void GetSettingsFromXML()
         {
@@ -74,34 +75,43 @@ namespace Anthrax
             }            
 
             //Werte Lesen XML
-            //XmlNodeList ShieldwallHP = cutieconfigxml.GetElementsByTagName("Shieldwall_HP");
-            //XmlNodeList DieByTheSwordHP = cutieconfigxml.GetElementsByTagName("DieByTheSword_HP");
-            //XmlNodeList DemobannerHP = cutieconfigxml.GetElementsByTagName("Demobanner_HP");
-            //XmlNodeList DefStanceHP = cutieconfigxml.GetElementsByTagName("DefStance_HP");
+            //DefCDs
+            SW_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/Shieldwall_HP").InnerText);
+            DbtS_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/DieByTheSword_HP").InnerText);
+            DBa_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/Demobanner_HP").InnerText);
+            DSt_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/DefStance_HP").InnerText);
             RC_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/RallyingCry_HP").InnerText);
-            //XmlNodeList EnragedRegenerationHP = cutieconfigxml.GetElementsByTagName("EnragedRegeneration_HP");
-            //XmlNodeList InterveneHP = cutieconfigxml.GetElementsByTagName("Intervene_HP");
-            //XmlNodeList HealthstoneHP = cutieconfigxml.GetElementsByTagName("Healtstone_HP");
+            ER_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/EnragedRegeneration_HP").InnerText);
+            IVSG_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/Intervene_HP").InnerText);
+            HStone_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/Healthstone_HP").InnerText);
+            SW_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/DefCD/Shieldwall_Use").InnerText);
+            DbtS_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/DefCD/DieByTheSword_Use").InnerText);
+            DBa_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/DefCD/Demobanner_Use").InnerText);
+            DSt_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/DefCD/DefStance_Use").InnerText);
+            RC_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/DefCD/RallyingCry_Use").InnerText);
+            ER_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/DefCD/EnragedRegeneration_Use").InnerText);
+            IVSG_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/DefCD/Intervene_Use").InnerText);
+            Hstone_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/DefCD/Healthstone_Use").InnerText);
+            ST_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/DefCD/ShatteringThrow_Use").InnerText); //zu offensive
 
-            //Variablen belegen
-            //RC_HP = (int)RallyingCryHP[0].InnerText;
-                        
-            //RC_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/RallyingCry_HP").InnerText);
-            //SW_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/Shieldwall_HP").InnerText);
-            //DbtS_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/DieByTheSword_HP").InnerText);
-            //DBa_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/Demobanner_HP").InnerText);
-            //ER_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/EnragedRegeneration_HP").InnerText);
-            ////DSt_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/DefCD/DStuse").InnerText);
-            //DSt_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/DefStance_HP").InnerText);
-            
+            //OffCds
+            SBa_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/OffCD/Skullbanner_use").InnerText);
+            Race_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/OffCD/Racial_use").InnerText);
+            AV_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/OffCD/Avatar_use").InnerText);
+            RE_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/OffCD/Recklessness_use").InnerText);
+            Pot_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/OffCD/DPSPotion_use").InnerText);
+            Eng_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/OffCD/SynapseSprings_use").InnerText);
+            Ralg_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/OffCD/RunAwayLittleGirl_use").InnerText);
 
-            Anthrax.Logger.WriteLine("RallyingCry at: " + RC_HP);
-            //Anthrax.Logger.WriteLine("ShieldWall at: " + SW_HP);
-            //Anthrax.Logger.WriteLine("Die by the Sword at: " + DbtS_HP);
-            //Anthrax.Logger.WriteLine("Demo Banner at: " + DBa_HP);
-            //Anthrax.Logger.WriteLine("Enraged Regeneration at: " + ER_HP);
-            ////Anthrax.Logger.WriteLine("Use DefStance : " + DSt_use);
-            //Anthrax.Logger.WriteLine("DefStance at: " + DSt_HP);
+            //Misc
+            AOE_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/misc/AoE_use").InnerText);
+            AOE_tars = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/misc/AoE_count").InnerText);
+            SMode = Convert.ToString(doc.SelectSingleNode("ExecutieSettings/misc/Shoutmode").InnerText);
+
+            //Raidevents
+            RE_Immers_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/raid_events/Immerseus_HC_use").InnerText);
+            RE_Immers_stacks = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/raid_events/Immerseus_HC_count").InnerText);
+            RE_Nazg_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/raid_events/Nazgrim_HC").InnerText);
         }               
         #endregion
 
@@ -165,7 +175,8 @@ namespace Anthrax
             DS = 144442,            //Death Sentence
             DWdb = 115767,          //Deep Wounds Debuff
             EnR = 12880,            //Enrage
-            REb = 1719,             //Recklessness
+            REb = 1719,             //Recklessness Aura
+            SBaA = 114206,          //SkullBanner Aura
             SE = 139958,            //Sudden Execute
             SoOCrit = 146285,       //Crit Proc of Skeers Trinket, Stacking to 20
             SSA = 12328,            //Sweeping Strikes Aura
@@ -278,6 +289,12 @@ namespace Anthrax
             //Charge if in range
             if (unit.Position.Distance3DFromPlayer >= 7 && unit.Position.Distance3DFromPlayer <= 28)                                         
             {
+                // No need to move anymore
+                AI.Controllers.Mover.StopMoving();
+
+                // We always want to face the target
+                WoW.Internals.Movements.Face(unit.Position);
+
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.CH))
                 {
                     Anthrax.Logger.WriteLine("Pull - Charge");                
@@ -299,8 +316,9 @@ namespace Anthrax
         private void Defensives(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
         {
             //Battle / Defensive Stance
-           
-                if (ObjectManager.LocalPlayer.HealthPercent <= 30)
+            if (DSt_use)
+            {
+                if (ObjectManager.LocalPlayer.HealthPercent <= DSt_HP)
                 {
                     if (Anthrax.WoW.Internals.ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.DefensiveStance && Anthrax.AI.Controllers.Spell.CanUseShapeshiftForm((int)Spells.DSt))
                     {
@@ -318,47 +336,168 @@ namespace Anthrax
                         return;
                     }
                 }
-            
+            }
 
             //Rallying Cry
-            if (ObjectManager.LocalPlayer.HealthPercent < RC_HP &&
-                    AI.Controllers.Spell.CanCast((int)Spells.RC))
+            if (RC_use)
             {
-                AI.Controllers.Spell.Cast((int)Spells.RC, ObjectManager.LocalPlayer);
-                return;
+                if (ObjectManager.LocalPlayer.HealthPercent < RC_HP &&
+                        AI.Controllers.Spell.CanCast((int)Spells.RC))
+                {
+                    AI.Controllers.Spell.Cast((int)Spells.RC, ObjectManager.LocalPlayer);
+                    return;
+                }
             }
 
             //Shield Wall
-            if (ObjectManager.LocalPlayer.HealthPercent < SW_HP &&
-                    AI.Controllers.Spell.CanCast((int)Spells.SW))
+            if (SW_use)
             {
-                AI.Controllers.Spell.Cast((int)Spells.SW, ObjectManager.LocalPlayer);
-                return;
+                if (ObjectManager.LocalPlayer.HealthPercent < SW_HP &&
+                        AI.Controllers.Spell.CanCast((int)Spells.SW))
+                {
+                    AI.Controllers.Spell.Cast((int)Spells.SW, ObjectManager.LocalPlayer);
+                    return;
+                }
             }
 
             //Die by the Sword
-            if (ObjectManager.LocalPlayer.HealthPercent < DbtS_HP &&
-                    AI.Controllers.Spell.CanCast((int)Spells.DbtS))
+            if (DbtS_use)
             {
-                AI.Controllers.Spell.Cast((int)Spells.DbtS, ObjectManager.LocalPlayer);
-                return;
+                if (ObjectManager.LocalPlayer.HealthPercent < DbtS_HP &&
+                        AI.Controllers.Spell.CanCast((int)Spells.DbtS))
+                {
+                    AI.Controllers.Spell.Cast((int)Spells.DbtS, ObjectManager.LocalPlayer);
+                    return;
+                }
             }
 
             //Demo Banner
-            if (ObjectManager.LocalPlayer.HealthPercent < DBa_HP &&
-                    AI.Controllers.Spell.CanCast((int)Spells.DBa))
+            if (DBa_use)
             {
-                AI.Controllers.Spell.Cast((int)Spells.DBa, ObjectManager.LocalPlayer);
-                return;
+                if (ObjectManager.LocalPlayer.HealthPercent < DBa_HP &&
+                        AI.Controllers.Spell.CanCast((int)Spells.DBa))
+                {
+                    AI.Controllers.Spell.Cast((int)Spells.DBa, ObjectManager.LocalPlayer);
+                    return;
+                }
             }
 
             //Enraged Regeneration
-            if (ObjectManager.LocalPlayer.HealthPercent < ER_HP &&
-                    AI.Controllers.Spell.CanCast((int)Spells.ER))
+            if (ER_use)
             {
-                AI.Controllers.Spell.Cast((int)Spells.ER, ObjectManager.LocalPlayer);
-                return;
+                if (ObjectManager.LocalPlayer.HealthPercent < ER_HP &&
+                        AI.Controllers.Spell.CanCast((int)Spells.ER))
+                {
+                    AI.Controllers.Spell.Cast((int)Spells.ER, ObjectManager.LocalPlayer);
+                    return;
+                }
             }
+
+        }
+        #endregion
+
+        #region Offensives
+        private void Offensives(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
+        {
+            //actions+=/mogu_power_potion,if=(target.health.pct<20&buff.recklessness.up)|buff.bloodlust.react|target.time_to_die<=25
+            if (Pot_use)
+            {
+                if ((unit.HealthPercent < 20 && ME.HasAuraById((int)Auras.REb)) || hasLust())
+                {
+                    Anthrax.Logger.WriteLine("Using Mogu Potion");
+                    Anthrax.AI.Controllers.Inventory.UseItemById((int)Items.MoguPot);
+                }
+            }
+
+            //RECK AUF CD -> OPTIMIEREN
+            if (RE_use)
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.RE))
+                {
+                    Anthrax.Logger.WriteLine("Casting Recklessness");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.RE);
+                }
+            }
+
+            //actions+=/avatar,if=enabled&(buff.recklessness.up|target.time_to_die<=25)
+            if (AV_use)
+            {
+                if(ME.HasAuraById((int)Auras.REb))
+                {
+                    if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.AV))
+                    {
+                        Anthrax.Logger.WriteLine("Casting Avatar");
+                        Anthrax.AI.Controllers.Spell.Cast((int)Spells.AV);
+                    }
+                }
+            }
+
+            //actions+=/skull_banner,if=buff.skull_banner.down&(((cooldown.colossus_smash.remains<2|debuff.colossus_smash.remains>=5)&target.time_to_die>192&buff.cooldown_reduction.up)|buff.recklessness.up)
+            if (SBa_use)
+            {
+                if (!ME.HasAuraById((int)Auras.SBaA) && (unit.Auras.Where(x => x.SpellId == (int)Auras.CSdb).First().TimeLeft >= 5000 || ME.HasAuraById((int)Auras.REb)))
+                {
+                    if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.SBa))
+                    {
+                        Anthrax.Logger.WriteLine("Casting Skull Banner");
+                        Anthrax.AI.Controllers.Spell.Cast((int)Spells.SBa);
+                    }
+                }
+            }
+
+            ////actions+=/use_item,slot=hands,if=!talent.bloodbath.enabled&debuff.colossus_smash.up|buff.bloodbath.up
+            //if (Eng_use)
+            //{
+            //    if (unit.HasAuraById((int)Auras.CSdb) || ME.HasAuraById((int)Auras.BBA))
+            //    {
+            //        if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.SBa))
+            //        {
+            //            Anthrax.Logger.WriteLine("Casting Skull Banner");
+            //            Anthrax.AI.Controllers.Spell.Cast((int)Spells.SBa);
+            //        }
+            //    }
+            //}
+
+            //actions+=/blood_fury,if=buff.cooldown_reduction.down&(buff.bloodbath.up|(!talent.bloodbath.enabled&debuff.colossus_smash.up))|buff.cooldown_reduction.up&buff.recklessness.up
+            //actions+=/berserking,if=buff.cooldown_reduction.down&(buff.bloodbath.up|(!talent.bloodbath.enabled&debuff.colossus_smash.up))|buff.cooldown_reduction.up&buff.recklessness.up
+            if (Race_use)
+            {
+                if (ME.HasAuraById((int)Auras.BBA) || (unit.HasAuraById((int)Auras.CSdb) || ME.HasAuraById((int)Auras.REb)))
+                {
+                    if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.BF))
+                    {
+                        Anthrax.Logger.WriteLine("Casting Blood Fury (Orc)");
+                        Anthrax.AI.Controllers.Spell.Cast((int)Spells.BF);
+                    }
+                    if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.BE))
+                    {
+                        Anthrax.Logger.WriteLine("Casting Berserk (Troll)");
+                        Anthrax.AI.Controllers.Spell.Cast((int)Spells.BE);
+                    }
+                }
+            }
+
+            //actions+=/bloodbath,if=enabled&(debuff.colossus_smash.remains>0.1|cooldown.colossus_smash.remains<5|target.time_to_die<=20)
+            if (unit.Auras.Where(x => x.SpellId == (int)Auras.CSdb).First().TimeLeft > 100)
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.BB))
+                {
+                    Anthrax.Logger.WriteLine("Casting Blood Bath");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.BB);
+                }
+            }
+            
+            //actions+=/berserker_rage,if=buff.enrage.remains<0.5
+            if (ME.Auras.Where(x => x.SpellId == (int)Auras.EnR).First().TimeLeft < 500)
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.BR))
+                {
+                    Anthrax.Logger.WriteLine("Casting Berserker Rage");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.BR);
+                }
+            }
+
+            //actions+=/heroic_leap
 
         }
         #endregion
@@ -371,13 +510,10 @@ namespace Anthrax
             float myHealth = ME.HealthPercent;
             #endregion
             Defensives(unit);
+            Offensives(unit);
 
-           //actions+=/mogu_power_potion,if=(target.health.pct<20&buff.recklessness.up)|buff.bloodlust.react|target.time_to_die<=25
-            if ((unit.HealthPercent < 20 && ME.HasAuraById((int)Auras.REb)) || hasLust())
-            {
-                Anthrax.Logger.WriteLine("Using Mogu Potion");
-                Anthrax.AI.Controllers.Inventory.UseItemById((int)Items.MoguPot);
-            }            
+            // We always want to face the target
+            WoW.Internals.Movements.Face(unit.Position);
 
             //actions.single_target=heroic_strike,if=rage>115|(debuff.colossus_smash.up&rage>60&set_bonus.tier16_2pc_melee)
             if (ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 115 || (unit.HasAuraById((int)Auras.CSdb) && ME.HasAuraById((int)Auras.T162P)))
@@ -504,11 +640,24 @@ namespace Anthrax
             }
 
             //actions.single_target+=/battle_shout
-            if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.BSh))
+            if (SMode == "battleshout")
             {
-                Anthrax.Logger.WriteLine("Casting - Battle Shout");
-                Anthrax.AI.Controllers.Spell.Cast((int)Spells.BSh, unit);
-                return;
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.BSh))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Battle Shout");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.BSh, unit);
+                    return;
+                }
+            }
+
+            if (SMode == "commandingshout")
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.CSh))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Commanding Shout");
+                    Anthrax.AI.Controllers.Spell.Cast((int)Spells.CSh, unit);
+                    return;
+                }
             }
 
             //Nothing else to fire, using autottack
@@ -525,13 +674,10 @@ namespace Anthrax
             float myHealth = ME.HealthPercent;
             #endregion
             Defensives(unit);
+            Offensives(unit);
 
-            //actions+=/mogu_power_potion,if=(target.health.pct<20&buff.recklessness.up)|buff.bloodlust.react
-            if ((unit.HealthPercent < 20 && ME.HasAuraById((int)Auras.REb)) || hasLust())
-            {
-                Anthrax.Logger.WriteLine("Using Mogu Potion");
-                Anthrax.AI.Controllers.Inventory.UseItemById((int)Items.MoguPot);
-            }
+            // We always want to face the target
+            WoW.Internals.Movements.Face(unit.Position);
 
             //actions.aoe=sweeping_strikes
             if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.SS))
@@ -677,7 +823,7 @@ namespace Anthrax
         #region Overrides
         public override void OnCombat(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
         {
-            if (Anthrax.WoW.Classes.ObjectManager.WowLocalPlayer.UnitsAttackingMeOrPet.Count() > 2)
+            if (ME.UnitsAttackingMe.Count >= AOE_tars)
             {
                 MultiTargetRotation(unit);
             }
@@ -715,7 +861,7 @@ namespace Anthrax
             }
             
             GetSettingsFromXML();
-
+            Anthrax.Logger.WriteLine("RallyingCry at: " + RC_HP);
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = "Combats\\CB_Executie\\executie_mUI.exe";
             startInfo.Arguments = CharacterLoggedIn;
