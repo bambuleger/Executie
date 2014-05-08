@@ -63,20 +63,30 @@ namespace executie_mUI.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap codingbad {
+        internal static System.Drawing.Bitmap about_codingbad {
             get {
-                object obj = ResourceManager.GetObject("codingbad", resourceCulture);
+                object obj = ResourceManager.GetObject("about_codingbad", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Icon codingbad1 {
+        internal static System.Drawing.Bitmap banner_codingbad {
             get {
-                object obj = ResourceManager.GetObject("codingbad1", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                object obj = ResourceManager.GetObject("banner_codingbad", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap skype {
+            get {
+                object obj = ResourceManager.GetObject("skype", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

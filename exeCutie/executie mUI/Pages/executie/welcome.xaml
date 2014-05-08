@@ -14,15 +14,18 @@
                 <Border BorderBrush="#515151" 
                         BorderThickness="1" 
                         Width="700" Height="300">
-                    <Image Width="700" Height="300" Source="/media/codingbad.jpg" Opacity="0.75"/>
+                    <Image Width="700" Height="300" Source="\media\banner_codingbad.jpg" Opacity="0.75"/>
                 </Border>
                 <Border Margin="0,5,0,0" BorderBrush="#515151"
                         BorderThickness="1"
                         Width="700" Height="170">
                     <!--<TextBox AcceptsReturn="True" IsReadOnly="True"/>-->
                     <TextBlock TextWrapping="Wrap" FontSize="11" Margin="4,3,4,3">
-                        [2014-05-06]<LineBreak/>
-                        - GUI programming<LineBreak/>
+                    [2014-05-08]<LineBreak/>
+                    - Load charname settings on startup with startparameter from rotation<LineBreak/>
+                    -- use it: "executie_mUI.exe charname"<LineBreak/>
+                    - Save button<LineBreak/>
+                    - App content<LineBreak/>
                     </TextBlock>
                 </Border>
                 

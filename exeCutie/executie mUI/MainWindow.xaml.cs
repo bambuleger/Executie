@@ -51,14 +51,14 @@ namespace executie_mUI
             {
                 GlobalVariables.curFile = GlobalVariables.path + "CB_Executie_Arms_" + GlobalVariables.PLAYER[1] + ".xml";
                 GlobalVariables.charname = GlobalVariables.PLAYER[1];
-                MessageBox.Show("Settungs loaded from: " + GlobalVariables.curFile);
+                //MessageBox.Show("Settungs loaded from: " + GlobalVariables.curFile);
                 
             }
             else
             {
                 GlobalVariables.curFile = GlobalVariables.path + "CB_Executie_Arms_default.xml";
                 GlobalVariables.noPlayer = "noPlayer";
-                MessageBox.Show("Settings loaded from: " + GlobalVariables.curFile);
+                //MessageBox.Show("Settings loaded from: " + GlobalVariables.curFile);
 
             }
         }
@@ -191,7 +191,6 @@ namespace executie_mUI
             GlobalVariables.Immerseus_HC_use = ImmerseusHCUse[0].InnerText;
             GlobalVariables.Immerseus_HC_count = ImmerseusHCCount[0].InnerText;
             GlobalVariables.Nazgrim_HC_use = NazgrimHCUse[0].InnerText;
-
         }
         #endregion
 
@@ -264,7 +263,7 @@ namespace executie_mUI
             cutieconfig.Save(GlobalVariables.savefile);
 
             //MessageBox: gespeichert in: ...
-            MessageBox.Show("saved to: " + GlobalVariables.path + GlobalVariables.savefile);
+            MessageBox.Show("saved to: " + GlobalVariables.savefile);
         }
         #endregion
 
