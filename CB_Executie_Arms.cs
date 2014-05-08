@@ -156,7 +156,7 @@ namespace Anthrax
             RC_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/RallyingCry_HP").InnerText);
             ER_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/EnragedRegeneration_HP").InnerText);
             IVSG_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/Intervene_HP").InnerText);
-            HStone_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/Healthstone_HP").InnerText);
+            HStone_HP = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/DefCD/Healtstone_HP").InnerText);
             SW_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/DefCD/Shieldwall_Use").InnerText);
             DbtS_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/DefCD/DieByTheSword_Use").InnerText);
             DBa_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/DefCD/Demobanner_Use").InnerText);
@@ -185,9 +185,6 @@ namespace Anthrax
             RE_Immers_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/raid_events/Immerseus_HC_use").InnerText);
             RE_Immers_stacks = Convert.ToInt32(doc.SelectSingleNode("ExecutieSettings/raid_events/Immerseus_HC_count").InnerText);
             RE_Nazg_use = Convert.ToBoolean(doc.SelectSingleNode("ExecutieSettings/raid_events/Nazgrim_HC").InnerText);
-
-            Anthrax.Logger.WriteLine("Test: "+AOE_use);
-
         }               
         #endregion
 
@@ -935,8 +932,7 @@ namespace Anthrax
                 Anthrax.Logger.WriteLine("Loaded Default Settings");
                 Anthrax.Logger.WriteLine("Charname: " + CharacterLoggedIn);
             }
-            Anthrax.Logger.WriteLine("Test: " + AOE_use);
-            
+                       
             GetSettingsFromXML();
             //Anthrax.Logger.WriteLine("RallyingCry at: " + RC_HP);
             ProcessStartInfo startInfo = new ProcessStartInfo();
