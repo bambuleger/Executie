@@ -11,16 +11,17 @@
             <StackPanel MinWidth="200">
                 <Border BorderBrush="#515151" 
                         BorderThickness="1" 
-                        Width="210" Height="210">
-                    <Image Width="210" Height="210" Source="/media/about_codingbad.jpg" Opacity="0.75"/>
+                        Width="700" Height="350">
+                    <TextBlock Margin="10,10,10,10">
+                        - settings will be stored in "/Combats/CB_Executie/CB_Executie_Arms_charname.xml"<LineBreak/>
+                    </TextBlock>
                 </Border>
                 <Border BorderBrush="#515151" 
                         BorderThickness="1" 
-                        Width="700" Height="245" Margin="0,20,0,0" Padding="10">
+                        Width="700" Margin="0,20,0,20" Padding="10">
                     <StackPanel>
                         <mui:BBCodeBlock BBCode="[url=https://www.anthraxbot.com/forums/showthread.php?25-CodingBad-Executie-DPS-Warrior-CC]Support Thread[/url]" HorizontalAlignment="Center"/>
-                        <!--<Image Width="198" Height="47" Source="/media/skype.png" Opacity="0.75"/>-->
-                        <TextBlock Margin="0,180,0,0" HorizontalAlignment="Right"><Run Language="de-de" Text="©CodingBad 2014"/></TextBlock>
+                        <TextBlock Margin="0,0,0,0" HorizontalAlignment="Right"><Run Language="de-de" Text="©CodingBad 2014"/></TextBlock>
                     </StackPanel>
                 </Border>
             </StackPanel>
