@@ -43,18 +43,19 @@ namespace executie_mUI
         public static bool exists = (File.Exists(GlobalVariables.curFile));
         public static string savefile;
         public static string noPlayer = "";
+        public static string path = "Combats\\CB_Executie\\";
         public static void settingsfilef()
         {
             if (GlobalVariables.PLAYER.Length >= 2)
             {
-                GlobalVariables.curFile = "Combats\\CB_Executie\\CB_Executie_Arms_" + GlobalVariables.PLAYER[1] + ".xml";
+                GlobalVariables.curFile = GlobalVariables.path + "CB_Executie_Arms_" + GlobalVariables.PLAYER[1] + ".xml";
                 GlobalVariables.charname = GlobalVariables.PLAYER[1];
                 MessageBox.Show("Settungs loaded from: " + GlobalVariables.curFile);
                 
             }
             else
             {
-                GlobalVariables.curFile = "Combats\\CB_Executie\\CB_Executie_Arms_default.xml";
+                GlobalVariables.curFile = GlobalVariables.path + "CB_Executie_Arms_default.xml";
                 GlobalVariables.noPlayer = "noPlayer";
                 MessageBox.Show("Settings loaded from: " + GlobalVariables.curFile);
 
@@ -108,18 +109,18 @@ namespace executie_mUI
         public static void WerteSpeichern()
         {
             //checken welcher spieler und standard.xml bei bedarf kopieren
-            if (GlobalVariables.curFile == "Combats\\CB_Executie\\CB_Executie_Arms_default.xml" && GlobalVariables.noPlayer == "noPlayer")
+            if (GlobalVariables.curFile == GlobalVariables.path + "CB_Executie_Arms_default.xml" && GlobalVariables.noPlayer == "noPlayer")
             {
                 // für gaming use
                 GlobalVariables.noPlayer = Microsoft.VisualBasic.Interaction.InputBox("Existing file will be overwritten!!!\nInsert a charakter name here:", "failure | not logged in", "charaktername", 0, 0);
-                File.Delete("Combats\\CB_Executie\\CB_Executie_Arms_" + noPlayer + ".xml");
-                File.Copy("Combats\\CB_Executie\\CB_Executie_Arms_default.xml", "CB_Executie_Arms_" + noPlayer + ".xml");
-                GlobalVariables.savefile = "Combats\\CB_Executie\\CB_Executie_Arms_" + noPlayer + ".xml";
+                File.Delete(GlobalVariables.path + "CB_Executie_Arms_" + noPlayer + ".xml");
+                File.Copy(GlobalVariables.path + "CB_Executie_Arms_default.xml", GlobalVariables.path + "CB_Executie_Arms_" + noPlayer + ".xml");
+                GlobalVariables.savefile =GlobalVariables.path + "CB_Executie_Arms_" + noPlayer + ".xml";
                 
                 ////für standard use
                 //GlobalVariables.savefile = GlobalVariables.curFile
             }
-            else
+            else if (GlobalVariables.curFile != GlobalVariables.path + "CB_Executie_Arms_default.xml")
             {
                 GlobalVariables.savefile = GlobalVariables.curFile;
             }
@@ -144,7 +145,7 @@ namespace executie_mUI
             cutieconfig.Save(GlobalVariables.savefile);
 
             //MessageBox: gespeichert in: ...
-            MessageBox.Show("saved to: " + GlobalVariables.savefile);
+            MessageBox.Show("saved to: " + GlobalVariables.path + GlobalVariables.savefile);
         }
 
 

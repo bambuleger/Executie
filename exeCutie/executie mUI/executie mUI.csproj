@@ -178,7 +178,7 @@
     <None Include="media\codingbad.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CB_Executie_Arms_default.xml">
+    <Content Include="Combats\CB_Executie\CB_Executie_Arms_default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
