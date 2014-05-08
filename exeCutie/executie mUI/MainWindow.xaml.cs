@@ -124,7 +124,7 @@ namespace executie_mUI
             XmlNodeList RallyingCryHP = cutieconfigxml.GetElementsByTagName("RallyingCry_HP");
             XmlNodeList EnragedRegenerationHP = cutieconfigxml.GetElementsByTagName("EnragedRegeneration_HP");
             XmlNodeList InterveneHP = cutieconfigxml.GetElementsByTagName("Intervene_HP");
-            XmlNodeList HealthstoneHP = cutieconfigxml.GetElementsByTagName("Healtstone_HP");
+            XmlNodeList HealthstoneHP = cutieconfigxml.GetElementsByTagName("Healthstone_HP");
                 //DefCD use
             XmlNodeList ShieldwallUse = cutieconfigxml.GetElementsByTagName("Shieldwall_Use");
             XmlNodeList DieByTheSwordUse = cutieconfigxml.GetElementsByTagName("DieByTheSword_Use");
@@ -133,7 +133,7 @@ namespace executie_mUI
             XmlNodeList RallyingCryUse = cutieconfigxml.GetElementsByTagName("RallyingCry_Use");
             XmlNodeList EnragedRegenerationUse = cutieconfigxml.GetElementsByTagName("EnragedRegeneration_Use");
             XmlNodeList InterveneUse = cutieconfigxml.GetElementsByTagName("Intervene_Use");
-            XmlNodeList HealthstoneUse = cutieconfigxml.GetElementsByTagName("Healtstone_Use");
+            XmlNodeList HealthstoneUse = cutieconfigxml.GetElementsByTagName("Healthstone_Use");
             XmlNodeList ShatteringThrowUse = cutieconfigxml.GetElementsByTagName("ShatteringThrow_Use");
                 //OffCD use
             XmlNodeList SkullbannerUse = cutieconfigxml.GetElementsByTagName("Skullbanner_use");
@@ -227,7 +227,7 @@ namespace executie_mUI
             cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("RallyingCry_HP").Value = GlobalVariables.RC_HP;
             cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("EnragedRegeneration_HP").Value = GlobalVariables.ER_HP;
             cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Intervene_HP").Value = GlobalVariables.IS_HP;
-            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Healtstone_HP").Value = GlobalVariables.HS_HP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Healthstone_HP").Value = GlobalVariables.HS_HP;
                 //DefCD use Werte
             cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Shieldwall_Use").Value = GlobalVariables.SW_HP_use;
             cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("DieByTheSword_Use").Value = GlobalVariables.DBTS_HP_use;
@@ -236,7 +236,7 @@ namespace executie_mUI
             cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("RallyingCry_Use").Value = GlobalVariables.RC_HP_use;
             cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("EnragedRegeneration_Use").Value = GlobalVariables.ER_HP_use;
             cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Intervene_Use").Value = GlobalVariables.IS_HP_use;
-            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Healtstone_Use").Value = GlobalVariables.HS_HP_use;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Healthstone_Use").Value = GlobalVariables.HS_HP_use;
             cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("ShatteringThrow_Use").Value = GlobalVariables.ST_HP_use;
                 //OffCD use Werte
             cutieconfig.Element("ExecutieSettings").Element("OffCD").Element("Skullbanner_use").Value = GlobalVariables.SkullB_use;
