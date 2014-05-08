@@ -33,43 +33,48 @@ namespace executie_mUI.Pages.config
             InterveneSlider.Value = Convert.ToDouble(GlobalVariables.IS_HP);
             HealthstoneSlider.Value = Convert.ToDouble(GlobalVariables.HS_HP);
         }
-        public void Button_Click(object sender, RoutedEventArgs e)
+        //Button Save -> Werte Speichern
+        public void Button_save(object sender, RoutedEventArgs e)
         {
-            ////Variablen aus Felder lesen
-
-            //SW_HP = ShieldwallSlider.Value
-            //DBTS_HP = DieByTheSwordSlider.Value
-            //DB_HP = DemobannerSlider.Value
-            //DSt_HP= DefStanceSlider.Value
-            //RC_HP = RallyingCrySlider.Value
-            //ER_HP = EnragedRegenerationSlider.Value
-            //IS_HP = InterveneSlider.Value
-            //HS_HP = HealthstoneSlider.Value
-            
-            //MessageBox.Show(SW_HP + " " + DBTS_HP + " " + DB_HP + " " + DSt_HP + " " + RC_HP + " " + ER_HP + " " + IS_HP + " " + HS_HP);
-
-            //MessageBox.Show(GlobalVariables.SW_HP_Global);
-            //GlobalVariables.SW_HP_Global = "bearbeitet";
-            //MessageBox.Show(GlobalVariables.SW_HP_Global);
-
-
-            ////XML laden
-            //XDocument cutieconfig = XDocument.Load("Combats\\exeCutie.xml");
-            ////XML Elemente schreiben
-            //cutieconfig.Element("ExecutieSettings").Element("General").Element("RallyingCry").Value = RC_HP;
-            //cutieconfig.Element("ExecutieSettings").Element("General").Element("ShieldWall").Value = SW_HP;
-            //cutieconfig.Element("ExecutieSettings").Element("General").Element("DieByTheSword").Value = DBTS_HP;
-            //cutieconfig.Element("ExecutieSettings").Element("General").Element("DemoBanner").Value = DB_HP;
-            //cutieconfig.Element("ExecutieSettings").Element("General").Element("EnragedRegeneration").Value = ER_HP;
-            //cutieconfig.Element("ExecutieSettings").Element("General").Element("DStuse").Value = Convert.ToString(DStuse_bool);
-            //cutieconfig.Element("ExecutieSettings").Element("General").Element("DStHP").Value = DStHP_HP;
-            ////XML speichern
-            //cutieconfig.Save("Combats\\exeCutie.xml");
+            GlobalVariables.WerteSpeichern();
         }
 
         private void UserControl_Initialized(object sender, EventArgs e)
         {
-
+        }
+        
+        //Value Has Changed Funktionen
+        private void ShieldwallSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            GlobalVariables.SW_HP = Convert.ToString(ShieldwallSlider.Value);
+        }
+        private void DieByTheSwordSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            GlobalVariables.DBTS_HP = Convert.ToString(DieByTheSwordSlider.Value);
+        }
+        private void DemobannerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            GlobalVariables.DB_HP = Convert.ToString(DemobannerSlider.Value);
+        }
+        private void DefStanceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            GlobalVariables.DefStHP = Convert.ToString(DefStanceSlider.Value);
+        }
+        private void RallyingCrySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            GlobalVariables.RC_HP = Convert.ToString(RallyingCrySlider.Value);
+        }
+        private void EnragedRegenerationSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            GlobalVariables.ER_HP = Convert.ToString(EnragedRegenerationSlider.Value);
+        }
+        private void InterveneSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            GlobalVariables.IS_HP = Convert.ToString(InterveneSlider.Value);
+        }
+        private void HealthstoneSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            GlobalVariables.HS_HP = Convert.ToString(HealthstoneSlider.Value);
         }
     }
 }

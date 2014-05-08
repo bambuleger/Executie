@@ -115,13 +115,15 @@ namespace exeCutie
             //XML laden
             XDocument cutieconfig = XDocument.Load("Combats\\exeCutie.xml");
             //XML Elemente schreiben
-            cutieconfig.Element("ExecutieSettings").Element("General").Element("RallyingCry").Value = RC_HP;
-            cutieconfig.Element("ExecutieSettings").Element("General").Element("ShieldWall").Value = SW_HP;
-            cutieconfig.Element("ExecutieSettings").Element("General").Element("DieByTheSword").Value = DBTS_HP;
-            cutieconfig.Element("ExecutieSettings").Element("General").Element("DemoBanner").Value = DB_HP;
-            cutieconfig.Element("ExecutieSettings").Element("General").Element("EnragedRegeneration").Value = ER_HP;
-            cutieconfig.Element("ExecutieSettings").Element("General").Element("DStuse").Value = Convert.ToString(DStuse_bool);
-            cutieconfig.Element("ExecutieSettings").Element("General").Element("DStHP").Value = DStHP_HP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Shieldwall_HP").Value = SW_HP ;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("DieByTheSword_HP").Value = SW_HP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Demobanner_HP").Value = DBTS_HP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("DefStance_HP").Value = DB_HP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("RallyingCry_HP").Value = ER_HP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("EnragedRegeneration_HP").Value =ER_HP ;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Intervene_HP").Value = DStHP_HP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Healtstone_HP").Value = DStHP_HP;
+
             //XML speichern
             cutieconfig.Save("Combats\\exeCutie.xml");
         }

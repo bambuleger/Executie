@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="497" d:DesignWidth="635">
+             d:DesignHeight="756" d:DesignWidth="635">
     
     
     <Grid Style="{StaticResource ContentRoot}">
@@ -25,6 +25,7 @@
                         - GUI programming<LineBreak/>
                     </TextBlock>
                 </Border>
+                
                 <mui:ModernFrame x:Name="Settings"
                                  Source="/Content/SettingsAppearance.xaml"
                                  Width="0" Height="0"

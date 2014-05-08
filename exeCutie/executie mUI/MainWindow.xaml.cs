@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace executie_mUI
 {
@@ -27,7 +28,7 @@ namespace executie_mUI
         public MainWindow()
         {
             GlobalVariables.settingsfilef();
-            GlobalVariables.werteladen();
+            GlobalVariables.WerteLaden();
         }
     }
 
@@ -37,21 +38,28 @@ namespace executie_mUI
         public static string[] PLAYER = Environment.GetCommandLineArgs();
         public static string curFile;                                           //= GlobalVariables.PLAYER[1] + ".xml";
         public static bool exists = (File.Exists(GlobalVariables.curFile));
+        public static string savefile;
+        public static string noPlayer = "";
         public static void settingsfilef()
         {
             if (GlobalVariables.PLAYER.Length >= 2)
             {
                 GlobalVariables.curFile = "CB_Executie_Arms_" + GlobalVariables.PLAYER[1] + ".xml";
+                GlobalVariables.charname = GlobalVariables.PLAYER[1];
                 MessageBox.Show("Settungs loaded from: " + GlobalVariables.curFile);
             }
             else
             {
                 GlobalVariables.curFile = "CB_Executie_Arms_default.xml";
+                GlobalVariables.noPlayer = "noPlayer";
                 MessageBox.Show("Settings loaded from: " + GlobalVariables.curFile);
+
             }
         }
 
         //Globale Variablen setzen
+            //charname
+        public static string charname;
             //defCD
         public static string SW_HP;
         public static string DBTS_HP;
@@ -62,12 +70,14 @@ namespace executie_mUI
         public static string IS_HP;
         public static string HS_HP;
         
-        //Werte laden
-        public static void werteladen() 
+        //Werte von XML laden
+        public static void WerteLaden() 
         {
-            //XML öffnen
+            //XML definieren
             XmlDocument cutieconfigxml = new XmlDocument();
-            cutieconfigxml.Load(curFile);
+
+            //XML laden
+            cutieconfigxml.Load(GlobalVariables.curFile);
 
             //Werte Lesen XML
             XmlNodeList ShieldwallHP = cutieconfigxml.GetElementsByTagName("Shieldwall_HP");
@@ -88,6 +98,49 @@ namespace executie_mUI
             GlobalVariables.ER_HP = EnragedRegenerationHP[0].InnerText;
             GlobalVariables.IS_HP = InterveneHP[0].InnerText;
             GlobalVariables.HS_HP = HealthstoneHP[0].InnerText;
+        }
+
+        //Werte in XML speichern
+        public static void WerteSpeichern()
+        {
+            //checken welcher spieler und standard.xml bei bedarf kopieren
+            if (GlobalVariables.curFile == "CB_Executie_Arms_default.xml" && GlobalVariables.noPlayer == "noPlayer")
+            {
+                // für gaming use
+                GlobalVariables.noPlayer = Microsoft.VisualBasic.Interaction.InputBox("Existing file will be overwritten!!!\nInsert a charakter name here:", "failure | not logged in", "charaktername", 0, 0);
+                File.Delete("CB_Executie_Arms_" + noPlayer + ".xml");
+                File.Copy("CB_Executie_Arms_default.xml", "CB_Executie_Arms_" + noPlayer + ".xml");
+                GlobalVariables.savefile = "CB_Executie_Arms_" + noPlayer + ".xml";
+                
+                ////für standard use
+                //GlobalVariables.savefile = GlobalVariables.curFile
+            }
+            else
+            {
+                GlobalVariables.savefile = GlobalVariables.curFile;
+            }
+
+            //XML laden
+            XDocument cutieconfig = XDocument.Load(GlobalVariables.savefile);
+
+            //XML Elemente schreiben
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Shieldwall_HP").Value = GlobalVariables.SW_HP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("DieByTheSword_HP").Value = GlobalVariables.DBTS_HP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Demobanner_HP").Value = GlobalVariables.DB_HP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("DefStance_HP").Value = GlobalVariables.DefStHP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("RallyingCry_HP").Value = GlobalVariables.RC_HP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("EnragedRegeneration_HP").Value = GlobalVariables.ER_HP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Intervene_HP").Value = GlobalVariables.IS_HP;
+            cutieconfig.Element("ExecutieSettings").Element("DefCD").Element("Healtstone_HP").Value = GlobalVariables.HS_HP;
+
+            //Werte der HP von defCDs ausgeben
+            //MessageBox.Show(GlobalVariables.SW_HP + " " + GlobalVariables.DBTS_HP + " " + GlobalVariables.DB_HP + " " + GlobalVariables.DefStHP + " " + GlobalVariables.RC_HP + " " + GlobalVariables.ER_HP + " " + GlobalVariables.IS_HP + " " + GlobalVariables.HS_HP);
+
+            //XML speichern
+            cutieconfig.Save(GlobalVariables.savefile);
+
+            //MessageBox: gespeichert in: ...
+            MessageBox.Show("saved to: " + GlobalVariables.savefile);
         }
 
 

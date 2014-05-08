@@ -24,5 +24,16 @@ namespace executie_mUI.Pages.executie
         {
             InitializeComponent();
         }
+        public void Button_save(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.WerteSpeichern();
+        }
+        public void Button_load(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.WerteLaden();
+        }
+        public void Button_reset(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }
