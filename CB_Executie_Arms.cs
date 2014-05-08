@@ -109,6 +109,7 @@ namespace Anthrax
         public enum Spells : int
         {
             AV = 107574,            //Avatar
+            BE = 26297,             //Berserk (Troll)
             BB = 12292,             //Blood Bath
             BF = 20572,             //Blood Fury (Orc)
             BR = 18499,             //Berserker Rage
@@ -157,19 +158,19 @@ namespace Anthrax
 
         public enum Auras : int
         {
+            BBA = 12292,            //Blood Bath Aura
             BShA = 6673,            //Battle Shout Aura
             CSdb = 86346,           //CSmash Debuff
             CShA = 69,              //Commanding Shout Aura
             DS = 144442,            //Death Sentence
+            DWdb = 115767,          //Deep Wounds Debuff
             EnR = 12880,            //Enrage
+            REb = 1719,             //Recklessness
             SE = 139958,            //Sudden Execute
+            SoOCrit = 146285,       //Crit Proc of Skeers Trinket, Stacking to 20
+            SSA = 12328,            //Sweeping Strikes Aura
             T162P = 144438,         //T16 2 Piece Bonus
             TfB = 56636,            //Taste for Blood
-            DWdb = 115767,          //Deep Wounds Debuff
-            SoOCrit = 146285,       //Crit Proc of Skeers Trinket, Stacking to 20
-            REb = 1719,             //Recklessness
-            BBA = 12292,            //Blood Bath AUra
-            SSA = 12328,            //Sweeping Strikes Aura
 
             BLust = 2825,           //Bloodlust
             HRoism = 32182,         //Heroism
@@ -181,6 +182,7 @@ namespace Anthrax
         public enum Items : int
         {
             MoguPot = 76095,        //Potion of Mogu Power
+            HStone = 5512,          //Healthstone
         }
         #endregion
 
