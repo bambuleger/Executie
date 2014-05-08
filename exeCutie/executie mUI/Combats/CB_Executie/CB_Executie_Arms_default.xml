@@ -8,7 +8,7 @@
     <RallyingCry_HP>25</RallyingCry_HP>
     <EnragedRegeneration_HP>45</EnragedRegeneration_HP>
     <Intervene_HP>15</Intervene_HP>
-    <Healtstone_HP>35</Healtstone_HP>
+    <Healthstone_HP>35</Healthstone_HP>
     <Shieldwall_Use>true</Shieldwall_Use>
     <DieByTheSword_Use>true</DieByTheSword_Use>
     <Demobanner_Use>true</Demobanner_Use>
@@ -16,7 +16,7 @@
     <RallyingCry_Use>true</RallyingCry_Use>
     <EnragedRegeneration_Use>true</EnragedRegeneration_Use>
     <Intervene_Use>true</Intervene_Use>
-    <Healtstone_Use>true</Healtstone_Use>
+    <Healthstone_Use>true</Healthstone_Use>
     <ShatteringThrow_Use>true</ShatteringThrow_Use>
   </DefCD>
   <OffCD>
