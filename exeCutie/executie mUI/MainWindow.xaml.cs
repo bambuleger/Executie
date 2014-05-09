@@ -33,7 +33,6 @@ namespace executie_mUI
         {
             GlobalVariables.settingsfilef();
             GlobalVariables.WerteLaden();
-            
         }
     }
 
