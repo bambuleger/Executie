@@ -40,7 +40,7 @@ namespace executie_mUI.Pages.config
             //HP Werte
         private void ImmerseusHCSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            GlobalVariables.Immerseus_HC_count = Convert.ToString(ImmerseusHCSlider.Value);
+            GlobalVariables.Immerseus_HC_count = ImmerseusHCSlider.Value.ToString("##0");
         }
         //use Werte
             //SW_HP_use

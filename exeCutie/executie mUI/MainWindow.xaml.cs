@@ -18,6 +18,7 @@ using System.Xml;
 using System.Xml.Linq;
 
 
+
 //Hab mal probiert ohne eingeloggt zu sein zu speichern.. das popup kommt, ich geb nen namen ein, drück ok, danach wieder "reagiert nich mehr".. is das normal dass das noch nich geht? ka was du unten in der werte speichern methode genau machst.. um das problem zu fixen, musst du einfach immer wenn du nen pfad zu irgendeiner datei angibst "Combats\\CB_Executie\\FILENAME" benutzen
 
 namespace executie_mUI
@@ -32,6 +33,7 @@ namespace executie_mUI
         {
             GlobalVariables.settingsfilef();
             GlobalVariables.WerteLaden();
+            
         }
     }
 

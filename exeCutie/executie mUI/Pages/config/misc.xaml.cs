@@ -40,7 +40,7 @@ namespace executie_mUI.Pages.config
             //AoE Count Werte
         private void AoESlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            GlobalVariables.AoE_count = Convert.ToString(AoESlider.Value);
+            GlobalVariables.AoE_count = AoESlider.Value.ToString("##0");
         }
         
         //use Werte

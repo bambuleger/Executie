@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Globalization;
 using executie_mUI;
 
 namespace executie_mUI.Pages.config
@@ -24,6 +25,7 @@ namespace executie_mUI.Pages.config
         public defCDs()
         {
             InitializeComponent();
+
 
             //Slider Value aus variablen setzen
             ShieldwallSlider.Value = Convert.ToDouble(GlobalVariables.SW_HP);
@@ -61,35 +63,35 @@ namespace executie_mUI.Pages.config
             //HP Werte
         private void ShieldwallSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            GlobalVariables.SW_HP = Convert.ToString(ShieldwallSlider.Value);
+            GlobalVariables.SW_HP = ShieldwallSlider.Value.ToString("##0");
         }
         private void DieByTheSwordSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            GlobalVariables.DBTS_HP = Convert.ToString(DieByTheSwordSlider.Value);
+            GlobalVariables.DBTS_HP = DieByTheSwordSlider.Value.ToString("##0");
         }
         private void DemobannerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            GlobalVariables.DB_HP = Convert.ToString(DemobannerSlider.Value);
+            GlobalVariables.DB_HP = DemobannerSlider.Value.ToString("##0");
         }
         private void DefStanceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            GlobalVariables.DefStHP = Convert.ToString(DefStanceSlider.Value);
+            GlobalVariables.DefStHP = DefStanceSlider.Value.ToString("##0");
         }
         private void RallyingCrySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            GlobalVariables.RC_HP = Convert.ToString(RallyingCrySlider.Value);
+            GlobalVariables.RC_HP = RallyingCrySlider.Value.ToString("##0");
         }
         private void EnragedRegenerationSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            GlobalVariables.ER_HP = Convert.ToString(EnragedRegenerationSlider.Value);
+            GlobalVariables.ER_HP = EnragedRegenerationSlider.Value.ToString("##0");
         }
         private void InterveneSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            GlobalVariables.IS_HP = Convert.ToString(InterveneSlider.Value);
+            GlobalVariables.IS_HP = InterveneSlider.Value.ToString("##0");
         }
         private void HealthstoneSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            GlobalVariables.HS_HP = Convert.ToString(HealthstoneSlider.Value);
+            GlobalVariables.HS_HP = HealthstoneSlider.Value.ToString("##0");
         }
         #endregion
 

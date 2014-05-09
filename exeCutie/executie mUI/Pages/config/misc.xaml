@@ -47,7 +47,7 @@
                         <Slider x:Name="AoESlider" IsSelectionRangeEnabled="True" SelectionStart="2" SelectionEnd="4" TickPlacement="TopLeft"  TickFrequency="1" Width="240" SmallChange="1" ValueChanged="AoESlider_ValueChanged" IsSnapToTickEnabled="True" Maximum="25"/>
                     </Label>
                     <Label Grid.Row="1" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <TextBox Name="ShieldwallSliderTxt" Text="{Binding ElementName=AoESlider, Path=Value}" IsReadOnly="True" Width="25" BorderThickness="0"/>
+                        <TextBox Name="ShieldwallSliderTxt" Text="{Binding ElementName=AoESlider, Path=Value, StringFormat={}{0:#,##0}}" IsReadOnly="True" Width="25" BorderThickness="0"/>
                     </Label>
                     
 

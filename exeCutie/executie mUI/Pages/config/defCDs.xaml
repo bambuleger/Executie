@@ -51,7 +51,7 @@
                         <Slider x:Name="ShieldwallSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="40" TickPlacement="TopLeft"  TickFrequency="10" Width="220" Maximum="100" SmallChange="1" ValueChanged="ShieldwallSlider_ValueChanged"/>
                     </Label>
                     <Label Grid.Row="1" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <TextBox Name="ShieldwallSliderTxt" Text="{Binding ElementName=ShieldwallSlider, Path=Value}" IsReadOnly="True" Width="31" BorderThickness="0"/>
+                        <TextBox x:Name="ShieldwallSliderTxt" Text="{Binding ElementName=ShieldwallSlider, Path=Value, StringFormat={}{0:#,##0}}" IsReadOnly="True" Width="31" BorderThickness="0"/>
                     </Label>
 
                     <Label Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center">Die By The Sword</Label>
@@ -62,7 +62,7 @@
                         <Slider x:Name="DieByTheSwordSlider" IsSelectionRangeEnabled="True" SelectionStart="30" SelectionEnd="40" TickPlacement="TopLeft"  TickFrequency="10" Width="220" Maximum="100" SmallChange="1" ValueChanged="DieByTheSwordSlider_ValueChanged"/>
                     </Label>
                     <Label Grid.Row="2" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <TextBox x:Name="DieByTheSwordSliderTxt" Text="{Binding Value, ElementName=DieByTheSwordSlider}" IsReadOnly="True" Width="31" BorderThickness="0"/>
+                        <TextBox x:Name="DieByTheSwordSliderTxt" Text="{Binding Value, ElementName=DieByTheSwordSlider, StringFormat={}{0:#,##0}}" IsReadOnly="True" Width="31" BorderThickness="0"/>
                     </Label>
 
                     <Label Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center">Demobanner</Label>
@@ -73,7 +73,7 @@
                         <Slider x:Name="DemobannerSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="40" TickPlacement="TopLeft"  TickFrequency="10" Width="220" Maximum="100" SmallChange="1" ValueChanged="DemobannerSlider_ValueChanged"/>
                     </Label>
                     <Label Grid.Row="3" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <TextBox x:Name="DemobannerSliderTxt" Text="{Binding Value, ElementName=DemobannerSlider}" IsReadOnly="True" Width="31" BorderThickness="0"/>
+                        <TextBox x:Name="DemobannerSliderTxt" Text="{Binding Value, ElementName=DemobannerSlider, StringFormat={}{0:#,##0}}" IsReadOnly="True" Width="31" BorderThickness="0"/>
                     </Label>
 
                     <Label Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center">Def. Stance</Label>
@@ -84,7 +84,7 @@
                         <Slider x:Name="DefStanceSlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="30" TickPlacement="TopLeft"  TickFrequency="10" Width="220" Maximum="100" SmallChange="1" ValueChanged="DefStanceSlider_ValueChanged"/>
                     </Label>
                     <Label Grid.Row="4" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <TextBox x:Name="DefStanceSliderTxt" Text="{Binding Value, ElementName=DefStanceSlider}" IsReadOnly="True" Width="31" BorderThickness="0"/>
+                        <TextBox x:Name="DefStanceSliderTxt" Text="{Binding Value, ElementName=DefStanceSlider, StringFormat={}{0:#,##0}}" IsReadOnly="True" Width="31" BorderThickness="0"/>
                     </Label>
 
                     <Label Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center">Rallying Cry</Label>
@@ -95,7 +95,7 @@
                         <Slider x:Name="RallyingCrySlider" IsSelectionRangeEnabled="True" SelectionStart="20" SelectionEnd="30" TickPlacement="TopLeft"  TickFrequency="10" Width="220" Maximum="100" SmallChange="1" ValueChanged="RallyingCrySlider_ValueChanged"/>
                     </Label>
                     <Label Grid.Row="5" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <TextBox x:Name="RallyingCrySliderTxt" Text="{Binding Value, ElementName=RallyingCrySlider}" IsReadOnly="True" Width="31" BorderThickness="0"/>
+                        <TextBox x:Name="RallyingCrySliderTxt" Text="{Binding Value, ElementName=RallyingCrySlider, StringFormat={}{0:#,##0}}" IsReadOnly="True" Width="31" BorderThickness="0"/>
                     </Label>
 
                     <Label Grid.Row="6" Grid.Column="0" VerticalContentAlignment="Center">Enraged Regeneration</Label>
@@ -103,10 +103,10 @@
                         <CheckBox x:Name="EnragedRegenerationUse" IsEnabled="False" Checked="EnragedRegenerationUse_Checked" Unchecked="EnragedRegenerationUse_UnChecked"/>
                     </Label>
                     <Label Grid.Row="6" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
-                        <Slider x:Name="EnragedRegenerationSlider" IsSelectionRangeEnabled="True" SelectionStart="40" SelectionEnd="50" TickPlacement="TopLeft"  TickFrequency="10" Width="240" Maximum="100" SmallChange="1" ValueChanged="EnragedRegenerationSlider_ValueChanged"/>
+                        <Slider x:Name="EnragedRegenerationSlider" IsSelectionRangeEnabled="True" SelectionStart="40" SelectionEnd="50" TickPlacement="TopLeft"  TickFrequency="10" Width="220" Maximum="100" SmallChange="1" ValueChanged="EnragedRegenerationSlider_ValueChanged"/>
                     </Label>
                     <Label Grid.Row="6" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <TextBox x:Name="EnragedRegenerationSliderTxt" Text="{Binding Value, ElementName=EnragedRegenerationSlider}" IsReadOnly="True" Width="31" BorderThickness="0"/>
+                        <TextBox x:Name="EnragedRegenerationSliderTxt" Text="{Binding Value, ElementName=EnragedRegenerationSlider, StringFormat={}{0:#,##0}}" IsReadOnly="True" Width="31" BorderThickness="0"/>
                     </Label>
 
                     <Label Grid.Row="7" Grid.Column="0" VerticalContentAlignment="Center">Intervene/Safeguard</Label>
@@ -117,7 +117,7 @@
                         <Slider x:Name="InterveneSlider" IsSelectionRangeEnabled="True" SelectionStart="10" SelectionEnd="20" TickPlacement="TopLeft"  TickFrequency="10" Width="220" Maximum="100" SmallChange="1" ValueChanged="InterveneSlider_ValueChanged"/>
                     </Label>
                     <Label Grid.Row="7" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <TextBox x:Name="InterveneSliderTxt" Text="{Binding Value, ElementName=InterveneSlider}" IsReadOnly="True" Width="31" BorderThickness="0"/>
+                        <TextBox x:Name="InterveneSliderTxt" Text="{Binding Value, ElementName=InterveneSlider, StringFormat={}{0:#,##0}}" IsReadOnly="True" Width="31" BorderThickness="0"/>
                     </Label>
 
                     <Label Grid.Row="8" Grid.Column="0" VerticalContentAlignment="Center">Healthstone</Label>
@@ -128,7 +128,7 @@
                         <Slider x:Name="HealthstoneSlider" IsSelectionRangeEnabled="True" SelectionStart="30" SelectionEnd="40" TickPlacement="TopLeft"  TickFrequency="10" Width="220" Maximum="100" SmallChange="1" ValueChanged="HealthstoneSlider_ValueChanged"/>
                     </Label>
                     <Label Grid.Row="8" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <TextBox x:Name="HealthstoneSliderTxt" Text="{Binding Value, ElementName=HealthstoneSlider}" IsReadOnly="True" Width="31" BorderThickness="0"/>
+                        <TextBox x:Name="HealthstoneSliderTxt" Text="{Binding Value, ElementName=HealthstoneSlider, StringFormat={}{0:#,##0}}" IsReadOnly="True" Width="31" BorderThickness="0"/>
                     </Label>
 
                     <Label Grid.Row="9" Grid.Column="0" VerticalContentAlignment="Center">Shattering Throw</Label>
