@@ -54,8 +54,11 @@
                     <Label Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center">Shoutmode</Label>
                     <Label Grid.Row="2" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Center">
                         <StackPanel>
-                            <RadioButton x:Name="BattleShoutButton" Content="Battle Shout" IsChecked="True" Checked="RadioButton_Checked"/>
-                            <RadioButton x:Name="CommandingShoutButton" Content="Commanding Shout" Checked="RadioButton_Checked"/>
+                            <!--<RadioButton x:Name="BattleShoutButton" Content="Battle Shout" IsChecked="True" Checked="Checkbox_Checked"/>
+                            <RadioButton x:Name="CommandingShoutButton" Content="Commanding Shout" Checked="Checkbox_Checked"/>-->
+                            <ToggleButton x:Name="ShoutButton" Content="CommandingShout" Width="180" Checked="ShoutButton_Checked" Unchecked="ShoutButton_Unchecked">
+                                
+                            </ToggleButton>
                         </StackPanel>
                     </Label>
 

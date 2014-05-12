@@ -23,12 +23,25 @@ namespace executie_mUI.Pages.config
         public misc()
         {
             InitializeComponent();
-
+            
             //Slider Value aus variablen setzen
             AoESlider.Value = Convert.ToDouble(GlobalVariables.AoE_count);
+            
             //checkbox checked/unchecked aus variablen setzen
             AoEUse.IsChecked = Convert.ToBoolean(GlobalVariables.SW_HP_use);
-        }
+
+            //Shoutmode aus variablen setzen
+            if (GlobalVariables.Shoutmode_shout == "battleshout")
+            {
+                ShoutButton.IsChecked = true;
+                ShoutButton.Content = "BattleShout";
+            }
+            else if (GlobalVariables.Shoutmode_shout == "commandingshout")
+            {
+                ShoutButton.IsChecked = false;
+                ShoutButton.Content = "CommandingShout";
+            }
+         }
 
         //Button Save -> Werte Speichern
         public void Button_save(object sender, RoutedEventArgs e)
@@ -54,16 +67,23 @@ namespace executie_mUI.Pages.config
             GlobalVariables.AoE_use = "false";
         }
             //Radiobutton
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        //private void Checkbox_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    CommandingShoutButton.IsChecked = false;
+        //}
+            //ToggleButton
+        private void ShoutButton_Checked(object sender, RoutedEventArgs e)
         {
-            if (BattleShoutButton.IsChecked == true)
-            {
-                GlobalVariables.Shoutmode_shout = "battleshout";
-            }
-            else if (CommandingShoutButton.IsChecked == true)
-            {
-                GlobalVariables.Shoutmode_shout = "commandingshout";
-            }
+            ShoutButton.IsChecked = true;
+            ShoutButton.Content = "BattleShout";
+            GlobalVariables.Shoutmode_shout = "battleshout";
         }
+        private void ShoutButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ShoutButton.IsChecked = false;
+            ShoutButton.Content = "CommandingShout";
+            GlobalVariables.Shoutmode_shout = "commandingshout";
+        }
+
     }
 }

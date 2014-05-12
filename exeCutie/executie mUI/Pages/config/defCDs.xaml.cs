@@ -25,7 +25,6 @@ namespace executie_mUI.Pages.config
         {
             InitializeComponent();
 
-
             //Slider Value aus variablen setzen
             ShieldwallSlider.Value = Convert.ToDouble(GlobalVariables.SW_HP);
             DieByTheSwordSlider.Value = Convert.ToDouble(GlobalVariables.DBTS_HP);
