@@ -117,7 +117,7 @@ function CutieRestputArmsSpellsOnBars()
     100,               --Charge
     845,               --Cleave
     86346,             --Colossus Smash
-    69,                --Commanding Shout
+    469,                --Commanding Shout
     --676,             --Disarm
     14203,             --Demoralizing Banner
     118038,            --Die by the Sword
