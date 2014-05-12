@@ -44,7 +44,7 @@
                         <Slider x:Name="ImmerseusHCSlider" IsSelectionRangeEnabled="True" SelectionStart="4" SelectionEnd="6" TickPlacement="TopLeft"  TickFrequency="1" Width="240" Maximum="12" SmallChange="1" ValueChanged="ImmerseusHCSlider_ValueChanged" IsSnapToTickEnabled="True"/>
                     </Label>
                     <Label Grid.Row="1" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <TextBox Name="ShieldwallSliderTxt" Text="{Binding ElementName=ImmerseusHCSlider, Path=Value, StringFormat={}{0:#,##0}}" IsReadOnly="True" Width="25" BorderThickness="0"></TextBox>
+                        <TextBox Name="ShieldwallSliderTxt" Text="{Binding ElementName=ImmerseusHCSlider, Path=Value, StringFormat={}{0:#,##0}}" IsReadOnly="True" Width="25" BorderThickness="0" HorizontalContentAlignment="Right"></TextBox>
                     </Label>
 
                     <Label Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" ToolTip="Stop attacking in DefStance">Nazgrim HC</Label>
