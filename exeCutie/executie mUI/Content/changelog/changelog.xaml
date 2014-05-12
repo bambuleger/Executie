@@ -10,13 +10,10 @@
         <ScrollViewer Margin="-16,-28,-16,-16">
             <StackPanel MinWidth="200">
                 <TextBlock TextWrapping="Wrap" FontSize="11">
-                    [2014-05-08]<LineBreak/>
-                    - Load charname settings on startup with startparameter from rotation<LineBreak/>
-                    -- use it: "executie_mUI.exe charname"<LineBreak/>
-                    - Save button<LineBreak/>
-                    - App content<LineBreak/>
-                    <LineBreak/>[2014-05-06]<LineBreak/>
-                    - GUI programming
+                    [2014-05-12]<LineBreak/>
+                    - v1.0<LineBreak/>
+                    - added GUI<LineBreak/>
+                    - added Arms Rotation<LineBreak/>
                 </TextBlock>
             </StackPanel>
         </ScrollViewer>

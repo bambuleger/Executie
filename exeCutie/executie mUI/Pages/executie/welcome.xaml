@@ -21,11 +21,10 @@
                         Width="700" Height="170">
                     <!--<TextBox AcceptsReturn="True" IsReadOnly="True"/>-->
                     <TextBlock TextWrapping="Wrap" FontSize="11" Margin="4,3,4,3">
-                    [2014-05-08]<LineBreak/>
-                    - Load charname settings on startup with startparameter from rotation<LineBreak/>
-                    -- use it: "executie_mUI.exe charname"<LineBreak/>
-                    - Save button<LineBreak/>
-                    - App content<LineBreak/>
+                    [2014-05-12]<LineBreak/>
+                    - v1.0<LineBreak/>
+                    - added GUI<LineBreak/>
+                    - added Arms Rotation<LineBreak/>
                     </TextBlock>
                 </Border>
                 

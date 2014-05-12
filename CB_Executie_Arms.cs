@@ -653,7 +653,7 @@ namespace Anthrax
                 }
 
                 //actions.single_target+=/overpower,if=target.health.pct>=20&rage<100|buff.sudden_execute.up
-                if ((unit.HealthPercent > 20 && (ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage)/10) < 100) || ObjectManager.LocalPlayer.HasAuraById((int)Auras.SE))
+                if ((unit.HealthPercent > 20 && ((ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage)/10) < 100)) || ObjectManager.LocalPlayer.HasAuraById((int)Auras.SE))
                 {
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.OP))
                     {
@@ -714,8 +714,7 @@ namespace Anthrax
             //Nothing else to fire, using autottack
             Anthrax.AI.Controllers.Spell.AttackTarget();
 
-            Offensives(unit);
-            Defensives(unit);
+            
         }
         #endregion
 
@@ -875,8 +874,7 @@ namespace Anthrax
             //Nothing else to fire, using autottack
             Anthrax.AI.Controllers.Spell.AttackTarget();
 
-            Offensives(unit);
-            Defensives(unit);
+            
         }
         #endregion
 
@@ -904,6 +902,9 @@ namespace Anthrax
 
         public override void OnCombat(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
         {
+
+            Offensives(unit);
+            Defensives(unit);
             if (ObjectManager.LocalPlayer.UnitsAttackingMe.Count >= AOE_tars)
             {
                 MultiTargetRotation(unit);
