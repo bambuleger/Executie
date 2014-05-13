@@ -529,7 +529,7 @@ namespace Anthrax
             WoW.Internals.Movements.Face(unit.Position);           
 
             //actions.single_target=heroic_strike,if=rage>115|(debuff.colossus_smash.up&rage>60&set_bonus.tier16_2pc_melee)
-            if ((ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage)/10) > 115 || (unit.HasAuraById((int)Auras.CSdb) && ObjectManager.LocalPlayer.HasAuraById((int)Auras.T162P) && (ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage)/10) > 60))
+            if (ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 115 || (unit.HasAuraById((int)Auras.CSdb) && ObjectManager.LocalPlayer.HasAuraById((int)Auras.T162P) && ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 60))
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.HS))
                 {
@@ -553,7 +553,7 @@ namespace Anthrax
                 }
             }
             
-            if (!ObjectManager.LocalPlayer.HasAuraById((int)Auras.EnR) || (ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) / 10) < 10)
+            if (!ObjectManager.LocalPlayer.HasAuraById((int)Auras.EnR) || ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) < 10)
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.MS))
                 {
@@ -618,7 +618,7 @@ namespace Anthrax
                 }
 
                 //actions.single_target+=/execute,if=buff.sudden_execute.down|buff.taste_for_blood.down|rage>90|target.time_to_die<12
-                if (!ObjectManager.LocalPlayer.HasAuraById((int)Auras.SE) || !unit.HasAuraById((int)Auras.TfB) || (ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage)/10) > 90)
+                if (!ObjectManager.LocalPlayer.HasAuraById((int)Auras.SE) || !unit.HasAuraById((int)Auras.TfB) || ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 90)
                 {
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.EX))
                     {
@@ -653,7 +653,7 @@ namespace Anthrax
                 }
 
                 //actions.single_target+=/overpower,if=target.health.pct>=20&rage<100|buff.sudden_execute.up
-                if ((unit.HealthPercent > 20 && ((ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage)/10) < 100)) || ObjectManager.LocalPlayer.HasAuraById((int)Auras.SE))
+                if ((unit.HealthPercent > 20 && ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) < 100) || ObjectManager.LocalPlayer.HasAuraById((int)Auras.SE))
                 {
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.OP))
                     {
@@ -734,7 +734,7 @@ namespace Anthrax
             }
 
             //actions.aoe+=/cleave,if=rage>110&active_enemies<=4
-            if ((ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage)/10) > 110)
+            if (ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 110)
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.CL))
                 {
@@ -799,7 +799,7 @@ namespace Anthrax
             }
 
             //actions.aoe+=/mortal_strike,if=active_enemies=2|rage<50
-            if ((ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage)/10) < 50)
+            if (ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) < 50)
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)Spells.MS))
                 {
