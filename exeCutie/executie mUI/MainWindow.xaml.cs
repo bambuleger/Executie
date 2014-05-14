@@ -50,14 +50,14 @@ namespace executie_mUI
         {
             if (GlobalVariables.PLAYER.Length >= 2)
             {
-                GlobalVariables.curFile = GlobalVariables.path + "CB_Executie_Arms_" + GlobalVariables.PLAYER[1] + ".xml";
+                GlobalVariables.curFile = GlobalVariables.path + "CB_Executie_" + GlobalVariables.PLAYER[1] + ".xml";
                 GlobalVariables.charname = GlobalVariables.PLAYER[1];
                 //MessageBox.Show("Settungs loaded from: " + GlobalVariables.curFile);
                 
             }
             else
             {
-                GlobalVariables.curFile = GlobalVariables.path + "CB_Executie_Arms_default.xml";
+                GlobalVariables.curFile = GlobalVariables.path + "CB_Executie_default.xml";
                 GlobalVariables.noPlayer = "noPlayer";
                 //MessageBox.Show("Settings loaded from: " + GlobalVariables.curFile);
 
@@ -200,18 +200,18 @@ namespace executie_mUI
         public static void WerteSpeichern()
         {
             //checken welcher spieler und standard.xml bei bedarf kopieren
-            if (GlobalVariables.curFile == GlobalVariables.path + "CB_Executie_Arms_default.xml" && GlobalVariables.noPlayer == "noPlayer")
+            if (GlobalVariables.curFile == GlobalVariables.path + "CB_Executie_default.xml" && GlobalVariables.noPlayer == "noPlayer")
             {
                 // für gaming use
                 GlobalVariables.noPlayer = Microsoft.VisualBasic.Interaction.InputBox("Existing file will be overwritten!!!\nInsert a character name here:", "failure | not logged in", "charaktername", 0, 0);
-                File.Delete(GlobalVariables.path + "CB_Executie_Arms_" + noPlayer + ".xml");
-                File.Copy(GlobalVariables.path + "CB_Executie_Arms_default.xml", GlobalVariables.path + "CB_Executie_Arms_" + noPlayer + ".xml");
-                GlobalVariables.savefile =GlobalVariables.path + "CB_Executie_Arms_" + noPlayer + ".xml";
+                File.Delete(GlobalVariables.path + "CB_Executie_" + noPlayer + ".xml");
+                File.Copy(GlobalVariables.path + "CB_Executie_default.xml", GlobalVariables.path + "CB_Executie_" + noPlayer + ".xml");
+                GlobalVariables.savefile =GlobalVariables.path + "CB_Executie_" + noPlayer + ".xml";
                 
                 ////für standard use
                 //GlobalVariables.savefile = GlobalVariables.curFile
             }
-            else if (GlobalVariables.curFile != GlobalVariables.path + "CB_Executie_Arms_default.xml")
+            else if (GlobalVariables.curFile != GlobalVariables.path + "CB_Executie_default.xml")
             {
                 GlobalVariables.savefile = GlobalVariables.curFile;
             }

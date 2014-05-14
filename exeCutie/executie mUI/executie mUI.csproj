@@ -197,7 +197,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Combats\CB_Executie\CB_Executie_Arms_default.xml">
+    <Content Include="Combats\CB_Executie\CB_Executie_default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="media\icon_codingbad.ico" />
