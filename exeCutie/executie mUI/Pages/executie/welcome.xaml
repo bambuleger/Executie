@@ -21,10 +21,10 @@
                         Width="700" Height="170">
                     <!--<TextBox AcceptsReturn="True" IsReadOnly="True"/>-->
                     <TextBlock TextWrapping="Wrap" FontSize="11" Margin="4,3,4,3">
-                    [2014-05-12]<LineBreak/>
-                    - v1.0<LineBreak/>
-                    - added GUI<LineBreak/>
-                    - added Arms Rotation<LineBreak/>
+                    [2014-05-16]<LineBreak/>
+                    - v1.1<LineBreak/>
+                    - added first version of Single Target Fury Rotation<LineBreak/>
+                    - added Galakras CD Reduction Trinket Check<LineBreak/>
                     </TextBlock>
                 </Border>
                 

@@ -10,6 +10,11 @@
         <ScrollViewer Margin="-16,-28,-16,-16">
             <StackPanel MinWidth="200">
                 <TextBlock TextWrapping="Wrap" FontSize="11">
+                    [2014-05-16]<LineBreak/>
+                    - v1.1<LineBreak/>
+                    - added first version of Single Target Fury Rotation<LineBreak/>
+                    - added Galakras CD Reduction Trinket Check<LineBreak/>
+                    <LineBreak/>
                     [2014-05-12]<LineBreak/>
                     - v1.0<LineBreak/>
                     - added GUI<LineBreak/>
