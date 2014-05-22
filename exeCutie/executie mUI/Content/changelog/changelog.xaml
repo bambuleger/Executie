@@ -10,6 +10,10 @@
         <ScrollViewer Margin="-16,-28,-16,-16">
             <StackPanel MinWidth="200">
                 <TextBlock TextWrapping="Wrap" FontSize="11">
+                    [2014-05-22]<LineBreak/>
+                    - v1.2<LineBreak/>
+                    - added Fury AoE Rotation (2/3/4+ Targets)<LineBreak/>
+                    <LineBreak/>
                     [2014-05-16]<LineBreak/>
                     - v1.1<LineBreak/>
                     - added first version of Single Target Fury Rotation<LineBreak/>

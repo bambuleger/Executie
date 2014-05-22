@@ -275,31 +275,31 @@ namespace Anthrax
         #region CD_Reduction_Trinket
         public static bool CD_Reduction_Trinket()
         {
-            if (ObjectManager.LocalPlayer.EquippedItems.Where(x=> x.ItemId == 104993).Any()) //LFR
+            if (ObjectManager.LocalPlayer.EquippedItems.Where(x => x.ItemId == 104993).Any()) //LFR
             {
                 return true;
-            }   
-            else if (ObjectManager.LocalPlayer.EquippedItems.Where(x=> x.ItemId == 104744).Any()) //Flex
+            }
+            else if (ObjectManager.LocalPlayer.EquippedItems.Where(x => x.ItemId == 104744).Any()) //Flex
             {
                 return true;
-            }   
-            else if (ObjectManager.LocalPlayer.EquippedItems.Where(x=> x.ItemId == 102298).Any()) //Normal
+            }
+            else if (ObjectManager.LocalPlayer.EquippedItems.Where(x => x.ItemId == 102298).Any()) //Normal
             {
                 return true;
-            }   
-            else if (ObjectManager.LocalPlayer.EquippedItems.Where(x=> x.ItemId == 105242).Any()) //Normal Warforged
+            }
+            else if (ObjectManager.LocalPlayer.EquippedItems.Where(x => x.ItemId == 105242).Any()) //Normal Warforged
             {
                 return true;
-            }  
-            else if (ObjectManager.LocalPlayer.EquippedItems.Where(x=> x.ItemId == 104495).Any()) //Heroic
+            }
+            else if (ObjectManager.LocalPlayer.EquippedItems.Where(x => x.ItemId == 104495).Any()) //Heroic
             {
                 return true;
-            }   
-            else if (ObjectManager.LocalPlayer.EquippedItems.Where(x=> x.ItemId == 105491).Any()) //Heroic Warforged
+            }
+            else if (ObjectManager.LocalPlayer.EquippedItems.Where(x => x.ItemId == 105491).Any()) //Heroic Warforged
             {
                 return true;
-            }   
-            else 
+            }
+            else
             {
                 return false;
             }
@@ -519,7 +519,7 @@ namespace Anthrax
     {
         #region private vars
         bool isAOE;
-        [DllImport("User32.dll")] 
+        [DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(System.Windows.Forms.Keys vKey); // Keys enumeration 
         [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(int vKey);
@@ -531,7 +531,7 @@ namespace Anthrax
         }
 
         #region OnPull
-        public override void OnPull(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)             
+        public override void OnPull(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
         {
             //Check if we are in BattleStance, if not, switch to
             if (ObjectManager.LocalPlayer.ShapeshiftForm != Anthrax.WoW.Classes.ObjectManager.WowUnit.WowShapeshiftForm.BattleStance &&
@@ -541,9 +541,9 @@ namespace Anthrax
                 Anthrax.AI.Controllers.Spell.UseShapeshiftForm((int)CB_Executie.Spells.BSt);
                 return;
             }
-            
+
             //Charge if in range
-            if (unit.Position.Distance3DFromPlayer >= 7 && unit.Position.Distance3DFromPlayer <= 28)                                         
+            if (unit.Position.Distance3DFromPlayer >= 7 && unit.Position.Distance3DFromPlayer <= 28)
             {
                 // No need to move anymore
                 AI.Controllers.Mover.StopMoving();
@@ -553,8 +553,8 @@ namespace Anthrax
 
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CH))
                 {
-                    Anthrax.Logger.WriteLine("Pull - Charge");                
-                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CH, unit);     
+                    Anthrax.Logger.WriteLine("Pull - Charge");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CH, unit);
                     return;
                 }
 
@@ -563,16 +563,16 @@ namespace Anthrax
             //Target is too far, move closer
             else
             {
-                Anthrax.AI.Controllers.Mover.MoveToObject(unit);                                 
+                Anthrax.AI.Controllers.Mover.MoveToObject(unit);
             }
         }
         #endregion
-        
+
         #region SingletargetArms
-        public void SingleTargetRotationArms(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)               
+        public void SingleTargetRotationArms(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
         {
             //We always want to face the target
-            WoW.Internals.Movements.Face(unit.Position);           
+            WoW.Internals.Movements.Face(unit.Position);
 
             //actions.single_target=heroic_strike,if=rage>115|(debuff.colossus_smash.up&rage>60&set_bonus.tier16_2pc_melee)
             if (ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 115 || (unit.HasAuraById((int)CB_Executie.Auras.CSdb) && ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.T162P) && ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 60))
@@ -584,21 +584,21 @@ namespace Anthrax
                     return;
                 }
             }
-            
+
             //actions.single_target+=/mortal_strike,if=dot.deep_wounds.remains<1.0|buff.enrage.down|rage<10        
             if (unit.HasAuraById((int)CB_Executie.Auras.DWdb))
             {
                 if (unit.Auras.Where(x => x.SpellId == (int)CB_Executie.Auras.DWdb).First().TimeLeft <= 1000)
                 {
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.MS))
-                        {
-                            Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.MS, unit);
-                            Anthrax.Logger.WriteLine("Casting - Mortal Strike");
-                            return;
-                        }
+                    {
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.MS, unit);
+                        Anthrax.Logger.WriteLine("Casting - Mortal Strike");
+                        return;
+                    }
                 }
             }
-            
+
             if (!ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.EnR) || ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) < 10)
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.MS))
@@ -613,11 +613,11 @@ namespace Anthrax
             if (!unit.HasAuraById((int)CB_Executie.Auras.CSdb))
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CS))
-                    {
-                        Anthrax.Logger.WriteLine("Casting - Colossus Smash");
-                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
-                        return;
-                    }
+                {
+                    Anthrax.Logger.WriteLine("Casting - Colossus Smash");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
+                    return;
+                }
             }
 
             if (unit.HasAuraById((int)CB_Executie.Auras.CSdb))
@@ -634,91 +634,51 @@ namespace Anthrax
             }
 
             //actions.single_target+=/mortal_strike
-                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.MS))
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.MS))
+            {
+                Anthrax.Logger.WriteLine("Casting - Mortal Strike");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.MS, unit);
+                return;
+            }
+
+            //actions.single_target+=/storm_bolt,if=enabled&debuff.colossus_smash.up
+            if (unit.HasAuraById((int)CB_Executie.Auras.CSdb))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SB))
                 {
-                    Anthrax.Logger.WriteLine("Casting - Mortal Strike");
-                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.MS, unit);
+                    Anthrax.Logger.WriteLine("Casting - Storm Bolt");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SB, unit);
                     return;
                 }
+            }
 
-                //actions.single_target+=/storm_bolt,if=enabled&debuff.colossus_smash.up
-                if (unit.HasAuraById((int)CB_Executie.Auras.CSdb))
+            //actions.single_target+=/dragon_roar,if=enabled&debuff.colossus_smash.down
+            if (!unit.HasAuraById((int)CB_Executie.Auras.CSdb))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.DR))
                 {
-                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SB))
-                    {
-                        Anthrax.Logger.WriteLine("Casting - Storm Bolt");
-                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SB, unit);
-                        return;
-                    }
+                    Anthrax.Logger.WriteLine("Casting - Dragon Roar");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.DR, unit);
+                    return;
                 }
+            }
 
-                //actions.single_target+=/dragon_roar,if=enabled&debuff.colossus_smash.down
-                if (!unit.HasAuraById((int)CB_Executie.Auras.CSdb))
-                {
-                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.DR))
-                    {
-                        Anthrax.Logger.WriteLine("Casting - Dragon Roar");
-                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.DR, unit);
-                        return;
-                    }
-                }
-
-                //actions.single_target+=/execute,if=buff.sudden_execute.down|buff.taste_for_blood.down|rage>90|target.time_to_die<12
-                if (!ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.SE) || !unit.HasAuraById((int)CB_Executie.Auras.TfB) || ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 90)
-                {
-                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.EX))
-                    {
-                        Anthrax.Logger.WriteLine("Casting - Execute");
-                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.EX, unit);
-                        return;
-                    }
-                }
-
-                //# Slam is preferable to overpower with crit procs/recklessness.
-                //actions.single_target+=/slam,if=target.health.pct>=20&(trinket.stacking_stat.crit.stack>=10|buff.recklessness.up)
-                if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.SoOCrit))
-                {
-                    if (unit.HealthPercent > 20 && (ObjectManager.LocalPlayer.Auras.Where(x => x.SpellId == (int)CB_Executie.Auras.SoOCrit).First().StackCount >= 10))
-                    {
-                        if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SL))
-                        {
-                            Anthrax.Logger.WriteLine("Casting - Slam");
-                            Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SL, unit);
-                            return;
-                        }
-                    }
-                }
-                if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.REb))
-                {
-                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SL))
-                    {
-                        Anthrax.Logger.WriteLine("Casting - Slam");
-                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SL, unit);
-                        return;
-                    }
-                }
-
-                //actions.single_target+=/overpower,if=target.health.pct>=20&rage<100|buff.sudden_execute.up
-                if ((unit.HealthPercent > 20 && ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) < 100) || ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.SE))
-                {
-                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.OP))
-                    {
-                        Anthrax.Logger.WriteLine("Casting - Overpower");
-                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.OP, unit);
-                        return;
-                    }
-                }
-
-                //actions.single_target+=/execute
+            //actions.single_target+=/execute,if=buff.sudden_execute.down|buff.taste_for_blood.down|rage>90|target.time_to_die<12
+            if (!ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.SE) || !unit.HasAuraById((int)CB_Executie.Auras.TfB) || ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 90)
+            {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.EX))
                 {
-                    Anthrax.Logger.WriteLine("Casting - Excute");
+                    Anthrax.Logger.WriteLine("Casting - Execute");
                     Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.EX, unit);
                     return;
                 }
+            }
 
-                //actions.single_target+=/slam,if=target.health.pct>=20
-                if (unit.HealthPercent > 20)
+            //# Slam is preferable to overpower with crit procs/recklessness.
+            //actions.single_target+=/slam,if=target.health.pct>=20&(trinket.stacking_stat.crit.stack>=10|buff.recklessness.up)
+            if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.SoOCrit))
+            {
+                if (unit.HealthPercent > 20 && (ObjectManager.LocalPlayer.Auras.Where(x => x.SpellId == (int)CB_Executie.Auras.SoOCrit).First().StackCount >= 10))
                 {
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SL))
                     {
@@ -727,47 +687,87 @@ namespace Anthrax
                         return;
                     }
                 }
-
-                //actions.single_target+=/heroic_throw
-                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.HT))
+            }
+            if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.REb))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SL))
                 {
-                    Anthrax.Logger.WriteLine("Casting - Heroic Throw");
-                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.HT, unit);
+                    Anthrax.Logger.WriteLine("Casting - Slam");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SL, unit);
                     return;
                 }
+            }
 
-                //actions.single_target+=/battle_shout
-                if (Convert.ToString(CB_Executie.SMode) == "battleshout")
+            //actions.single_target+=/overpower,if=target.health.pct>=20&rage<100|buff.sudden_execute.up
+            if ((unit.HealthPercent > 20 && ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) < 100) || ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.SE))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.OP))
                 {
-                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
-                    {
-                        Anthrax.Logger.WriteLine("Casting - Battle Shout");
-                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
-                        return;
-                    }
+                    Anthrax.Logger.WriteLine("Casting - Overpower");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.OP, unit);
+                    return;
                 }
+            }
 
-                if (Convert.ToString(CB_Executie.SMode) == "commandingshout")
+            //actions.single_target+=/execute
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.EX))
+            {
+                Anthrax.Logger.WriteLine("Casting - Excute");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.EX, unit);
+                return;
+            }
+
+            //actions.single_target+=/slam,if=target.health.pct>=20
+            if (unit.HealthPercent > 20)
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SL))
                 {
-                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
-                    {
-                        Anthrax.Logger.WriteLine("Casting - Commanding Shout");
-                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
-                        return;
-                    }
+                    Anthrax.Logger.WriteLine("Casting - Slam");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SL, unit);
+                    return;
                 }
+            }
+
+            //actions.single_target+=/heroic_throw
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.HT))
+            {
+                Anthrax.Logger.WriteLine("Casting - Heroic Throw");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.HT, unit);
+                return;
+            }
+
+            //actions.single_target+=/battle_shout
+            if (Convert.ToString(CB_Executie.SMode) == "battleshout")
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Battle Shout");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
+                    return;
+                }
+            }
+
+            if (Convert.ToString(CB_Executie.SMode) == "commandingshout")
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Commanding Shout");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
+                    return;
+                }
+            }
 
             //Nothing else to fire, using autottack
             Anthrax.AI.Controllers.Spell.AttackTarget();
 
-            
+
         }
         #endregion
 
         #region MultitargetArms
         public void MultiTargetRotationArms(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
         {
-                        
+
             // We always want to face the target
             WoW.Internals.Movements.Face(unit.Position);
 
@@ -920,7 +920,7 @@ namespace Anthrax
             //Nothing else to fire, using autottack
             Anthrax.AI.Controllers.Spell.AttackTarget();
 
-            
+
         }
         #endregion
 
@@ -956,12 +956,12 @@ namespace Anthrax
             if (ObjectManager.LocalPlayer.UnitsAttackingMe.Count >= CB_Executie.AOE_tars)
             {
                 MultiTargetRotationArms(unit);
-                
+
             }
             else
             {
                 SingleTargetRotationArms(unit);
-                
+
             }
 
             //if (isAOE) 
@@ -982,10 +982,10 @@ namespace Anthrax
         #region Settings
         public override void Settings()
         {
-            string XMLCheck = "Combats\\CB_Executie\\CB_Executie_"+CB_Executie.CharacterLoggedIn+".xml";
+            string XMLCheck = "Combats\\CB_Executie\\CB_Executie_" + CB_Executie.CharacterLoggedIn + ".xml";
             if (!File.Exists(XMLCheck))
             {
-                File.Copy("Combats\\CB_Executie\\CB_Executie_default.xml", "Combats\\CB_Executie\\CB_Executie_"+CB_Executie.CharacterLoggedIn+".xml");
+                File.Copy("Combats\\CB_Executie\\CB_Executie_default.xml", "Combats\\CB_Executie\\CB_Executie_" + CB_Executie.CharacterLoggedIn + ".xml");
                 Anthrax.Logger.WriteLine("Executie - Created Settings for " + CB_Executie.CharacterLoggedIn);
             }
             else if (File.Exists(XMLCheck))
@@ -996,13 +996,13 @@ namespace Anthrax
             {
                 Anthrax.Logger.WriteLine("Executie - Loaded Default Settings");
             }
-                
-            
+
+
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = "Combats\\CB_Executie\\executie_mUI.exe";
             startInfo.Arguments = CB_Executie.CharacterLoggedIn;
-            Process.Start(startInfo);        
-            
+            Process.Start(startInfo);
+
         }
         #endregion
 
@@ -1072,7 +1072,7 @@ namespace Anthrax
                     return;
                 }
             }
-            
+
             //# Galakras cooldown reduction trinket allows Storm Bolt to be synced with Colossus Smash. 
             //actions.single_target+=/storm_bolt,if=enabled&buff.cooldown_reduction.up&debuff.colossus_smash.up
             if (CB_Executie.CD_Reduction_Trinket())
@@ -1132,7 +1132,7 @@ namespace Anthrax
 
             //# The GCD reduction of the Bloodsurge buff allows 3 Wild Strikes in-between Bloodthirst.
             //actions.single_target+=/wild_strike,if=buff.bloodsurge.react&target.health.pct>=20&cooldown.bloodthirst.remains<=1
-            if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.BSuA))                
+            if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.BSuA))
             {
                 if (unit.HealthPercent >= 20)
                 {
@@ -1150,14 +1150,14 @@ namespace Anthrax
 
             //actions.single_target+=/dragon_roar,if=enabled&(!debuff.colossus_smash.up&(buff.bloodbath.up|!talent.bloodbath.enabled))
             if (!unit.HasAuraById((int)CB_Executie.Auras.CSdb))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.DR))
                 {
-                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.DR))
-                    {
-                        Anthrax.Logger.WriteLine("Casting - Dragon Roar");
-                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.DR, unit);
-                        return;
-                    }
+                    Anthrax.Logger.WriteLine("Casting - Dragon Roar");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.DR, unit);
+                    return;
                 }
+            }
 
             //# The debuff from Colossus Smash lasts 6.5 seconds and also has 0.25~ seconds of travel time. This allows 4 1.5 second globals to be used inside of it every time now.
             //actions.single_target+=/colossus_smash            
@@ -1167,7 +1167,7 @@ namespace Anthrax
                 Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
                 return;
             }
-            
+
 
             //actions.single_target+=/storm_bolt,if=enabled&buff.cooldown_reduction.down
             if (!CB_Executie.CD_Reduction_Trinket())
@@ -1192,18 +1192,18 @@ namespace Anthrax
             }
 
             //actions.single_target+=/raging_blow,if=target.health.pct<20|buff.raging_blow.stack=2|(debuff.colossus_smash.up|(cooldown.bloodthirst.remains>=1&buff.raging_blow.remains<=3))
-             if (unit.HealthPercent < 20)
-             {
-                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
-                    {
-                        Anthrax.Logger.WriteLine("Casting - Raging Blow");
-                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
-                        return;
-                    }
-             }            
+            if (unit.HealthPercent < 20)
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Raging Blow");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
+                    return;
+                }
+            }
 
-             if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.RBA))
-             {
+            if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.RBA))
+            {
                 if (ObjectManager.LocalPlayer.Auras.Where(x => x.SpellId == (int)CB_Executie.Auras.RBA).First().StackCount == 2)
                 {
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
@@ -1213,7 +1213,7 @@ namespace Anthrax
                         return;
                     }
                 }
-             }
+            }
 
             if (unit.HasAuraById((int)CB_Executie.Auras.CSdb))
             {
@@ -1222,7 +1222,7 @@ namespace Anthrax
                     Anthrax.Logger.WriteLine("Casting - Raging Blow");
                     Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
                     return;
-                }                
+                }
             }
 
             //actions.single_target+=/bladestorm,if=enabled
@@ -1236,7 +1236,7 @@ namespace Anthrax
                     Anthrax.Logger.WriteLine("Casting - Wild Strike");
                     Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WS, unit);
                     return;
-                }  
+                }
             }
 
             //# If Colossus Smash is coming up soon, it's a good idea to save 1 charge of raging blow for it.
@@ -1293,7 +1293,7 @@ namespace Anthrax
                     Anthrax.Logger.WriteLine("Casting - Wild Strike");
                     Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WS, unit);
                     return;
-                }  
+                }
             }
 
             //actions.single_target+=/battle_shout,if=rage<70
@@ -1332,14 +1332,412 @@ namespace Anthrax
             //}
 
             //actions.single_target+=/impending_victory,if=enabled&target.health.pct>=20&cooldown.colossus_smash.remains>=2
-            
-            
-            
+
+
+
 
             //Nothing else to fire, using autottack
             Anthrax.AI.Controllers.Spell.AttackTarget();
 
 
+        }
+        #endregion
+
+        #region TwoTargetFury
+        public void TwoTargetRotationFury(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
+        {
+            //actions.two_targets=bloodbath,if=enabled&((!talent.bladestorm.enabled&(cooldown.colossus_smash.remains<2|debuff.colossus_smash.remains>=5|target.time_to_die<=20))|(talent.bladestorm.enabled))
+            if (unit.HasAuraById((int)CB_Executie.Auras.CSdb))
+            {
+                if (unit.Auras.Where(x => x.SpellId == (int)CB_Executie.Auras.CSdb).First().TimeLeft > 4000)
+                {
+                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BB))
+                    {
+                        Anthrax.Logger.WriteLine("Casting - Blood Bath");
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BB, ObjectManager.LocalPlayer);
+                    }
+                }
+            }
+
+            //actions.two_targets+=/cleave,if=(rage>=60&debuff.colossus_smash.up)|rage>110
+            if ((ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) >= 60 && unit.HasAuraById((int)CB_Executie.Auras.CSdb)) || ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 110)
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CL))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Cleave");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CL, unit);
+                    return;
+                }
+            }
+
+            //actions.two_targets+=/heroic_leap,if=buff.enrage.up&(debuff.colossus_smash.up&buff.cooldown_reduction.up|!buff.cooldown_reduction.up)
+
+            //actions.two_targets+=/bladestorm,if=enabled&(buff.bloodbath.up|!talent.bloodbath.enabled)&(!talent.storm_bolt.enabled|(talent.storm_bolt.enabled&!debuff.colossus_smash.up))
+            if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.BBA))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BS))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Bladestorm");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BS, unit);
+                    return;
+                }
+            }
+
+            //# Generally, if an encounter has any type of AoE, Bladestorm will be the better choice than Dragon Roar.
+            //actions.two_targets+=/dragon_roar,if=enabled&(!debuff.colossus_smash.up&(buff.bloodbath.up|!talent.bloodbath.enabled))
+            if (!unit.HasAuraById((int)CB_Executie.Auras.CSdb) && ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.BBA))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.DR))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Dragon Roar");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.DR, unit);
+                    return;
+                }
+            }
+            //actions.two_targets+=/colossus_smash
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CS))
+            {
+                Anthrax.Logger.WriteLine("Casting - Colossus Smash");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
+                return;
+            }
+
+            //actions.two_targets+=/storm_bolt,if=enabled&debuff.colossus_smash.up
+            if (unit.HasAuraById((int)CB_Executie.Auras.CSdb))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SB))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Storm Bolt");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SB, unit);
+                    return;
+                }
+            }
+
+            //actions.two_targets+=/bloodthirst
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BT))
+            {
+                Anthrax.Logger.WriteLine("Casting - Bloodthirst");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BT, unit);
+                return;
+            }
+
+            //actions.two_targets+=/wait,sec=cooldown.bloodthirst.remains,if=!(target.health.pct<20&debuff.colossus_smash.up&rage>=30&buff.enrage.up)&cooldown.bloodthirst.remains<=1
+
+            //actions.two_targets+=/raging_blow,if=buff.meat_cleaver.up
+            if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.MCA))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Raging Blow");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
+                    return;
+                }
+            }
+            //actions.two_targets+=/whirlwind,if=!buff.meat_cleaver.up
+            if (!ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.MCA))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.WW))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Whirlwind");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WW, unit);
+                    return;
+                }
+            }
+
+            //actions.two_targets+=/execute
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.EX))
+            {
+                Anthrax.Logger.WriteLine("Casting - Excute");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.EX, unit);
+                return;
+            }
+
+            //actions.two_targets+=/battle_shout
+            if (Convert.ToString(CB_Executie.SMode) == "battleshout")
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Battle Shout 13");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
+                    return;
+                }
+            }
+
+            if (Convert.ToString(CB_Executie.SMode) == "commandingshout")
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Commanding Shout 13");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
+                    return;
+                }
+            }
+            //actions.two_targets+=/heroic_throw
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.HT))
+            {
+                Anthrax.Logger.WriteLine("Casting - Heroic Throw");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.HT, unit);
+                return;
+            }
+        }
+        #endregion
+
+        #region ThreeTargetRotationFury
+        public void ThreeTargetRotationFury(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
+        {
+            //actions.three_targets=bloodbath,if=enabled
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BB))
+            {
+                Anthrax.Logger.WriteLine("Casting - Blood Bath");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BB, ObjectManager.LocalPlayer);
+            }
+
+            //actions.three_targets+=/cleave,if=(rage>=70&debuff.colossus_smash.up)|rage>90
+            if ((ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) >= 70 && unit.HasAuraById((int)CB_Executie.Auras.CSdb)) || ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 90)
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CL))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Cleave");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CL, unit);
+                    return;
+                }
+            }
+            //actions.three_targets+=/heroic_leap,if=buff.enrage.up&(debuff.colossus_smash.up&buff.cooldown_reduction.up|!buff.cooldown_reduction.up)
+
+            //actions.three_targets+=/bladestorm,if=enabled&(buff.bloodbath.up|!talent.bloodbath.enabled)
+            if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.BBA))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BS))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Bladestorm");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BS, unit);
+                    return;
+                }
+            }
+
+            //actions.three_targets+=/bloodthirst,if=buff.enrage.down
+            if (!ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.EnR))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BT))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Bloodthirst");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BT, unit);
+                    return;
+                }
+            }
+
+            //actions.three_targets+=/dragon_roar,if=enabled&!debuff.colossus_smash.up&(buff.bloodbath.up|!talent.bloodbath.enabled)
+            if (!unit.HasAuraById((int)CB_Executie.Auras.CSdb) && ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.BBA))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.DR))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Dragon Roar");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.DR, unit);
+                    return;
+                }
+            }
+
+            //actions.three_targets+=/colossus_smash
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CS))
+            {
+                Anthrax.Logger.WriteLine("Casting - Colossus Smash");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
+                return;
+            }
+
+            //actions.three_targets+=/storm_bolt,if=enabled&debuff.colossus_smash.up
+            if (unit.HasAuraById((int)CB_Executie.Auras.CSdb))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SB))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Storm Bolt");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SB, unit);
+                    return;
+                }
+            }
+
+            //actions.three_targets+=/raging_blow,if=buff.meat_cleaver.stack=2
+            if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.MCA))
+            {
+                if (ObjectManager.LocalPlayer.Auras.Where(x => x.SpellId == (int)CB_Executie.Auras.MCA).First().StackCount == 2)
+                {
+                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
+                    {
+                        Anthrax.Logger.WriteLine("Casting - Raging Blow");
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
+                        return;
+                    }
+                }
+            }
+            //actions.three_targets+=/whirlwind
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.WW))
+            {
+                Anthrax.Logger.WriteLine("Casting - Whirlwind");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WW, unit);
+                return;
+            }
+
+            //actions.three_targets+=/raging_blow
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
+            {
+                Anthrax.Logger.WriteLine("Casting - Raging Blow");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
+                return;
+            }
+
+            //actions.three_targets+=/battle_shout
+            if (Convert.ToString(CB_Executie.SMode) == "battleshout")
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Battle Shout 13");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
+                    return;
+                }
+            }
+
+            if (Convert.ToString(CB_Executie.SMode) == "commandingshout")
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Commanding Shout 13");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
+                    return;
+                }
+            }
+
+            //actions.three_targets+=/heroic_throw            
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.HT))
+            {
+                Anthrax.Logger.WriteLine("Casting - Heroic Throw");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.HT, unit);
+                return;
+            }
+        }
+        #endregion
+
+        #region MultiTargetRotationFury
+        public void MultiTargetRotationFury(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
+        {
+            //actions.aoe=bloodbath,if=enabled
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BB))
+            {
+                Anthrax.Logger.WriteLine("Casting - Blood Bath");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BB, ObjectManager.LocalPlayer);
+            }
+
+            //actions.aoe+=/cleave,if=rage>90
+            if ((ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 90))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CL))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Cleave");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CL, unit);
+                    return;
+                }
+            }
+            //actions.aoe+=/heroic_leap,if=buff.enrage.up
+
+            //actions.aoe+=/bladestorm,if=enabled&(buff.bloodbath.up|!talent.bloodbath.enabled)
+            if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.BBA))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BS))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Bladestorm");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BS, unit);
+                    return;
+                }
+            }
+
+            //actions.aoe+=/bloodthirst,if=buff.enrage.down
+            if (!ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.EnR))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BT))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Bloodthirst");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BT, unit);
+                    return;
+                }
+            }
+            //actions.aoe+=/raging_blow,if=buff.meat_cleaver.stack=3
+            if (ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.MCA))
+            {
+                if (ObjectManager.LocalPlayer.Auras.Where(x => x.SpellId == (int)CB_Executie.Auras.MCA).First().StackCount == 3)
+                {
+                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
+                    {
+                        Anthrax.Logger.WriteLine("Casting - Raging Blow");
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
+                        return;
+                    }
+                }
+            }
+
+            //actions.aoe+=/whirlwind
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.WW))
+            {
+                Anthrax.Logger.WriteLine("Casting - Whirlwind");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WW, unit);
+                return;
+            }
+
+            //# Dragon roar is a poor choice on large-scale AoE as the damage it does is reduced with additional targets. The damage it does per target is reduced by the following amounts:
+            //# 1/2/3/4/5+ targets ---> 0%/25%/35%/45%/50%
+            //actions.aoe+=/dragon_roar,if=enabled&debuff.colossus_smash.down&(buff.bloodbath.up|!talent.bloodbath.enabled)
+
+            //actions.aoe+=/bloodthirst,cycle_targets=1,if=!dot.deep_wounds.ticking
+            if (!unit.HasAuraById((int)CB_Executie.Auras.DWdb))
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BT))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Bloodthirst");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BT, unit);
+                    return;
+                }
+            }
+            //actions.aoe+=/colossus_smash
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CS))
+            {
+                Anthrax.Logger.WriteLine("Casting - Colossus Smash");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
+                return;
+            }
+
+            //actions.aoe+=/storm_bolt,if=enabled
+            if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SB))
+            {
+                Anthrax.Logger.WriteLine("Casting - Storm Bolt");
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SB, unit);
+                return;
+            }
+
+            //actions.aoe+=/battle_shout
+            if (Convert.ToString(CB_Executie.SMode) == "battleshout")
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Battle Shout 13");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
+                    return;
+                }
+            }
+
+            if (Convert.ToString(CB_Executie.SMode) == "commandingshout")
+            {
+                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
+                {
+                    Anthrax.Logger.WriteLine("Casting - Commanding Shout 13");
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
+                    return;
+                }
+            }
+        }
+        #endregion
+
+        #region OnLoad
+        public override void OnLoad()
+        {
+            CB_Executie.GetSettingsFromXML();
         }
         #endregion
 
@@ -1349,7 +1747,51 @@ namespace Anthrax
             CB_Executie.Offensives(unit);
             CB_Executie.Defensives(unit);
 
-            SingleTargetRotationFury(unit);
+            if (ObjectManager.LocalPlayer.UnitsAttackingMe.Count >= 4)
+            {
+                MultiTargetRotationFury(unit);
+            }
+            else if (ObjectManager.LocalPlayer.UnitsAttackingMe.Count == 3)
+            {
+                ThreeTargetRotationFury(unit);
+            }
+            else if (ObjectManager.LocalPlayer.UnitsAttackingMe.Count == 2)
+            {
+                TwoTargetRotationFury(unit);
+            }
+            else
+            {
+                SingleTargetRotationFury(unit);
+
+            }
+
+        }
+        #endregion
+
+        #region Settings
+        public override void Settings()
+        {
+            string XMLCheck = "Combats\\CB_Executie\\CB_Executie_" + CB_Executie.CharacterLoggedIn + ".xml";
+            if (!File.Exists(XMLCheck))
+            {
+                File.Copy("Combats\\CB_Executie\\CB_Executie_default.xml", "Combats\\CB_Executie\\CB_Executie_" + CB_Executie.CharacterLoggedIn + ".xml");
+                Anthrax.Logger.WriteLine("Executie - Created Settings for " + CB_Executie.CharacterLoggedIn);
+            }
+            else if (File.Exists(XMLCheck))
+            {
+                Anthrax.Logger.WriteLine("Executie - Loaded Settings for " + CB_Executie.CharacterLoggedIn);
+            }
+            else
+            {
+                Anthrax.Logger.WriteLine("Executie - Loaded Default Settings");
+            }
+
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = "Combats\\CB_Executie\\executie_mUI.exe";
+            startInfo.Arguments = CB_Executie.CharacterLoggedIn;
+            Process.Start(startInfo);
+
         }
         #endregion
 
