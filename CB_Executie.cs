@@ -14,6 +14,9 @@ using System.Drawing;
 using System.ComponentModel;
 using System.Threading;
 using System.Xml;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Windows.Forms;
 //using System.Xml.Linq;
 //using System.Data;
 
@@ -543,28 +546,28 @@ namespace Anthrax
             }
 
             //Charge if in range
-            if (unit.Position.Distance3DFromPlayer >= 7 && unit.Position.Distance3DFromPlayer <= 28)
-            {
-                // No need to move anymore
-                AI.Controllers.Mover.StopMoving();
+            //if (unit.Position.Distance3DFromPlayer >= 7 && unit.Position.Distance3DFromPlayer <= 28)
+            //{
+            //    // No need to move anymore
+            //    AI.Controllers.Mover.StopMoving();
 
-                // We always want to face the target
-                WoW.Internals.Movements.Face(unit.Position);
+            //    // We always want to face the target
+            //    WoW.Internals.Movements.Face(unit.Position);
 
-                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CH))
-                {
-                    Anthrax.Logger.WriteLine("Pull - Charge");
-                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CH, unit);
-                    return;
-                }
+            //    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CH))
+            //    {
+            //        Anthrax.Logger.WriteLine("Pull - Charge");
+            //        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CH, unit);
+            //        return;
+            //    }
 
-            }
+            //}
 
             //Target is too far, move closer
-            else
-            {
-                Anthrax.AI.Controllers.Mover.MoveToObject(unit);
-            }
+            //else
+            //{
+            //    Anthrax.AI.Controllers.Mover.MoveToObject(unit);
+            //}
         }
         #endregion
 
@@ -572,7 +575,7 @@ namespace Anthrax
         public void SingleTargetRotationArms(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
         {
             //We always want to face the target
-            WoW.Internals.Movements.Face(unit.Position);
+            //WoW.Internals.Movements.Face(unit.Position);
 
             //actions.single_target=heroic_strike,if=rage>115|(debuff.colossus_smash.up&rage>60&set_bonus.tier16_2pc_melee)
             if (ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 115 || (unit.HasAuraById((int)CB_Executie.Auras.CSdb) && ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.T162P) && ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 60))
@@ -769,7 +772,7 @@ namespace Anthrax
         {
 
             // We always want to face the target
-            WoW.Internals.Movements.Face(unit.Position);
+            //WoW.Internals.Movements.Face(unit.Position);
 
             //actions.aoe=sweeping_strikes
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SS))
@@ -925,7 +928,7 @@ namespace Anthrax
         #endregion
 
         #region Rotation Change
-        public void changeRotation()
+        public void changeRotationArms()
         {
             if (isAOE)
             {
@@ -951,31 +954,38 @@ namespace Anthrax
         public override void OnCombat(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
         {
 
-            CB_Executie.Offensives(unit);
-            CB_Executie.Defensives(unit);
-            if (ObjectManager.LocalPlayer.UnitsAttackingMe.Count >= CB_Executie.AOE_tars)
+            if (ObjectManager.LocalPlayer.InCombat)
             {
-                MultiTargetRotationArms(unit);
+                CB_Executie.Offensives(unit);
+                CB_Executie.Defensives(unit);
+
+
+                //if (ObjectManager.LocalPlayer.UnitsAttackingMe.Count >= CB_Executie.AOE_tars)
+                //{
+                //    MultiTargetRotationArms(unit);
+
+                //}
+                //else
+                //{
+                //    SingleTargetRotationArms(unit);
+
+                //}
+
+                if (isAOE)
+                {
+                    MultiTargetRotationArms(unit);
+                }
+                else
+                {
+                    SingleTargetRotationArms(unit);
+                }
+                if ((GetAsyncKeyState(112) == -32767))
+                {
+                    changeRotationArms();
+                }
 
             }
-            else
-            {
-                SingleTargetRotationArms(unit);
 
-            }
-
-            //if (isAOE) 
-            //{
-            //    MultiTargetRotation(unit);  
-            //}
-            //else
-            //{
-            //    SingleTargetRotation(unit); 
-            //}
-            //if ((GetAsyncKeyState(90) == -32767))
-            //{
-            //    changeRotation();
-            //}
         }
         #endregion
 
@@ -1006,12 +1016,22 @@ namespace Anthrax
         }
         #endregion
 
+
+
     }
     #endregion
 
     #region CB_Executie_Fury
     public class CB_Executie_Fury : Anthrax.Modules.ICombat
     {
+
+        #region private vars
+        int AOE_num = 1;
+        [DllImport("User32.dll")]
+        private static extern short GetAsyncKeyState(System.Windows.Forms.Keys vKey); // Keys enumeration 
+        [DllImport("user32.dll")]
+        public static extern short GetAsyncKeyState(int vKey);
+        #endregion
 
         public override string Name
         {
@@ -1031,28 +1051,28 @@ namespace Anthrax
             }
 
             //Charge if in range
-            if (unit.Position.Distance3DFromPlayer >= 7 && unit.Position.Distance3DFromPlayer <= 28)
-            {
-                // No need to move anymore
-                AI.Controllers.Mover.StopMoving();
+            //if (unit.Position.Distance3DFromPlayer >= 7 && unit.Position.Distance3DFromPlayer <= 28)
+            //{
+            //    // No need to move anymore
+            //    AI.Controllers.Mover.StopMoving();
 
-                // We always want to face the target
-                WoW.Internals.Movements.Face(unit.Position);
+            //    // We always want to face the target
+            //    WoW.Internals.Movements.Face(unit.Position);
 
-                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CH))
-                {
-                    Anthrax.Logger.WriteLine("Pull - Charge");
-                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CH, unit);
-                    return;
-                }
+            //    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CH))
+            //    {
+            //        Anthrax.Logger.WriteLine("Pull - Charge");
+            //        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CH, unit);
+            //        return;
+            //    }
 
-            }
+            //}
 
             //Target is too far, move closer
-            else
-            {
-                Anthrax.AI.Controllers.Mover.MoveToObject(unit);
-            }
+            //else
+            //{
+            //    Anthrax.AI.Controllers.Mover.MoveToObject(unit);
+            //}
         }
         #endregion
 
@@ -1060,7 +1080,7 @@ namespace Anthrax
         public void SingleTargetRotationFury(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
         {
             //We always want to face the target
-            WoW.Internals.Movements.Face(unit.Position);
+            //WoW.Internals.Movements.Face(unit.Position);
 
             //actions.single_target+=/heroic_strike,if=((debuff.colossus_smash.up&rage>=40)&target.health.pct>=20)|rage>=100&buff.enrage.up
             if ((ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.EnR) && ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 100) || (unit.HasAuraById((int)CB_Executie.Auras.CSdb) && ObjectManager.LocalPlayer.GetPower(Anthrax.WoW.Classes.ObjectManager.WowUnit.WowPowerType.Rage) > 40))
@@ -1163,7 +1183,7 @@ namespace Anthrax
             //actions.single_target+=/colossus_smash            
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CS))
             {
-                Anthrax.Logger.WriteLine("Casting - Colossus Smash");
+                Anthrax.Logger.WriteLine("Casting - Colossus Smash SINGLE");
                 Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
                 return;
             }
@@ -1438,7 +1458,7 @@ namespace Anthrax
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.WW))
                 {
-                    Anthrax.Logger.WriteLine("Casting - Whirlwind");
+                    Anthrax.Logger.WriteLine("Casting - Whirlwind 2");
                     Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WW, unit);
                     return;
                 }
@@ -1457,7 +1477,7 @@ namespace Anthrax
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
                 {
-                    Anthrax.Logger.WriteLine("Casting - Battle Shout 13");
+                    Anthrax.Logger.WriteLine("Casting - Battle Shout");
                     Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
                     return;
                 }
@@ -1467,7 +1487,7 @@ namespace Anthrax
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
                 {
-                    Anthrax.Logger.WriteLine("Casting - Commanding Shout 13");
+                    Anthrax.Logger.WriteLine("Casting - Commanding Shout");
                     Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
                     return;
                 }
@@ -1520,7 +1540,7 @@ namespace Anthrax
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BT))
                 {
-                    Anthrax.Logger.WriteLine("Casting - Bloodthirst");
+                    Anthrax.Logger.WriteLine("Casting - Bloodthirst ");
                     Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BT, unit);
                     return;
                 }
@@ -1572,7 +1592,7 @@ namespace Anthrax
             //actions.three_targets+=/whirlwind
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.WW))
             {
-                Anthrax.Logger.WriteLine("Casting - Whirlwind");
+                Anthrax.Logger.WriteLine("Casting - Whirlwind 3");
                 Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WW, unit);
                 return;
             }
@@ -1676,7 +1696,7 @@ namespace Anthrax
             //actions.aoe+=/whirlwind
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.WW))
             {
-                Anthrax.Logger.WriteLine("Casting - Whirlwind");
+                Anthrax.Logger.WriteLine("Casting - Whirlwind 4+");
                 Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WW, unit);
                 return;
             }
@@ -1716,7 +1736,7 @@ namespace Anthrax
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
                 {
-                    Anthrax.Logger.WriteLine("Casting - Battle Shout 13");
+                    Anthrax.Logger.WriteLine("Casting - Battle Shout ");
                     Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
                     return;
                 }
@@ -1726,7 +1746,7 @@ namespace Anthrax
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
                 {
-                    Anthrax.Logger.WriteLine("Casting - Commanding Shout 13");
+                    Anthrax.Logger.WriteLine("Casting - Commanding Shout ");
                     Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
                     return;
                 }
@@ -1741,29 +1761,88 @@ namespace Anthrax
         }
         #endregion
 
+        //#region Rotation Change
+        //public void changeRotationFury()
+        //{
+        //    if (AOE_num == 1)
+        //    {
+        //        Anthrax.Logger.WriteLine("Singletarget Rotation");
+        //        AOE_num = AOE_num + 1;
+        //    }
+        //    else if
+        //    {
+        //        AOE_num = 1;
+        //        Anthrax.Logger.WriteLine("Multitarget Rotation");
+        //    }
+        //}
+        //#endregion
+
         #region OnCombat
         public override void OnCombat(Anthrax.WoW.Classes.ObjectManager.WowUnit unit)
         {
-            CB_Executie.Offensives(unit);
-            CB_Executie.Defensives(unit);
+            if (ObjectManager.LocalPlayer.InCombat)
+            {
+                CB_Executie.Offensives(unit);
+                CB_Executie.Defensives(unit);
 
-            if (ObjectManager.LocalPlayer.UnitsAttackingMe.Count >= 4)
-            {
-                MultiTargetRotationFury(unit);
-            }
-            else if (ObjectManager.LocalPlayer.UnitsAttackingMe.Count == 3)
-            {
-                ThreeTargetRotationFury(unit);
-            }
-            else if (ObjectManager.LocalPlayer.UnitsAttackingMe.Count == 2)
-            {
-                TwoTargetRotationFury(unit);
-            }
-            else
-            {
-                SingleTargetRotationFury(unit);
 
+                if (AOE_num == 4)
+                {
+                    MultiTargetRotationFury(unit);
+                }
+                if (AOE_num == 3)
+                {
+                    ThreeTargetRotationFury(unit);
+                }
+                if (AOE_num == 2)
+                {
+                    TwoTargetRotationFury(unit);
+                }
+                else
+                {
+                    SingleTargetRotationFury(unit);
+                }
+                if ((GetAsyncKeyState(113) == -32767))
+                {
+                    if (AOE_num == 1)
+                    {
+                        Anthrax.Logger.WriteLine("Two Target Rotation");
+                        AOE_num = AOE_num + 1;
+                    }
+                    else if (AOE_num == 2)
+                    {
+                        Anthrax.Logger.WriteLine("Three Target Rotation");
+                        AOE_num = AOE_num + 1;
+                    }
+                    else if (AOE_num == 3)
+                    {
+                        Anthrax.Logger.WriteLine("Multi Target Rotation");
+                        AOE_num = AOE_num + 1;
+                    }
+                    else if (AOE_num == 4)
+                    {
+                        Anthrax.Logger.WriteLine("Single Target Rotation");
+                        AOE_num = 1;
+                    }
+                }
             }
+            //if (ObjectManager.LocalPlayer.UnitsAttackingMe.Count >= 4)
+            //{
+            //    MultiTargetRotationFury(unit);
+            //}
+            //else if (ObjectManager.LocalPlayer.UnitsAttackingMe.Count == 3)
+            //{
+            //    ThreeTargetRotationFury(unit);
+            //}
+            //else if (ObjectManager.LocalPlayer.UnitsAttackingMe.Count == 2)
+            //{
+            //    TwoTargetRotationFury(unit);
+            //}
+            //else
+            //{
+            //    SingleTargetRotationFury(unit);
+
+            //}
 
         }
         #endregion
@@ -1795,8 +1874,13 @@ namespace Anthrax
         }
         #endregion
 
+
+
     }
     #endregion
+
+
+
 
 }
 
