@@ -167,8 +167,6 @@ namespace Anthrax
             VR = 34428,             //Victory Rush
             WS = 100130,            //Wild Strike
             WW = 1680,              //Whirlwind
-
-            SSp = 126734,            //Synapse Springs
         }
 
         public enum Auras : int
@@ -343,7 +341,7 @@ namespace Anthrax
                 if (ObjectManager.LocalPlayer.HealthPercent < RC_HP &&
                         AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RC))
                 {
-                    WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.RC);
+                    AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RC, ObjectManager.LocalPlayer);
                     return;
                 }
             }
@@ -354,7 +352,7 @@ namespace Anthrax
                 if (ObjectManager.LocalPlayer.HealthPercent < SW_HP &&
                         AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SW))
                 {
-                    WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SW);
+                    AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SW, ObjectManager.LocalPlayer);
                     return;
                 }
             }
@@ -365,7 +363,7 @@ namespace Anthrax
                 if (ObjectManager.LocalPlayer.HealthPercent < DbtS_HP &&
                         AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.DbtS))
                 {
-                    WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.DbtS);
+                    AI.Controllers.Spell.Cast((int)CB_Executie.Spells.DbtS, ObjectManager.LocalPlayer);
                     return;
                 }
             }
@@ -376,7 +374,7 @@ namespace Anthrax
                 if (ObjectManager.LocalPlayer.HealthPercent < DBa_HP &&
                         AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.DBa))
                 {
-                    WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.DBa);
+                    AI.Controllers.Spell.Cast((int)CB_Executie.Spells.DBa, ObjectManager.LocalPlayer);
                     return;
                 }
             }
@@ -387,7 +385,7 @@ namespace Anthrax
                 if (ObjectManager.LocalPlayer.HealthPercent < ER_HP &&
                         AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.ER))
                 {
-                    WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.ER);
+                    AI.Controllers.Spell.Cast((int)CB_Executie.Spells.ER, ObjectManager.LocalPlayer);
                     return;
                 }
             }
@@ -414,7 +412,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RE))
                 {
                     Anthrax.Logger.WriteLine("Casting - Recklessness");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.RE);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RE, ObjectManager.LocalPlayer);
                 }
             }
 
@@ -426,7 +424,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.AV))
                     {
                         Anthrax.Logger.WriteLine("Casting - Avatar");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.AV);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.AV, ObjectManager.LocalPlayer);
                     }
                 }
             }
@@ -439,23 +437,23 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SBa))
                     {
                         Anthrax.Logger.WriteLine("Casting - Skull Banner");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SBa);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SBa, ObjectManager.LocalPlayer);
                     }
                 }
             }
 
             ////actions+=/use_item,slot=hands,if=!talent.bloodbath.enabled&debuff.colossus_smash.up|buff.bloodbath.up
-            if (Eng_use)
-            {
-                if (unit.HasAuraById((int)CB_Executie.Auras.CSdb) || ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.BBA))
-                {
-                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SSp))
-                    {
-                        Anthrax.Logger.WriteLine("Casting Synapse Springs");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SSp);
-                    }
-                }
-            }
+            //if (Eng_use)
+            //{
+            //    if (unit.HasAuraById((int)CB_Executie.Auras.CSdb) || ObjectManager.LocalPlayer.HasAuraById((int)CB_Executie.Auras.BBA))
+            //    {
+            //        if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SBa))
+            //        {
+            //            Anthrax.Logger.WriteLine("Casting Skull Banner");
+            //            Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SBa);
+            //        }
+            //    }
+            //}
 
             //actions+=/blood_fury,if=buff.cooldown_reduction.down&(buff.bloodbath.up|(!talent.bloodbath.enabled&debuff.colossus_smash.up))|buff.cooldown_reduction.up&buff.recklessness.up
             //actions+=/berserking,if=buff.cooldown_reduction.down&(buff.bloodbath.up|(!talent.bloodbath.enabled&debuff.colossus_smash.up))|buff.cooldown_reduction.up&buff.recklessness.up
@@ -466,12 +464,12 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BF))
                     {
                         Anthrax.Logger.WriteLine("Casting - Blood Fury (Orc)");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BF);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BF, ObjectManager.LocalPlayer);
                     }
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BE))
                     {
                         Anthrax.Logger.WriteLine("Casting - Berserk (Troll)");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BE);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BE, ObjectManager.LocalPlayer);
                     }
                 }
             }
@@ -484,7 +482,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BB))
                     {
                         Anthrax.Logger.WriteLine("Casting - Blood Bath");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BB);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BB, ObjectManager.LocalPlayer);
                     }
                 }
             }
@@ -497,7 +495,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BR))
                     {
                         Anthrax.Logger.WriteLine("Casting - Berserker Rage");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BR);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BR, ObjectManager.LocalPlayer);
                     }
                 }
             }
@@ -506,7 +504,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BR))
                 {
                     Anthrax.Logger.WriteLine("Casting - Berserker Rage");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BR);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BR, ObjectManager.LocalPlayer);
                 }
             }
 
@@ -559,7 +557,7 @@ namespace Anthrax
             //    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CH))
             //    {
             //        Anthrax.Logger.WriteLine("Pull - Charge");
-            //        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CH);
+            //        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CH, unit);
             //        return;
             //    }
 
@@ -584,7 +582,7 @@ namespace Anthrax
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.HS))
                 {
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.HS);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.HS, unit);
                     Anthrax.Logger.WriteLine("Casting - Heroic Strike");
                     return;
                 }
@@ -597,7 +595,7 @@ namespace Anthrax
                 {
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.MS))
                     {
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.MS);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.MS, unit);
                         Anthrax.Logger.WriteLine("Casting - Mortal Strike");
                         return;
                     }
@@ -608,7 +606,7 @@ namespace Anthrax
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.MS))
                 {
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.MS);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.MS, unit);
                     Anthrax.Logger.WriteLine("Casting - Mortal Strike");
                     return;
                 }
@@ -620,7 +618,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CS))
                 {
                     Anthrax.Logger.WriteLine("Casting - Colossus Smash");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CS);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
                     return;
                 }
             }
@@ -632,7 +630,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CS))
                     {
                         Anthrax.Logger.WriteLine("Casting - Colossus Smash");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CS);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
                         return;
                     }
                 }
@@ -642,7 +640,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.MS))
             {
                 Anthrax.Logger.WriteLine("Casting - Mortal Strike");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.MS);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.MS, unit);
                 return;
             }
 
@@ -652,7 +650,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SB))
                 {
                     Anthrax.Logger.WriteLine("Casting - Storm Bolt");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SB);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SB, unit);
                     return;
                 }
             }
@@ -663,7 +661,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.DR))
                 {
                     Anthrax.Logger.WriteLine("Casting - Dragon Roar");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.DR);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.DR, unit);
                     return;
                 }
             }
@@ -674,7 +672,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.EX))
                 {
                     Anthrax.Logger.WriteLine("Casting - Execute");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.EX);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.EX, unit);
                     return;
                 }
             }
@@ -688,7 +686,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SL))
                     {
                         Anthrax.Logger.WriteLine("Casting - Slam");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SL);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SL, unit);
                         return;
                     }
                 }
@@ -698,7 +696,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SL))
                 {
                     Anthrax.Logger.WriteLine("Casting - Slam");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SL);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SL, unit);
                     return;
                 }
             }
@@ -709,7 +707,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.OP))
                 {
                     Anthrax.Logger.WriteLine("Casting - Overpower");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.OP);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.OP, unit);
                     return;
                 }
             }
@@ -718,7 +716,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.EX))
             {
                 Anthrax.Logger.WriteLine("Casting - Excute");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.EX);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.EX, unit);
                 return;
             }
 
@@ -728,7 +726,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SL))
                 {
                     Anthrax.Logger.WriteLine("Casting - Slam");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SL);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SL, unit);
                     return;
                 }
             }
@@ -737,7 +735,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.HT))
             {
                 Anthrax.Logger.WriteLine("Casting - Heroic Throw");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.HT);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.HT, unit);
                 return;
             }
 
@@ -747,7 +745,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
                 {
                     Anthrax.Logger.WriteLine("Casting - Battle Shout");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BSh);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
                     return;
                 }
             }
@@ -757,7 +755,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
                 {
                     Anthrax.Logger.WriteLine("Casting - Commanding Shout");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CSh);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
                     return;
                 }
             }
@@ -780,7 +778,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SS))
             {
                 Anthrax.Logger.WriteLine("Casting - Sweeping Strikes");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SS);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SS, unit);
                 return;
             }
 
@@ -790,7 +788,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CL))
                 {
                     Anthrax.Logger.WriteLine("Casting - Cleave");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CL);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CL, unit);
                     return;
                 }
             }
@@ -801,7 +799,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BS))
                 {
                     Anthrax.Logger.WriteLine("Casting - Bladestorm");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BS);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BS, unit);
                     return;
                 }
             }
@@ -812,7 +810,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.DR))
                 {
                     Anthrax.Logger.WriteLine("Casting - Dragon Roar");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.DR);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.DR, unit);
                     return;
                 }
             }
@@ -823,7 +821,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CS))
                 {
                     Anthrax.Logger.WriteLine("Casting - Colossus Smash 3");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CS);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
                     return;
                 }
             }
@@ -835,7 +833,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CS))
                     {
                         Anthrax.Logger.WriteLine("Casting - Colossus Smash 3");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CS);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
                         return;
                     }
                 }
@@ -845,7 +843,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.TC))
             {
                 Anthrax.Logger.WriteLine("Casting - Thunder Clap");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.TC);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.TC, unit);
                 return;
             }
 
@@ -855,7 +853,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.MS))
                 {
                     Anthrax.Logger.WriteLine("Casting - Mortal Strike");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.MS);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.MS, unit);
                     return;
                 }
             }
@@ -866,7 +864,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.EX))
                 {
                     Anthrax.Logger.WriteLine("Casting - Excute");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.EX);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.EX, unit);
                     return;
                 }
             }
@@ -877,7 +875,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SL))
                 {
                     Anthrax.Logger.WriteLine("Casting - Slam");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SL);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SL, unit);
                     return;
                 }
             }
@@ -886,7 +884,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.OP))
             {
                 Anthrax.Logger.WriteLine("Casting - Overpower");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.OP);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.OP, unit);
                 return;
             }
 
@@ -896,7 +894,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SL))
                 {
                     Anthrax.Logger.WriteLine("Casting - Slam");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SL);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SL, unit);
                     return;
                 }
             }
@@ -907,7 +905,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
                 {
                     Anthrax.Logger.WriteLine("Casting - Battle Shout 13");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BSh);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
                     return;
                 }
             }
@@ -917,7 +915,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
                 {
                     Anthrax.Logger.WriteLine("Casting - Commanding Shout 13");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CSh);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
                     return;
                 }
             }
@@ -985,28 +983,9 @@ namespace Anthrax
                 {
                     changeRotationArms();
                 }
-                if ((GetAsyncKeyState(18) == -32767)) //ALT
-                {
-                    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.HL))
-                    {
-                        Anthrax.Logger.WriteLine("Casting - Heroic Leap");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.HL);
-                        WoW.Internals.MouseController.LeftClick();
-                        return;
-                    }
-                }
 
             }
-            if ((GetAsyncKeyState(18) == -32767)) //ALT
-            {
-                if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.HL))
-                {
-                    Anthrax.Logger.WriteLine("Casting - Heroic Leap");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.HL);
-                    WoW.Internals.MouseController.LeftClick();
-                    return;
-                }
-            }
+
         }
         #endregion
 
@@ -1083,7 +1062,7 @@ namespace Anthrax
             //    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CH))
             //    {
             //        Anthrax.Logger.WriteLine("Pull - Charge");
-            //        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CH);
+            //        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CH, unit);
             //        return;
             //    }
 
@@ -1108,7 +1087,7 @@ namespace Anthrax
             {
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.HS))
                 {
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.HS);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.HS, unit);
                     Anthrax.Logger.WriteLine("Casting - Heroic Strike");
                     return;
                 }
@@ -1123,7 +1102,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SB))
                     {
                         Anthrax.Logger.WriteLine("Casting - Storm Bolt CD REDUCE TRUE");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SB);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SB, unit);
                         return;
                     }
                 }
@@ -1138,7 +1117,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
                     {
                         Anthrax.Logger.WriteLine("Casting - Raging Blow");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.RB);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
                         return;
                     }
                 }
@@ -1152,7 +1131,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SB))
                     {
                         Anthrax.Logger.WriteLine("Casting - Storm Bolt CD REDUCE FALSE");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SB);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SB, unit);
                         return;
                     }
                 }
@@ -1166,7 +1145,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BT))
                 {
                     Anthrax.Logger.WriteLine("Casting - Bloodthirst");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BT);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BT, unit);
                     return;
                 }
             }
@@ -1180,7 +1159,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.WS))
                     {
                         Anthrax.Logger.WriteLine("Casting - Wild Strike");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.WS);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WS, unit);
                         return;
                     }
                 }
@@ -1195,7 +1174,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.DR))
                 {
                     Anthrax.Logger.WriteLine("Casting - Dragon Roar");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.DR);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.DR, unit);
                     return;
                 }
             }
@@ -1205,7 +1184,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CS))
             {
                 Anthrax.Logger.WriteLine("Casting - Colossus Smash SINGLE");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CS);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
                 return;
             }
 
@@ -1216,7 +1195,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SB))
                 {
                     Anthrax.Logger.WriteLine("Casting - Storm Bolt 2 CD REDUCE FALSE");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SB);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SB, unit);
                     return;
                 }
             }
@@ -1227,7 +1206,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.EX))
                 {
                     Anthrax.Logger.WriteLine("Casting - Execute");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.EX);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.EX, unit);
                     return;
                 }
             }
@@ -1238,7 +1217,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
                 {
                     Anthrax.Logger.WriteLine("Casting - Raging Blow");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.RB);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
                     return;
                 }
             }
@@ -1250,7 +1229,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
                     {
                         Anthrax.Logger.WriteLine("Casting - Raging Blow");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.RB);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
                         return;
                     }
                 }
@@ -1261,7 +1240,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
                 {
                     Anthrax.Logger.WriteLine("Casting - Raging Blow");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.RB);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
                     return;
                 }
             }
@@ -1275,7 +1254,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.WS))
                 {
                     Anthrax.Logger.WriteLine("Casting - Wild Strike");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.WS);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WS, unit);
                     return;
                 }
             }
@@ -1297,7 +1276,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.HT))
                 {
                     Anthrax.Logger.WriteLine("Casting - Heroic Throw");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.HT);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.HT, unit);
                     return;
                 }
             }
@@ -1310,7 +1289,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
                     {
                         Anthrax.Logger.WriteLine("Casting - Battle Shout");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BSh);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
                         return;
                     }
                 }
@@ -1320,7 +1299,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
                     {
                         Anthrax.Logger.WriteLine("Casting - Commanding Shout");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CSh);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
                         return;
                     }
                 }
@@ -1332,7 +1311,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.WS))
                 {
                     Anthrax.Logger.WriteLine("Casting - Wild Strike");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.WS);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WS, unit);
                     return;
                 }
             }
@@ -1345,7 +1324,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
                     {
                         Anthrax.Logger.WriteLine("Casting - Battle Shout");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BSh);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
                         return;
                     }
                 }
@@ -1355,7 +1334,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
                     {
                         Anthrax.Logger.WriteLine("Casting - Commanding Shout");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CSh);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
                         return;
                     }
                 }
@@ -1367,7 +1346,7 @@ namespace Anthrax
             //    if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.WS))
             //    {
             //        Anthrax.Logger.WriteLine("Casting - Wild Strike");
-            //        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.WS);
+            //        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WS, unit);
             //        return;
             //    }
             //}
@@ -1395,7 +1374,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BB))
                     {
                         Anthrax.Logger.WriteLine("Casting - Blood Bath");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BB);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BB, ObjectManager.LocalPlayer);
                     }
                 }
             }
@@ -1406,7 +1385,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CL))
                 {
                     Anthrax.Logger.WriteLine("Casting - Cleave");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CL);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CL, unit);
                     return;
                 }
             }
@@ -1419,7 +1398,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BS))
                 {
                     Anthrax.Logger.WriteLine("Casting - Bladestorm");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BS);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BS, unit);
                     return;
                 }
             }
@@ -1431,7 +1410,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.DR))
                 {
                     Anthrax.Logger.WriteLine("Casting - Dragon Roar");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.DR);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.DR, unit);
                     return;
                 }
             }
@@ -1439,7 +1418,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CS))
             {
                 Anthrax.Logger.WriteLine("Casting - Colossus Smash");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CS);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
                 return;
             }
 
@@ -1449,7 +1428,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SB))
                 {
                     Anthrax.Logger.WriteLine("Casting - Storm Bolt");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SB);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SB, unit);
                     return;
                 }
             }
@@ -1458,7 +1437,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BT))
             {
                 Anthrax.Logger.WriteLine("Casting - Bloodthirst");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BT);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BT, unit);
                 return;
             }
 
@@ -1470,7 +1449,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
                 {
                     Anthrax.Logger.WriteLine("Casting - Raging Blow");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.RB);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
                     return;
                 }
             }
@@ -1480,7 +1459,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.WW))
                 {
                     Anthrax.Logger.WriteLine("Casting - Whirlwind 2");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.WW);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WW, unit);
                     return;
                 }
             }
@@ -1489,7 +1468,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.EX))
             {
                 Anthrax.Logger.WriteLine("Casting - Excute");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.EX);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.EX, unit);
                 return;
             }
 
@@ -1499,7 +1478,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
                 {
                     Anthrax.Logger.WriteLine("Casting - Battle Shout");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BSh);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
                     return;
                 }
             }
@@ -1509,7 +1488,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
                 {
                     Anthrax.Logger.WriteLine("Casting - Commanding Shout");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CSh);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
                     return;
                 }
             }
@@ -1517,7 +1496,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.HT))
             {
                 Anthrax.Logger.WriteLine("Casting - Heroic Throw");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.HT);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.HT, unit);
                 return;
             }
         }
@@ -1530,7 +1509,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BB))
             {
                 Anthrax.Logger.WriteLine("Casting - Blood Bath");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BB);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BB, ObjectManager.LocalPlayer);
             }
 
             //actions.three_targets+=/cleave,if=(rage>=70&debuff.colossus_smash.up)|rage>90
@@ -1539,7 +1518,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CL))
                 {
                     Anthrax.Logger.WriteLine("Casting - Cleave");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CL);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CL, unit);
                     return;
                 }
             }
@@ -1551,7 +1530,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BS))
                 {
                     Anthrax.Logger.WriteLine("Casting - Bladestorm");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BS);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BS, unit);
                     return;
                 }
             }
@@ -1562,7 +1541,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BT))
                 {
                     Anthrax.Logger.WriteLine("Casting - Bloodthirst ");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BT);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BT, unit);
                     return;
                 }
             }
@@ -1573,7 +1552,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.DR))
                 {
                     Anthrax.Logger.WriteLine("Casting - Dragon Roar");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.DR);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.DR, unit);
                     return;
                 }
             }
@@ -1582,7 +1561,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CS))
             {
                 Anthrax.Logger.WriteLine("Casting - Colossus Smash");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CS);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
                 return;
             }
 
@@ -1592,7 +1571,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SB))
                 {
                     Anthrax.Logger.WriteLine("Casting - Storm Bolt");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SB);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SB, unit);
                     return;
                 }
             }
@@ -1605,7 +1584,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
                     {
                         Anthrax.Logger.WriteLine("Casting - Raging Blow");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.RB);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
                         return;
                     }
                 }
@@ -1614,7 +1593,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.WW))
             {
                 Anthrax.Logger.WriteLine("Casting - Whirlwind 3");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.WW);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WW, unit);
                 return;
             }
 
@@ -1622,7 +1601,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
             {
                 Anthrax.Logger.WriteLine("Casting - Raging Blow");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.RB);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
                 return;
             }
 
@@ -1632,7 +1611,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
                 {
                     Anthrax.Logger.WriteLine("Casting - Battle Shout 13");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BSh);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
                     return;
                 }
             }
@@ -1642,7 +1621,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
                 {
                     Anthrax.Logger.WriteLine("Casting - Commanding Shout 13");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CSh);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
                     return;
                 }
             }
@@ -1651,7 +1630,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.HT))
             {
                 Anthrax.Logger.WriteLine("Casting - Heroic Throw");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.HT);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.HT, unit);
                 return;
             }
         }
@@ -1664,7 +1643,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BB))
             {
                 Anthrax.Logger.WriteLine("Casting - Blood Bath");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BB);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BB, ObjectManager.LocalPlayer);
             }
 
             //actions.aoe+=/cleave,if=rage>90
@@ -1673,7 +1652,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CL))
                 {
                     Anthrax.Logger.WriteLine("Casting - Cleave");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CL);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CL, unit);
                     return;
                 }
             }
@@ -1685,7 +1664,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BS))
                 {
                     Anthrax.Logger.WriteLine("Casting - Bladestorm");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BS);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BS, unit);
                     return;
                 }
             }
@@ -1696,7 +1675,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BT))
                 {
                     Anthrax.Logger.WriteLine("Casting - Bloodthirst");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BT);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BT, unit);
                     return;
                 }
             }
@@ -1708,7 +1687,7 @@ namespace Anthrax
                     if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.RB))
                     {
                         Anthrax.Logger.WriteLine("Casting - Raging Blow");
-                        Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.RB);
+                        Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.RB, unit);
                         return;
                     }
                 }
@@ -1718,7 +1697,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.WW))
             {
                 Anthrax.Logger.WriteLine("Casting - Whirlwind 4+");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.WW);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.WW, unit);
                 return;
             }
 
@@ -1732,7 +1711,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BT))
                 {
                     Anthrax.Logger.WriteLine("Casting - Bloodthirst");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BT);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BT, unit);
                     return;
                 }
             }
@@ -1740,7 +1719,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CS))
             {
                 Anthrax.Logger.WriteLine("Casting - Colossus Smash");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CS);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CS, unit);
                 return;
             }
 
@@ -1748,7 +1727,7 @@ namespace Anthrax
             if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.SB))
             {
                 Anthrax.Logger.WriteLine("Casting - Storm Bolt");
-                Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.SB);
+                Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.SB, unit);
                 return;
             }
 
@@ -1758,7 +1737,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.BSh))
                 {
                     Anthrax.Logger.WriteLine("Casting - Battle Shout ");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.BSh);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.BSh, unit);
                     return;
                 }
             }
@@ -1768,7 +1747,7 @@ namespace Anthrax
                 if (Anthrax.AI.Controllers.Spell.CanCast((int)CB_Executie.Spells.CSh))
                 {
                     Anthrax.Logger.WriteLine("Casting - Commanding Shout ");
-                    Anthrax.WoW.Internals.ActionBar.ExecuteSpell((int)CB_Executie.Spells.CSh);
+                    Anthrax.AI.Controllers.Spell.Cast((int)CB_Executie.Spells.CSh, unit);
                     return;
                 }
             }
